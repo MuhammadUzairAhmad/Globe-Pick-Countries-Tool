@@ -1,0 +1,43 @@
+{
+  "reviewed": "2026-10-14",
+  "upstream": {
+    "mledoze/countries": {
+      "commit": "c2ac0049c14edcf2436c7aa1b2493222a020b462",
+      "commitDate": "2026-09-29T13:20:40Z"
+    },
+    "lipis/flag-icons": {
+      "commit": "086f7e97d657358203916dbe84f61c2bccaa81eb",
+      "commitDate": "2026-04-07T18:11:53Z"
+    },
+    "nvkelso/natural-earth-vector": {
+      "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+      "commitDate": "2022-06-02T07:25:00Z"
+    }
+  },
+  "sha256": "a434b0c4d7132cff66c3427b60296cfbb29c5bf9bd41b5b7b365eb1a5fcdd531",
+  "license": "ODbL-1.0",
+  "countryCount": 195,
+  "classificationSource": "https://www.un.org/en/about-us/non-member-states",
+  "capitalEntryCount": 204,
+  "scope": "193 UN member states plus Palestine and Vatican City (Holy See representation); territories and other non-members excluded.",
+  "continentModel": "Six groups: Africa, Asia, Europe, North America (including Central America and the Caribbean), South America, and Oceania. Upstream region assignments retained: Russia is Europe; T\u00fcrkiye, Cyprus, Armenia, Georgia, Azerbaijan and Kazakhstan are Asia. Antarctica has no records.",
+  "reviewMethod": "Schema and scope validated for all records. Capital roles and noted transitions reviewed using linked primary sources; remaining facts follow the pinned community dataset, not an independent audit of every field.",
+  "sources": {
+    "za": "https://www.gov.za/about-sa/south-africas-provinces",
+    "lk": "https://www.mfa.gov.lk/national-profile-and-geography",
+    "lk-colombo": "https://www.emb-havana.gov.lk/en/sri-lanka-profile",
+    "bo": "https://assets.publishing.service.gov.uk/media/5dfbaa0c40f0b6666e23013a/191216_FCO_439_-_Bolivia_pdf.pdf",
+    "nl": "https://www.government.nl/binaries/government/documenten/publications/2017/04/21/culture-at-a-first-glance/CIB2015_ENG_publicatie_v8_DEF.pdf",
+    "my": "https://www.ppj.gov.my/storage/lain-lain/808/808.pdf",
+    "bj": "https://benin.bj/en/benin",
+    "sz": "https://www.parliament.gov.sz/about/stateopening/",
+    "sz-mbabane": "https://40years.gov.sz/mbabane-from-town-to-capital-city/",
+    "ch": "https://www.aboutswitzerland.eda.admin.ch/en/political-system",
+    "gq": "https://www.guineaecuatorialpress.com/index.php/noticias/el_presidente_de_la_republica_proclama_la_ciudad_de_la_paz_como_capital_de_la_republica_de_guinea_ecuatorial_con_la_firma_de_un_decreto_ley",
+    "id": "https://ikn.go.id/id/posts/pembangunan-tahap-ii-ikn-terus-berjalan-otorita-ikn-lakukan-evaluasi-berkala",
+    "ps": "https://www.un.org/unispal/permanent-status-issues/",
+    "fm": "https://bankingboard.gov.fm/overview.htm",
+    "nr": "https://www.dfat.gov.au/geo/heads-of-government/naoero",
+    "zw": "https://www.rbz.co.zw/documents/mps/2024/CONSOLIDATED_MPS_Review_-_August_2024.pdf"
+  }
+}

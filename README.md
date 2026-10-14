@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GlobePick
 
-## Getting Started
+A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–3 are implemented locally.
 
-First, run the development server:
+- Random country and capital/government-seat selection with continent and searchable inclusion/exclusion filters.
+- Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
+- Facts, local flags, optional approximate map markers, and visible sources.
+- Capital guess/reveal, local history/favorites/settings, copy, and validated shareable replays.
+- Pre-rendered introductions and samples, clean metadata, published-route registry, sitemap, robots, and 404/error handling.
+
+## Develop
+
+Use Node.js 22.18+ for the native TypeScript scripts.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000). The app needs no runtime geography service or backend.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Check
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+npm run validate:data
+npm run lint
+npm run typecheck
+npm run format:check
+npm run build
+```
 
-## Learn More
+`prebuild` automatically validates data. Tests cover eligibility, uniqueness, no-repeat behavior, capacity, crypto rejection sampling, storage corruption/limits, share validation, replay state, and browser adapter failures. `npm run format` applies Prettier. `npm run assets:brand` regenerates static brand assets after shared color changes.
 
-To learn more about Next.js, take a look at the following resources:
+## Data and licenses
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+195 country records cover 193 UN members plus Palestine and Vatican City (Holy See representation). Capital mode has 204 capital/government-seat entries, each labeled by role. Each eligible country is equally likely in country mode; capital entries are equally likely in capital mode. Countries with multiple seats therefore have more capital entries.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The pinned community database has structural checks and reviewed exceptional cases; it is not an independent audit of every fact. The six-continent filtering model and remaining limitations are documented on About and in `public/data/manifest.json`. The adapted database is downloadable at `/data/countries.json` under ODbL 1.0; flags are vendored from flag-icons under MIT; the Natural Earth land outline is public domain; Geist uses SIL OFL 1.1. Notices are in `public/licenses/`.
 
-## Deploy on Vercel
+`src/data/countries/countries.json` and the downloadable copy must remain identical, with the manifest's SHA-256 digest updated after a reviewed change. `scripts/prepare-geography-data.py SOURCE_DIRECTORY` rebuilds the adapted records and land SVG from staged `countries.json`, `land.geojson`, and `provenance.json`; it makes no network calls. The manifest records the exact upstream commits to use when preparing those inputs. Country data, flags, and maps are not fetched at build time or runtime.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/globals.css`: common design tokens; component styling uses Tailwind classes.
+- `src/components`: shared primitives, layout, and pre-rendered learning content.
+- `src/features/generator`: typed records, pure selection/reducer, hydration hook, filters and result components.
+- `src/features/learning` and `src/features/saved-places`: quiz and browser-saved place presentation.
+- `src/data/countries`: adapted dataset and source manifest.
+- `src/lib/storage` and `src/lib/share`: validated browser persistence, URL codec, copy/share adapters.
+- `src/lib/seo/site.ts`: published-page registry and metadata configuration.
+- `docs/architecture.md`: behavior, decisions, source scope, and launch dependencies.
+- `docs/implementation-progress.md`: phase gates and verification.
+
+## Browser data
+
+Each tool has its own versioned localStorage record. Refresh restores settings, history, favorites, and consumed IDs without an initial empty overwrite. Clear controls operate separately; clearing history does not reset the no-repeat pool. There is no account, cloud sync, or cross-tab merging. Storage failures leave the tool usable. Shared results replay without consuming the recipient's pool or adding history.
+
+## Deployment
+
+Nothing is deployed by this task. Without `NEXT_PUBLIC_SITE_URL`, all pages remain noindex, sitemap entries are empty, and metadata uses localhost. Copy `.env.example` to `.env.local` to configure the actual origin and rebuild. Public indexing requires a non-loopback HTTPS origin. A public configuration includes the six published base pages in the sitemap; shared query variants canonicalize to their base route.
+
+Before launch, add the maintainer's public identity and corrections contact, review hosting-specific privacy/terms, configure the actual origin, and finish launch accessibility/performance review. No database, authentication, custom API route, or Server Action is used. Printable projects, city tools, and regional/detail SEO pages remain later phases.
