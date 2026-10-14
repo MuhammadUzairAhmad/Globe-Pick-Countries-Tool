@@ -1,11 +1,12 @@
 # GlobePick
 
-A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–3 are implemented locally.
+A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–4 are implemented locally.
 
 - Random country and capital/government-seat selection with continent and searchable inclusion/exclusion filters.
 - Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
 - Facts, local flags, optional approximate map markers, and visible sources.
 - Capital guess/reveal, local history/favorites/settings, copy, and validated shareable replays.
+- Country project assignments with three reviewed question sets, optional teacher notes, and printable A4/US Letter worksheets.
 - Pre-rendered introductions and samples, clean metadata, published-route registry, sitemap, robots, and 404/error handling.
 
 ## Develop
@@ -58,6 +59,12 @@ Each tool has its own versioned localStorage record. Refresh restores settings, 
 
 ## Deployment
 
-Nothing is deployed by this task. Without `NEXT_PUBLIC_SITE_URL`, all pages remain noindex, sitemap entries are empty, and metadata uses localhost. Copy `.env.example` to `.env.local` to configure the actual origin and rebuild. Public indexing requires a non-loopback HTTPS origin. A public configuration includes the six published base pages in the sitemap; shared query variants canonicalize to their base route.
+Nothing is deployed by this task. Without `NEXT_PUBLIC_SITE_URL`, all pages remain noindex, sitemap entries are empty, and metadata uses localhost. Copy `.env.example` to `.env.local` to configure the actual origin and rebuild. Public indexing requires a non-loopback HTTPS origin. A public configuration includes the seven published base pages in the sitemap; shared query variants canonicalize to their base route.
 
-Before launch, add the maintainer's public identity and corrections contact, review hosting-specific privacy/terms, configure the actual origin, and finish launch accessibility/performance review. No database, authentication, custom API route, or Server Action is used. Printable projects, city tools, and regional/detail SEO pages remain later phases.
+Before launch, add the maintainer's public identity and corrections contact, review hosting-specific privacy/terms, configure the actual origin, and finish launch accessibility/performance review. No database, authentication, custom API route, or Server Action is used. City tools and regional/detail SEO pages remain later phases.
+
+## Country projects
+
+Open `/country-project-generator`. Choose a research topic, filter countries, and create 1–20 unique assignments. The existing random-selection engine and filter controls are shared with the country tool. Project assignments and repeat prevention live only in page memory; leaving or refreshing starts a new session. No student names or answers are stored.
+
+Preview and print use the same assignment objects. Select A4 or US Letter and optionally append teacher notes, then use Print worksheets to print or save through the browser. Use the matching paper size, standard scale, and disable browser headers/footers. Research-question review notes are in `docs/research-prompts.md`.

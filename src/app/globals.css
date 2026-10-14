@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Named paper boxes are print mechanics; worksheet presentation uses Tailwind. */
+@page project-a4 {
+  size: A4;
+  margin: 10mm;
+}
+@page project-letter {
+  size: letter;
+  margin: 10mm;
+}
+
 @theme {
   --color-page: #f7f9fc;
   --color-surface: #ffffff;

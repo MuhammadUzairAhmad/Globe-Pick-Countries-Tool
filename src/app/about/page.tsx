@@ -23,7 +23,9 @@ export default function AboutPage() {
             Generate random countries or capitals for games, school projects,
             and your own practice. Narrow the choices by continent, avoid
             repeats, and save favorites in your browser. Hide capital answers
-            when you want to test yourself.
+            when you want to test yourself. For a classroom activity, create
+            unique country assignments and print research worksheets with
+            optional teacher notes.
           </p>
           <p className="mt-4 text-muted">
             You don’t need an account. Your settings and saved places stay in

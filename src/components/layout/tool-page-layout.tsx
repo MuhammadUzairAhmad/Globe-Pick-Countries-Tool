@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { ToolNavigation } from "./tool-navigation";
 import { DatasetExplanation } from "@/components/content/dataset-explanation";
 import { ExampleResult } from "@/components/content/example-result";
 import { Container } from "./container";
@@ -27,22 +27,7 @@ export function ToolPageLayout({
         title={title}
         description={description}
       />
-      <nav aria-label="Geography tools" className="mt-6 flex flex-wrap gap-2">
-        {(["country", "capital"] as const).map((tool) => (
-          <Link
-            key={tool}
-            href={`/random-${tool}-generator`}
-            aria-current={mode === tool ? "page" : undefined}
-            className={
-              mode === tool
-                ? "inline-flex min-h-touch items-center rounded-control bg-brand px-5 text-sm font-semibold text-surface"
-                : "inline-flex min-h-touch items-center rounded-control border border-border bg-surface px-5 text-sm font-medium text-muted hover:bg-brand-soft"
-            }
-          >
-            {tool === "country" ? "Countries" : "Capitals"}
-          </Link>
-        ))}
-      </nav>
+      <ToolNavigation current={`/random-${mode}-generator`} />
       <div className="mt-8 max-w-tool">
         <GeneratorWorkspace
           key={mode}
@@ -74,6 +59,13 @@ export function ToolPageLayout({
           </p>
           <ButtonLink href="/#learning" variant="secondary" className="mt-5">
             More learning ideas
+          </ButtonLink>
+          <ButtonLink
+            href="/country-project-generator"
+            variant="secondary"
+            className="ml-0 mt-3 sm:ml-3 sm:mt-5"
+          >
+            Create printable assignments
           </ButtonLink>
         </section>
         <DatasetExplanation />

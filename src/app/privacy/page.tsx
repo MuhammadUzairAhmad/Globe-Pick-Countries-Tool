@@ -12,7 +12,7 @@ export default function PrivacyPage() {
         {
           title: "Personal information",
           content:
-            "The application has no registration, contact form, advertising, or analytics integration. It does not ask for your name, email address, student details, or location.",
+            "The application has no registration, contact form, advertising, or analytics integration. It does not ask for your name, email address, student details, or location. Country project assignments stay in page memory until you leave or refresh. Printing uses your browser’s print dialog; any saved PDF stays wherever you choose to save it.",
         },
         {
           title: "Cookies and browser storage",

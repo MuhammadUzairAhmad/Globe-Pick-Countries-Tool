@@ -16,6 +16,9 @@ export function GeneratorFilters({
   onResetPool,
   onResetFilters,
   ready = true,
+  generateLabel,
+  quantityLabel,
+  quantityHint,
 }: {
   countries: readonly Country[];
   value: Filters;
@@ -27,6 +30,9 @@ export function GeneratorFilters({
   onResetPool: () => void;
   onResetFilters: () => void;
   ready?: boolean;
+  generateLabel?: string;
+  quantityLabel?: string;
+  quantityHint?: string;
 }) {
   const [search, setSearch] = useState("");
   const query = search.trim().toLocaleLowerCase();
@@ -51,7 +57,7 @@ export function GeneratorFilters({
   return (
     <Card>
       <div className="flex items-center justify-between gap-2">
-        <h2 className="text-card-title font-semibold">Choose your settings</h2>
+        <h2 className="text-card-title font-semibold">Filters</h2>
         <button
           type="button"
           onClick={onResetFilters}
@@ -86,6 +92,8 @@ export function GeneratorFilters({
           <QuantityControl
             value={value.quantity}
             onChange={(quantity) => onChange({ ...value, quantity })}
+            label={quantityLabel}
+            hint={quantityHint}
           />
         </div>
         <label className="flex min-h-touch items-center gap-3 text-sm">
@@ -117,7 +125,8 @@ export function GeneratorFilters({
           onClick={() => onGenerate()}
           disabled={!ready}
         >
-          Generate {mode === "country" ? "countries" : "capitals"}
+          {generateLabel ??
+            `Generate ${mode === "country" ? "countries" : "capitals"}`}
         </Button>
         <div className="rounded-control bg-page p-3 text-sm">
           <p>

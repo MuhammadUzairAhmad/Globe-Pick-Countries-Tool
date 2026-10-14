@@ -113,10 +113,10 @@ export default function Home() {
             </h2>
           </div>
           <p className="text-sm text-muted">
-            Countries for exploring. Capitals for practice.
+            Explore countries, practice capitals, or make a worksheet.
           </p>
         </div>
-        <div className="mt-7 grid gap-5 md:grid-cols-2">
+        <div className="mt-7 grid gap-5 lg:grid-cols-3">
           <Card>
             <div className="flex items-center justify-between gap-3">
               <span className="flex size-11 items-center justify-center rounded-control bg-brand-soft text-brand">
@@ -154,6 +154,26 @@ export default function Home() {
               className="mt-5"
             >
               Practice capitals
+            </ButtonLink>
+          </Card>
+          <Card>
+            <span className="flex size-11 items-center justify-center rounded-control bg-brand-soft text-brand">
+              <Icon name="book" className="size-6" />
+            </span>
+            <h3 className="mt-5 text-card-title font-semibold">
+              Country project generator
+            </h3>
+            <p className="mt-3 text-muted">
+              Create a different country assignment for each learner. Choose
+              research questions, preview the worksheets, and print with
+              optional teacher notes.
+            </p>
+            <ButtonLink
+              href="/country-project-generator"
+              variant="secondary"
+              className="mt-5"
+            >
+              Create worksheets
             </ButtonLink>
           </Card>
         </div>

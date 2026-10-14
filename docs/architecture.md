@@ -1,6 +1,6 @@
 # GlobePick architecture and scope
 
-Updated 14 October 2026. Implements Phases 0–3 of the local plan.
+Updated 14 October 2026. Implements Phases 0–4 of the local plan.
 
 ## Starting point and stack
 
@@ -36,12 +36,20 @@ Storage keys are `globepick:v1:country` and `globepick:v1:capital`. Only version
 
 Share links encode whitelisted, versioned mode, continent, quantity, no-repeat, quiz, include/exclude IDs, and optional result IDs. Parsing bounds total URL length and rejects wrong modes, unknown IDs/continents, conflicting choices, duplicate fields/IDs, invalid flags, and batches over 20. Shared results are replays: they neither consume the recipient's pool nor add history. Share opens a native HTML dialog with a selectable URL and Copy link action. An optional device-share action falls back to copying if native sharing fails; cancellation leaves the link available. Copy operations show pending and copied button states plus a dismissible live notification. Failed clipboard writes open selectable result text in the same dialog primitive. Dialog dismissal restores trigger focus, and feedback is rendered inside an open dialog so it remains visible above the backdrop. Quiz guesses and identity fields are never included.
 
+## Country projects and worksheets
+
+The Country Project Generator reuses `GeneratorFilters`, `QuantityControl`, `placesForMode`, `eligiblePlaces`, and `selectPlaces`. Its page-memory state is independent of saved country/capital state. Country inclusion/exclusion, quantity limits, no-repeat behavior, capacity errors, all-remaining generation, and explicit pool reset follow the same engine. No student names, answers, or assignment records are persisted.
+
+`src/features/learning/country-project.ts` owns three authored and editorially reviewed topics, normalized `CountryAssignment` objects, and the teacher-reference adapter. Generated questions are snapshots; changing controls does not rewrite current assignments. `WorksheetPreview` renders those same objects for screen and print. Student pages come first; teacher pages are optional and appended afterward. Teacher references preserve capital roles, exceptional notes, review dates, source URLs, and attribution.
+
+Named A4 and Letter `@page` rules supply 10mm margins. All worksheet styling uses Tailwind, including print visibility, page breaks, borders, typography, and reset of screen-only page heights. Header, navigation, controls, explanations, and footer are hidden when printing. Browser print handles paper/PDF output; there is no PDF generation backend or new dependency.
+
 ## Routes and SEO
 
 `src/lib/seo/site.ts` is the registry for metadata, navigation, and sitemap generation. Both working tools are published in that registry; home remains a distinct hub. Canonicals use base routes, including shared query variants. No region/country detail routes are published, so unknown slugs return actual 404 responses.
 
-Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin and rebuild for deployment. Missing configuration uses localhost for local previews, marks every page noindex, and emits an empty sitemap without a robots sitemap declaration. Robots permits crawling so page-level noindex is visible. A configured public origin produces only the six published base pages, never query combinations. Social previews stay tool-level.
+Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin and rebuild for deployment. Missing configuration uses localhost for local previews, marks every page noindex, and emits an empty sitemap without a robots sitemap declaration. Robots permits crawling so page-level noindex is visible. A configured public origin produces only the seven published base pages, never query combinations. Social previews stay tool-level.
 
 ## Remaining release work
 
-Phases 4–6 are later expansion. Phase 7 launch review still needs the real operator identity and corrections contact, hosting-specific policy review, the actual deployment origin, broader accessibility/performance checks, and deployment authorization. No site was deployed as part of this implementation.
+Phases 5–6 are later expansion. Phase 7 launch review still needs the real operator identity and corrections contact, hosting-specific policy review, the actual deployment origin, broader accessibility/performance checks, and deployment authorization. No site was deployed as part of this implementation.

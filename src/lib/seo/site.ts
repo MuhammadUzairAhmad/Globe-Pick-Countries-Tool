@@ -78,6 +78,16 @@ export const pages = [
     footer: false,
   },
   {
+    path: "/country-project-generator",
+    label: "Country projects",
+    title: "Country Project Generator: Printable Geography Worksheets",
+    description:
+      "Create unique country research assignments with four questions, optional teacher notes, and printable A4 or US Letter worksheets. No account needed.",
+    published: true,
+    header: true,
+    footer: false,
+  },
+  {
     path: "/random-capital-generator",
     label: "Random capital",
     title: "Random Capital Generator: Practice and Learn",
