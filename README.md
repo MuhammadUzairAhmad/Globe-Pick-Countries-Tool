@@ -1,6 +1,6 @@
 # GlobePick
 
-A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6 are implemented locally.
+A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6 and the local Phase 7 checks are implemented.
 
 - Random country, capital/government-seat, and city/town selection with continent and searchable inclusion/exclusion filters.
 - Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
@@ -29,9 +29,14 @@ npm run lint
 npm run typecheck
 npm run format:check
 npm run build
+# After starting this build on an explicit local origin:
+npm run verify:production -- http://127.0.0.1:43075 /tmp/globepick-audit.json
+npm run check:launch
 ```
 
 `prebuild` automatically validates data. Tests cover eligibility, uniqueness, no-repeat behavior, capacity, crypto rejection sampling, storage corruption/limits, share validation, replay state, and browser adapter failures. `npm run format` applies Prettier. `npm run assets:brand` regenerates static brand assets after shared color changes.
+
+Production verification checks published routes, initial HTML, indexing/canonicals, sampled assets, true 404s, and HTML payload budgets. `check:launch` deliberately exits with pending items until the real domain, public contact, host, and policy review are configured. Neither command deploys anything. See `docs/launch-verification.md` for results and remaining print/device/performance checks.
 
 ## Data and licenses
 

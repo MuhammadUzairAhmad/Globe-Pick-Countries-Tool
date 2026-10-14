@@ -15,7 +15,7 @@ export function RelatedLearning() {
           <li key={region.slug}>
             <Link
               href={region.path}
-              className="text-brand underline underline-offset-4"
+              className="inline-flex min-h-touch items-center text-brand underline underline-offset-4"
             >
               Pick countries in {region.continent}
             </Link>
@@ -25,7 +25,7 @@ export function RelatedLearning() {
           <li key={guide.slug}>
             <Link
               href={`/countries/${guide.slug}`}
-              className="text-brand underline underline-offset-4"
+              className="inline-flex min-h-touch items-center text-brand underline underline-offset-4"
             >
               {guide.id === "JP"
                 ? "Japan map activities"

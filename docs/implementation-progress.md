@@ -9,11 +9,11 @@ Plan: `GlobePick-Nextjs-SEO-First-Plan.md`. Updated 14 October 2026.
 - **Phase 2:** 195 offline country records, 195 local flag renditions, source/license manifest and downloadable adapted database; build-time validation; pure uniform selection; continent and searchable include/exclude controls; 1–20 distinct results; persistent no-repeat state; capacity, all-remaining, empty and exhausted states; facts and optional approximate map locations.
 - **Phase 3:** 204 capital/government-seat entries with roles; shared country/capital engine and components; guess/check/reveal; separate versioned settings, 100-entry histories, favorites and consumed pools; corruption/storage failure handling; copy/share adapters and selectable fallback text; validated URLs and exact replay without recipient consumption/history; both tools registered for navigation and public-origin sitemap generation.
 
-Phases 4–6 are later expansion. Phase 7 launch verification and deployment are not complete; nothing has been deployed.
+Phases 4–6 are implemented below. Phase 7 has local checks; broader device/performance verification and deployment remain pending. Nothing has been deployed.
 
 ## Meaningful validation
 
-- `npm test`: **26 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, and native-share success/failure/cancellation.
+- `npm test`: **29 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, and native-share success/failure/cancellation.
 - `npm run validate:data`: passes for all records, unique IDs/slugs, country membership counts, capital IDs/roles, valid coordinates, source URLs/review dates, local flags, licenses, and the identical app/download database plus SHA-256 digest. Validation runs automatically before every production build.
 - `npm run lint`, `npm run typecheck`, `npm run format:check`, `git diff --check`, and the final production build pass. All thirteen content routes remain statically pre-rendered.
 - Initial HTML includes tool H1s, useful descriptions, how-to content, control labels, and fixed samples. Local pages are noindex; query variants retain clean base canonicals. A simulated public HTTPS origin confirms thirteen published routes, a clean project canonical, and indexable project metadata.
@@ -77,6 +77,14 @@ These are focused correctness and browser checks, not a full assistive-technolog
 - The old Japan example PDF URL returned 404 and was replaced with the official Study in Japan Tokyo page, with clearer source scope. Japan/South Africa guide capital context is supported by checked primary references.
 - Production checks verified all five curated pages return 200, unknown regional and country slugs return 404, initial Africa HTML selects Africa, and JSON-LD parses as BreadcrumbList/WebApplication. Browser checks verified stale Japan-only settings become an Africa pool, favorites survive, Clear filters restores Africa, guide links preset South Africa’s three hidden capital questions, Japan fits at 320px, and no warning/error logs appear.
 - Hosting was explicitly deferred by the owner. Real-domain deployment, Search Console registration/submission, and post-launch observations are pending; none are claimed complete.
+
+## Phase 7: local launch checks
+
+- Added a repeatable read-only production verifier for all thirteen published pages, five true 404s, twelve sampled assets, sitemap scope, clean query canonicals, initial HTML, picker schemas, and HTML payload budgets. No city-record payload appears on other pages.
+- Added launch configuration checks with Next environment loading. The real origin, maintainer/contact, hosting provider, and policy review are deliberately pending while hosting is deferred. Environment entries alone do not update the public pages.
+- Added production-inspection and palette-contrast regression tests, bringing the suite to 29 passing tests. Related-learning links now use the shared touch height.
+- Keyboard checks confirm mobile menu operation and Escape focus return, skip-link focus, and accessible city control labels. Responsive layouts and production warning/error logs pass the focused checks.
+- `docs/launch-verification.md` records commands, observations, payload budgets, and remaining native printing, assistive-technology, representative mobile performance, deployment, and Search Console work. Local HTTP timings are not field Core Web Vitals.
 
 ## Remaining launch requirements
 

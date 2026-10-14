@@ -13,7 +13,9 @@
     "assets:brand": "node scripts/generate-brand-assets.mjs",
     "test": "node --experimental-strip-types --test --test-isolation=none tests/*.test.ts",
     "validate:data": "node --experimental-strip-types scripts/validate-geography-data.ts && node --experimental-strip-types scripts/validate-city-data.ts",
-    "prebuild": "npm run validate:data"
+    "prebuild": "npm run validate:data",
+    "verify:production": "node --experimental-strip-types scripts/verify-production.ts",
+    "check:launch": "node --experimental-strip-types scripts/check-launch.ts"
   },
   "dependencies": {
     "next": "16.4.0",
@@ -29,7 +31,8 @@
     "eslint-config-next": "16.4.0",
     "prettier": "3.9.10",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@next/env": "16.4.0"
   },
   "type": "module"
 }
