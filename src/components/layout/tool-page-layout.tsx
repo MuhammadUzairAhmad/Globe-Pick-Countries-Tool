@@ -1,5 +1,10 @@
 import type { ReactNode } from "react";
-import type { City, Mode } from "@/features/generator/types";
+import type { City, Continent, Mode } from "@/features/generator/types";
+import { Breadcrumbs } from "./breadcrumbs";
+import { StructuredData } from "@/components/content/structured-data";
+import { RelatedLearning } from "@/components/content/related-learning";
+import { siteOrigin, type PagePath } from "@/lib/seo/site";
+import { webApplicationData } from "@/lib/seo/structured-data";
 import { ToolNavigation } from "./tool-navigation";
 import { DatasetExplanation } from "@/components/content/dataset-explanation";
 import { ExampleResult } from "@/components/content/example-result";
@@ -13,6 +18,9 @@ type ToolPageProps = {
   mode: Mode;
   cities?: City[];
   dataset?: ReactNode;
+  initialContinent?: Continent;
+  canonicalPath?: PagePath;
+  editorial?: ReactNode;
   title: string;
   description: string;
   steps: readonly { title: string; text: string }[];
@@ -25,9 +33,30 @@ export function ToolPageLayout({
   steps,
   cities,
   dataset,
+  initialContinent,
+  canonicalPath,
+  editorial,
 }: ToolPageProps) {
+  const path = canonicalPath ?? `/random-${mode}-generator`;
   return (
     <Container className="py-8 md:py-section">
+      <Breadcrumbs
+        items={
+          canonicalPath
+            ? [
+                { label: "Home", path: "/" },
+                { label: "Countries", path: "/random-country-generator" },
+                { label: initialContinent ?? title, path },
+              ]
+            : [
+                { label: "Home", path: "/" },
+                { label: title, path },
+              ]
+        }
+      />
+      <StructuredData
+        value={webApplicationData(siteOrigin.href, path, title, description)}
+      />
       <PageIntro
         eyebrow="Pick a place. Learn something new."
         title={title}
@@ -36,10 +65,11 @@ export function ToolPageLayout({
       <ToolNavigation current={`/random-${mode}-generator`} />
       <div className="mt-8 max-w-tool">
         <GeneratorWorkspace
-          key={mode}
+          key={`${mode}:${initialContinent ?? "all"}`}
           countries={countries}
           mode={mode}
           cities={cities}
+          initialContinent={initialContinent}
           example={mode === "city" ? undefined : <ExampleResult mode={mode} />}
         />
         <section className="mt-section max-w-reading">
@@ -75,7 +105,9 @@ export function ToolPageLayout({
             Create printable assignments
           </ButtonLink>
         </section>
+        {editorial}
         {dataset ?? <DatasetExplanation />}
+        <RelatedLearning />
       </div>
     </Container>
   );

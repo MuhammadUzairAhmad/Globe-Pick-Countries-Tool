@@ -13,10 +13,10 @@ Phases 4–6 are later expansion. Phase 7 launch verification and deployment are
 
 ## Meaningful validation
 
-- `npm test`: **23 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, and native-share success/failure/cancellation.
+- `npm test`: **26 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, and native-share success/failure/cancellation.
 - `npm run validate:data`: passes for all records, unique IDs/slugs, country membership counts, capital IDs/roles, valid coordinates, source URLs/review dates, local flags, licenses, and the identical app/download database plus SHA-256 digest. Validation runs automatically before every production build.
-- `npm run lint`, `npm run typecheck`, `npm run format:check`, `git diff --check`, and the final production build pass. All eight content routes remain statically pre-rendered.
-- Initial HTML includes tool H1s, useful descriptions, how-to content, control labels, and fixed samples. Local pages are noindex; query variants retain clean base canonicals. A simulated public HTTPS origin confirms seven published base routes, a clean project canonical, and indexable project metadata.
+- `npm run lint`, `npm run typecheck`, `npm run format:check`, `git diff --check`, and the final production build pass. All thirteen content routes remain statically pre-rendered.
+- Initial HTML includes tool H1s, useful descriptions, how-to content, control labels, and fixed samples. Local pages are noindex; query variants retain clean base canonicals. A simulated public HTTPS origin confirms thirteen published routes, a clean project canonical, and indexable project metadata.
 - Baseline read-only production HTTP checks pass for the six original content routes, dataset/manifest downloads, maps, flags, and license notices. Unimplemented city routes and invalid country/regional slugs return actual 404 responses. Local robots permits crawling and omits a sitemap declaration; the local sitemap has no entries.
 
 ## Browser acceptance
@@ -68,6 +68,16 @@ These are focused correctness and browser checks, not a full assistive-technolog
 - Four new tests cover country eligibility, no-repeat and missing coverage, homonyms, full-pool persistence, and share validation. All 23 tests and both data validators pass.
 - Production browser checks verified three Japanese cities, copy/source attribution, save and refresh, shared exact replay without new history, Nauru’s empty state, 320px overflow, and clean warning/error logs. Compiled country, capital, and worksheet HTML contain no city-record payload.
 
+## Phase 6: curated SEO
+
+- Added working Africa/Asia/Europe regional country pages and reviewed Japan/South Africa activity guides. Only these five curated slugs are registered, bringing the published registry to thirteen pages.
+- Regional presets are present in the initial reducer and HTML. Hydration overrides stale stored continent/include/exclude choices; quantity and saved histories/favorites/consumption survive. Clear filters restores the region preset. Shares use the main tool’s bounded URL codec.
+- Added visible breadcrumbs, factual WebApplication/BreadcrumbList data, escaped JSON-LD serialization, related links, distinct metadata, and original region/country activities. Only five explicit static route files are published. This avoids Cache Components’ streamed dynamic fallback returning HTTP 200 for unknown slugs. Shared lookups retain defensive notFound guards.
+- Qualitative search-intent/source research is recorded in `docs/seo-research.md`. Three new tests cover presets, publication scope/canonicals, and schema/XSS boundaries. All 26 tests pass.
+- The old Japan example PDF URL returned 404 and was replaced with the official Study in Japan Tokyo page, with clearer source scope. Japan/South Africa guide capital context is supported by checked primary references.
+- Production checks verified all five curated pages return 200, unknown regional and country slugs return 404, initial Africa HTML selects Africa, and JSON-LD parses as BreadcrumbList/WebApplication. Browser checks verified stale Japan-only settings become an Africa pool, favorites survive, Clear filters restores Africa, guide links preset South Africa’s three hidden capital questions, Japan fits at 320px, and no warning/error logs appear.
+- Hosting was explicitly deferred by the owner. Real-domain deployment, Search Console registration/submission, and post-launch observations are pending; none are claimed complete.
+
 ## Remaining launch requirements
 
-The baseline is functional locally. Before public launch: provide the real operator identity and corrections contact, review hosting-specific privacy/terms, set the actual HTTPS deployment origin, complete broader accessibility/performance checks, and authorize deployment. Dataset facts follow a pinned community source with reviewed exceptions; the About page and manifest disclose that this is not an independent audit of every field. Curated SEO expansions remain unimplemented.
+The baseline is functional locally. Before public launch: provide the real operator identity and corrections contact, review hosting-specific privacy/terms, set the actual HTTPS deployment origin, complete broader accessibility/performance checks, and authorize deployment. Dataset facts follow a pinned community source with reviewed exceptions; the About page and manifest disclose that this is not an independent audit of every field. Deployment/Search Console and real-usage growth experiments remain pending.

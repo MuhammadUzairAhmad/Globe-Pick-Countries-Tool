@@ -7,22 +7,27 @@ import {
   placesForMode,
   placeName,
   selectPlaces,
+  filtersForRegion,
 } from "../lib/selection";
 import { readSavedState, writeSavedState } from "@/lib/storage/saved-state";
 import { parseSharedUrl } from "@/lib/share/url-state";
-import type { City, Country, Mode } from "../types";
+import type { City, Continent, Country, Mode } from "../types";
 const noCities: City[] = [];
 
 export function useGenerator(
   countries: Country[],
   mode: Mode,
   cities: City[] = noCities,
+  initialContinent?: Continent,
 ) {
-  const [state, dispatch] = useReducer(
-    generatorReducer,
-    undefined,
-    initialState,
-  );
+  const [state, dispatch] = useReducer(generatorReducer, undefined, () => {
+    const initial = initialState();
+    initial.saved.filters = filtersForRegion(
+      initial.saved.filters,
+      initialContinent,
+    );
+    return initial;
+  });
   const places = useMemo(
     () => placesForMode(countries, mode, cities),
     [countries, mode, cities],
@@ -48,7 +53,10 @@ export function useGenerator(
     );
     dispatch({
       type: "hydrate",
-      saved: saved.saved,
+      saved: {
+        ...saved.saved,
+        filters: filtersForRegion(saved.saved.filters, initialContinent),
+      },
       warning: saved.warning,
       shared: shared.ok ? shared.state : null,
       message: !shared.ok
@@ -74,7 +82,7 @@ export function useGenerator(
     }
     window.addEventListener("popstate", restoreUrl);
     return () => window.removeEventListener("popstate", restoreUrl);
-  }, [byId, countries, mode]);
+  }, [byId, countries, mode, initialContinent]);
   useEffect(() => {
     // Hydration never writes: only actual user changes set dirty. This also protects
     // saved data during Strict Mode's repeated mount effects.

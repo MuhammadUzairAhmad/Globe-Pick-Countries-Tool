@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { AtlasArt } from "@/components/content/atlas-art";
 import { ExampleResult } from "@/components/content/example-result";
+import { RelatedLearning } from "@/components/content/related-learning";
 import { pageMetadata } from "@/lib/seo/site";
 
 export const metadata = pageMetadata("/");
@@ -283,6 +284,9 @@ export default function Home() {
         </div>
         <ExampleResult />
       </section>
+      <div className="pb-section">
+        <RelatedLearning />
+      </div>
     </Container>
   );
 }

@@ -1,4 +1,4 @@
-import type { City, Country, Filters, Mode, Place } from "../types";
+import type { City, Continent, Country, Filters, Mode, Place } from "../types";
 import { citySource, cityReviewed } from "./city-source.ts";
 
 export const defaultFilters: Filters = {
@@ -9,6 +9,15 @@ export const defaultFilters: Filters = {
   noRepeat: true,
   guess: false,
 };
+
+export function filtersForRegion(
+  filters: Filters,
+  continent?: Continent,
+): Filters {
+  return continent
+    ? { ...filters, continent, include: [], exclude: [] }
+    : filters;
+}
 
 export function placesForMode(
   countries: readonly Country[],

@@ -8,7 +8,12 @@ import { ResultsGrid } from "./results-grid";
 import { ResultActions } from "./result-actions";
 import { GeneratorFilters } from "./generator-filters";
 import { PlaceResultCard } from "./place-result-card";
-import { defaultFilters, formatPlace, placeName } from "../lib/selection";
+import {
+  defaultFilters,
+  filtersForRegion,
+  formatPlace,
+  placeName,
+} from "../lib/selection";
 import { useGenerator } from "../hooks/use-generator";
 import { GuessReveal } from "@/features/learning/guess-reveal";
 import { SavedPlaces } from "@/features/saved-places/saved-places";
@@ -20,23 +25,26 @@ import {
 } from "@/components/ui/copy-share-dialog";
 import { Icon } from "@/components/ui/icon";
 import { createShareUrl } from "@/lib/share/url-state";
-import type { City, Country, Mode, Place } from "../types";
+import type { City, Continent, Country, Mode, Place } from "../types";
 
 export function GeneratorWorkspace({
   countries,
   mode,
   example,
   cities,
+  initialContinent,
 }: {
   countries: Country[];
   mode: Mode;
   example?: ReactNode;
   cities?: City[];
+  initialContinent?: Continent;
 }) {
   const { state, dispatch, byId, eligible, remaining, generate } = useGenerator(
     countries,
     mode,
     cities,
+    initialContinent,
   );
   const cityCoverage = useMemo(() => {
     if (!cities) return undefined;
@@ -167,7 +175,10 @@ export function GeneratorWorkspace({
           onGenerate={generate}
           ready={state.hydrated}
           onResetFilters={() => {
-            dispatch({ type: "filters", filters: defaultFilters });
+            dispatch({
+              type: "filters",
+              filters: filtersForRegion(defaultFilters, initialContinent),
+            });
             dispatch({
               type: "message",
               message:

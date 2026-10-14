@@ -1,6 +1,6 @@
 # GlobePick
 
-A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–5 are implemented locally.
+A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6 are implemented locally.
 
 - Random country, capital/government-seat, and city/town selection with continent and searchable inclusion/exclusion filters.
 - Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
@@ -59,9 +59,9 @@ Each tool has its own versioned localStorage record. Refresh restores settings, 
 
 ## Deployment
 
-Nothing is deployed by this task. Without `NEXT_PUBLIC_SITE_URL`, all pages remain noindex, sitemap entries are empty, and metadata uses localhost. Copy `.env.example` to `.env.local` to configure the actual origin and rebuild. Public indexing requires a non-loopback HTTPS origin. A public configuration includes the eight published base pages in the sitemap; shared query variants canonicalize to their base route.
+Nothing is deployed by this task. Without `NEXT_PUBLIC_SITE_URL`, all pages remain noindex, sitemap entries are empty, and metadata uses localhost. Copy `.env.example` to `.env.local` to configure the actual origin and rebuild. Public indexing requires a non-loopback HTTPS origin. A public configuration includes the thirteen published pages in the sitemap; shared query variants canonicalize to their base route.
 
-Before launch, add the maintainer's public identity and corrections contact, review hosting-specific privacy/terms, configure the actual origin, and finish launch accessibility/performance review. No database, authentication, custom API route, or Server Action is used. Regional/detail SEO pages remain a later phase.
+Before launch, add the maintainer's public identity and corrections contact, review hosting-specific privacy/terms, configure the actual origin, and finish launch accessibility/performance review. No database, authentication, custom API route, or Server Action is used. Three regional generators and two reviewed learning guides are included. Deployment and Search Console registration are deferred until hosting.
 
 ## Country projects
 
@@ -74,3 +74,7 @@ Preview and print use the same assignment objects. Select A4 or US Letter and op
 City mode uses 7,194 selected Natural Earth city/town points across 194 countries; Nauru has no retained records. Every matching record is equally likely. In all-country mode, countries with more records appear more often. Population is neither displayed nor used for selection. Historic places, stations, outside-scope country references, and exact name/country/admin-region duplicates are excluded. Source labels are a dated cartographic snapshot, not a complete city register or current boundary authority.
 
 City data is imported only by `/random-city-generator`; city links disable prefetching so country/capital pages do not preload the large dataset. `scripts/prepare-city-data.py SOURCE_GEOJSON` recreates the adaptation offline from the pinned source in `public/data/cities/manifest.json`. Data, per-country counts, source identifiers, method, public-domain notice, and checksums are downloadable. City storage and shared URLs use the same validated adapters with a separate `globepick:v1:city` key.
+
+## Curated learning pages
+
+Africa, Asia, and Europe routes start the existing country generator with a regional filter and include original atlas activities and a source-based country list. Only Japan and South Africa have reviewed country guides. Unknown regional/country slugs return 404; no query permutations are published. Breadcrumb and WebApplication data reflect visible content without ratings or invented reviews. See `docs/seo-research.md` for intent research, source checks, and the deferred Search Console steps.

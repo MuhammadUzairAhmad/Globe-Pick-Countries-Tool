@@ -108,12 +108,12 @@ export default function AboutPage() {
             </ul>
           </details>
           <p className="mt-4 text-sm text-muted">
-            The fixed Japan example is additionally checked against{" "}
+            The Japan example’s capital role is checked against{" "}
             <a
-              href="https://www.studyinjapan.go.jp/en/assets/pdf/basic_guide_2025_english.pdf"
+              href="https://www.studyinjapan.go.jp/en/why/47prefectures/kanto/tokyo.html"
               className="text-brand underline underline-offset-4"
             >
-              JASSO’s Basic Guide 2025 (PDF)
+              the official Study in Japan Tokyo page
             </a>
             . No population estimates or travel advice are included.
           </p>

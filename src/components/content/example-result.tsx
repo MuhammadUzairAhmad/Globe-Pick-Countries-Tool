@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 
 export const exampleSource =
-  "https://www.studyinjapan.go.jp/en/assets/pdf/basic_guide_2025_english.pdf";
+  "https://www.studyinjapan.go.jp/en/why/47prefectures/kanto/tokyo.html";
 
 export function ExampleResult({
   mode = "country",
@@ -59,14 +59,15 @@ export function ExampleResult({
         </p>
       </div>
       <p className="mt-5 text-xs text-muted">
-        This is an example result. Facts checked on 14 October 2026 against the{" "}
+        This is an example result. Tokyo’s capital role checked on 14 October
+        2026 against the{" "}
         <a
           href={exampleSource}
           className="underline decoration-border underline-offset-4 hover:text-brand"
         >
-          JASSO Basic Guide 2025 (PDF)
+          Study in Japan Tokyo page
         </a>
-        .
+        . Other facts follow our dated country dataset.
       </p>
     </Card>
   );

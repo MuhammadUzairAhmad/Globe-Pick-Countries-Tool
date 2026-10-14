@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { regionalPages, countryGuides } from "../../data/tool-pages/curated.ts";
 
 const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -27,12 +28,30 @@ export const isPublicSite =
   !["localhost", "127.0.0.1", "[::1]"].includes(siteOrigin.hostname);
 
 export const pages = [
+  ...regionalPages.map((region) => ({
+    path: region.path,
+    label: region.continent,
+    title: region.title,
+    description: region.description,
+    published: true,
+    header: false,
+    footer: false,
+  })),
+  ...countryGuides.map((guide) => ({
+    path: `/countries/${guide.slug}` as const,
+    label: guide.id === "JP" ? "Japan activities" : "South Africa activities",
+    title: guide.title,
+    description: guide.description,
+    published: true,
+    header: false,
+    footer: false,
+  })),
   {
     path: "/",
     label: "Home",
-    title: "GlobePick: Random Countries and Capital Practice",
+    title: "GlobePick: Geography Generators and Printable Worksheets",
     description:
-      "Pick random countries, practice capitals, and save your favorite results. Free geography tools for games, school projects, and learning.",
+      "Pick countries or cities, practice capitals, and create research worksheets. Free geography tools for games, school projects, and learning.",
     published: true,
     header: true,
     footer: false,
