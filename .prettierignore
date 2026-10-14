@@ -13,3 +13,6 @@ public/flags
 public/maps
 public/data
 src/data/countries/*.json
+
+# Generated city dataset and checksums
+src/data/cities/*.json

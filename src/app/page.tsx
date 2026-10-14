@@ -116,7 +116,7 @@ export default function Home() {
             Explore countries, practice capitals, or make a worksheet.
           </p>
         </div>
-        <div className="mt-7 grid gap-5 lg:grid-cols-3">
+        <div className="mt-7 grid gap-5 md:grid-cols-2">
           <Card>
             <div className="flex items-center justify-between gap-3">
               <span className="flex size-11 items-center justify-center rounded-control bg-brand-soft text-brand">
@@ -154,6 +154,27 @@ export default function Home() {
               className="mt-5"
             >
               Practice capitals
+            </ButtonLink>
+          </Card>
+          <Card>
+            <span className="flex size-11 items-center justify-center rounded-control bg-accent-soft text-accent">
+              <Icon name="compass" className="size-6" />
+            </span>
+            <h3 className="mt-5 text-card-title font-semibold">
+              Random city generator
+            </h3>
+            <p className="mt-3 text-muted">
+              Choose a country and discover a city or town to locate on a map.
+              Clear country and region labels help you tell places with the same
+              name apart.
+            </p>
+            <ButtonLink
+              href="/random-city-generator"
+              prefetch={false}
+              variant="secondary"
+              className="mt-5"
+            >
+              Pick a city
             </ButtonLink>
           </Card>
           <Card>
@@ -195,7 +216,7 @@ export default function Home() {
         <p className="mt-3 text-muted">
           Use your results and an atlas to get started.
         </p>
-        <div className="mt-7 grid gap-5 lg:grid-cols-3">
+        <div className="mt-7 grid gap-5 md:grid-cols-2">
           {ideas.map((idea) => (
             <Card key={idea.title}>
               <Icon name={idea.icon} className="size-6 text-brand" />

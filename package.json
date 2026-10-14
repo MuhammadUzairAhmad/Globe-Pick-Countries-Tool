@@ -12,7 +12,7 @@
     "format:check": "prettier --check .",
     "assets:brand": "node scripts/generate-brand-assets.mjs",
     "test": "node --experimental-strip-types --test --test-isolation=none tests/*.test.ts",
-    "validate:data": "node --experimental-strip-types scripts/validate-geography-data.ts",
+    "validate:data": "node --experimental-strip-types scripts/validate-geography-data.ts && node --experimental-strip-types scripts/validate-city-data.ts",
     "prebuild": "npm run validate:data"
   },
   "dependencies": {

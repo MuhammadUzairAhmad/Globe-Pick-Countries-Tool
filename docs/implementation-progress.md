@@ -13,9 +13,9 @@ Phases 4–6 are later expansion. Phase 7 launch verification and deployment are
 
 ## Meaningful validation
 
-- `npm test`: **19 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, and native-share success/failure/cancellation.
+- `npm test`: **23 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, and native-share success/failure/cancellation.
 - `npm run validate:data`: passes for all records, unique IDs/slugs, country membership counts, capital IDs/roles, valid coordinates, source URLs/review dates, local flags, licenses, and the identical app/download database plus SHA-256 digest. Validation runs automatically before every production build.
-- `npm run lint`, `npm run typecheck`, `npm run format:check`, `git diff --check`, and the final production build pass. All seven content routes remain statically pre-rendered.
+- `npm run lint`, `npm run typecheck`, `npm run format:check`, `git diff --check`, and the final production build pass. All eight content routes remain statically pre-rendered.
 - Initial HTML includes tool H1s, useful descriptions, how-to content, control labels, and fixed samples. Local pages are noindex; query variants retain clean base canonicals. A simulated public HTTPS origin confirms seven published base routes, a clean project canonical, and indexable project metadata.
 - Baseline read-only production HTTP checks pass for the six original content routes, dataset/manifest downloads, maps, flags, and license notices. Unimplemented city routes and invalid country/regional slugs return actual 404 responses. Local robots permits crawling and omits a sitemap declaration; the local sitemap has no entries.
 
@@ -59,6 +59,15 @@ These are focused correctness and browser checks, not a full assistive-technolog
 - At a 1280px viewport, measured screen paper boxes for 22 student/teacher pages fit Letter and A4 dimensions without horizontal overflow; South Africa and Palestine reference sheets also fit both sizes. At 320px, the full page and worksheet contents have no horizontal overflow. No warning/error browser logs were observed.
 - The final build contains the named A4/Letter paper rules, print page breaks, and screen-height resets. Native print/PDF-driver pagination and physical printer output were not exercised by the available browser tool; verify those in the broader launch print/device matrix. Preview and print intentionally render the same assignment objects.
 
+## Phase 5: cities
+
+- Added the city route, home/navigation entry, coverage explanation, public-domain source notice, download/manifest, and offline preparation/validation scripts.
+- Retained 7,194 selected city/town records across 194 countries. Nauru has no records; historic places, stations, outside-scope references, and one exact duplicate are excluded. Names and admin labels remain a disclosed source snapshot.
+- City mode reuses selection, controlled country/continent filtering, no-repeat, cards, maps, history/favorites, copy feedback, share dialogs, storage validation, and exact replay. Identity is a stable Natural Earth ID; country/admin-region labels disambiguate names.
+- City data is imported only by the city route. Links to that route disable prefetching. Country/capital saved records remain separate; the city storage bound supports its full record pool.
+- Four new tests cover country eligibility, no-repeat and missing coverage, homonyms, full-pool persistence, and share validation. All 23 tests and both data validators pass.
+- Production browser checks verified three Japanese cities, copy/source attribution, save and refresh, shared exact replay without new history, Nauru’s empty state, 320px overflow, and clean warning/error logs. Compiled country, capital, and worksheet HTML contain no city-record payload.
+
 ## Remaining launch requirements
 
-The baseline is functional locally. Before public launch: provide the real operator identity and corrections contact, review hosting-specific privacy/terms, set the actual HTTPS deployment origin, complete broader accessibility/performance checks, and authorize deployment. Dataset facts follow a pinned community source with reviewed exceptions; the About page and manifest disclose that this is not an independent audit of every field. Cities and curated SEO expansions remain unimplemented.
+The baseline is functional locally. Before public launch: provide the real operator identity and corrections contact, review hosting-specific privacy/terms, set the actual HTTPS deployment origin, complete broader accessibility/performance checks, and authorize deployment. Dataset facts follow a pinned community source with reviewed exceptions; the About page and manifest disclose that this is not an independent audit of every field. Curated SEO expansions remain unimplemented.

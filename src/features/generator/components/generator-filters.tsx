@@ -19,6 +19,7 @@ export function GeneratorFilters({
   generateLabel,
   quantityLabel,
   quantityHint,
+  cityCoverage,
 }: {
   countries: readonly Country[];
   value: Filters;
@@ -33,6 +34,7 @@ export function GeneratorFilters({
   generateLabel?: string;
   quantityLabel?: string;
   quantityHint?: string;
+  cityCoverage?: Record<string, number>;
 }) {
   const [search, setSearch] = useState("");
   const query = search.trim().toLocaleLowerCase();
@@ -96,6 +98,42 @@ export function GeneratorFilters({
             hint={quantityHint}
           />
         </div>
+        {mode === "city" && (
+          <Field id="city-country" label="Country">
+            <select
+              id="city-country"
+              value={
+                value.include.length === 1
+                  ? value.include[0]
+                  : value.include.length
+                    ? "custom"
+                    : "all"
+              }
+              onChange={(event) => {
+                const id = event.target.value;
+                onChange({
+                  ...value,
+                  include: id === "all" ? [] : [id],
+                  exclude: value.exclude.filter((entry) => entry !== id),
+                });
+              }}
+              className="min-h-touch w-full rounded-control border border-border bg-surface px-3 py-2 text-sm"
+            >
+              <option value="all">All countries</option>
+              {value.include.length > 1 && (
+                <option value="custom" disabled>
+                  Custom country selection
+                </option>
+              )}
+              {countries.map((country) => (
+                <option key={country.id} value={country.id}>
+                  {country.name} ({cityCoverage?.[country.id] ?? 0}{" "}
+                  {cityCoverage?.[country.id] === 1 ? "record" : "records"})
+                </option>
+              ))}
+            </select>
+          </Field>
+        )}
         <label className="flex min-h-touch items-center gap-3 text-sm">
           <input
             type="checkbox"
@@ -126,18 +164,24 @@ export function GeneratorFilters({
           disabled={!ready}
         >
           {generateLabel ??
-            `Generate ${mode === "country" ? "countries" : "capitals"}`}
+            `Generate ${mode === "country" ? "countries" : mode === "city" ? "cities" : "capitals"}`}
         </Button>
         <div className="rounded-control bg-page p-3 text-sm">
           <p>
             <strong>{remaining}</strong> of {eligible} matching{" "}
-            {mode === "country" ? "countries" : "capitals and government seats"}{" "}
+            {mode === "country"
+              ? "countries"
+              : mode === "city"
+                ? "cities and towns"
+                : "capitals and government seats"}{" "}
             available
           </p>
           <p className="mt-1 text-xs text-muted">
-            {mode === "capital"
-              ? "Each capital or government seat has an equal chance. Countries with more than one entry can appear more often."
-              : "Each matching country has an equal chance."}
+            {mode === "city"
+              ? "Each matching city or town record has an equal chance. Countries with more records appear more often."
+              : mode === "capital"
+                ? "Each capital or government seat has an equal chance. Countries with more than one entry can appear more often."
+                : "Each matching country has an equal chance."}
           </p>
         </div>
         {remaining > 0 && remaining < value.quantity && (

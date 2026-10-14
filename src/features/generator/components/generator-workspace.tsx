@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/notice";
@@ -8,7 +8,7 @@ import { ResultsGrid } from "./results-grid";
 import { ResultActions } from "./result-actions";
 import { GeneratorFilters } from "./generator-filters";
 import { PlaceResultCard } from "./place-result-card";
-import { defaultFilters, formatPlace } from "../lib/selection";
+import { defaultFilters, formatPlace, placeName } from "../lib/selection";
 import { useGenerator } from "../hooks/use-generator";
 import { GuessReveal } from "@/features/learning/guess-reveal";
 import { SavedPlaces } from "@/features/saved-places/saved-places";
@@ -20,21 +20,31 @@ import {
 } from "@/components/ui/copy-share-dialog";
 import { Icon } from "@/components/ui/icon";
 import { createShareUrl } from "@/lib/share/url-state";
-import type { Country, Mode, Place } from "../types";
+import type { City, Country, Mode, Place } from "../types";
 
 export function GeneratorWorkspace({
   countries,
   mode,
   example,
+  cities,
 }: {
   countries: Country[];
   mode: Mode;
   example?: ReactNode;
+  cities?: City[];
 }) {
   const { state, dispatch, byId, eligible, remaining, generate } = useGenerator(
     countries,
     mode,
+    cities,
   );
+  const cityCoverage = useMemo(() => {
+    if (!cities) return undefined;
+    const counts: Record<string, number> = {};
+    for (const city of cities)
+      counts[city.countryId] = (counts[city.countryId] ?? 0) + 1;
+    return counts;
+  }, [cities]);
   const [dialog, setDialog] = useState<CopyShareTarget | null>(null);
   const [toast, setToast] = useState<{ id: number; message: string } | null>(
     null,
@@ -153,6 +163,7 @@ export function GeneratorWorkspace({
           eligible={eligible.length}
           remaining={remaining.length}
           mode={mode}
+          cityCoverage={cityCoverage}
           onGenerate={generate}
           ready={state.hydrated}
           onResetFilters={() => {
@@ -246,12 +257,16 @@ export function GeneratorWorkspace({
                 title={
                   eligible.length
                     ? "You’ve picked every matching place"
-                    : "No matching places"
+                    : mode === "city"
+                      ? "No matching city records"
+                      : "No matching places"
                 }
               >
                 {eligible.length
                   ? "Reset picked places, allow repeats, or change your filters to keep going."
-                  : "No countries match these filters. Try another continent or clear your country choices."}
+                  : mode === "city"
+                    ? "This dataset has no city or town records for these choices. Try another country or clear your filters. It isn’t a complete list of every city."
+                    : "No countries match these filters. Try another continent or clear your country choices."}
               </Notice>
             </div>
           )}
@@ -262,8 +277,12 @@ export function GeneratorWorkspace({
               </h3>
               <p className="mt-3 text-muted">
                 Choose a continent or keep all countries, then select Generate{" "}
-                {mode === "country" ? "countries" : "capitals"} to see your
-                results.
+                {mode === "country"
+                  ? "countries"
+                  : mode === "city"
+                    ? "cities"
+                    : "capitals"}{" "}
+                to see your results.
               </p>
             </Card>
           ) : (
@@ -300,7 +319,9 @@ export function GeneratorWorkspace({
                             ? place.country.name
                             : place.kind === "country"
                               ? place.country.name
-                              : place.capital.name
+                              : place.kind === "city"
+                                ? placeName(place)
+                                : place.capital.name
                         }
                         onSave={() =>
                           dispatch({ type: "favorite", id: place.id })

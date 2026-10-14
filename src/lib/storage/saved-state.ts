@@ -25,7 +25,11 @@ export function validateSavedState(
   const empty = emptySavedState();
   if (raw === null) return { saved: empty, warning: "" };
   try {
-    if (raw.length > 150_000) throw new Error("Storage too large");
+    const maxLength = Math.max(
+      150_000,
+      Math.min(1_000_000, placeIds.size * 64 + 20_000),
+    );
+    if (raw.length > maxLength) throw new Error("Storage too large");
     const parsed: unknown = JSON.parse(raw);
     if (
       !parsed ||

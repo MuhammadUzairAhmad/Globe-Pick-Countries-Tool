@@ -26,12 +26,13 @@ export function AppHeader() {
           </Link>
           <nav
             aria-label="Main navigation"
-            className="hidden items-center gap-5 lg:flex"
+            className="hidden items-center gap-5 xl:flex"
           >
             {links.map(({ path, label }) => (
               <Link
                 key={path}
                 href={path}
+                prefetch={path === "/random-city-generator" ? false : undefined}
                 className="inline-flex min-h-touch items-center text-sm font-medium text-muted transition-colors hover:text-brand motion-reduce:transition-none"
               >
                 {label}

@@ -17,12 +17,12 @@ export default function PrivacyPage() {
         {
           title: "Cookies and browser storage",
           content:
-            "The application sets no cookies. Each tool saves your settings, picked places, up to 100 recent results, and favorites in your browser’s local storage. These records do not sync to other devices. Use Clear history, Clear favorites, Clear filters, and Reset picked places to reset their corresponding data, or clear site data in your browser to remove everything. Generation works when saving is unavailable.",
+            "The application sets no cookies. The country, capital, and city generators save your settings, picked places, up to 100 recent results, and favorites in your browser’s local storage. These records do not sync to other devices. Use Clear history, Clear favorites, Clear filters, and Reset picked places to reset their corresponding data, or clear site data in your browser to remove everything. Generation works when saving is unavailable.",
         },
         {
           title: "Fonts, external links, and requests",
           content:
-            "Fonts, flags, map outlines, and geography data are served locally. Copying uses your browser clipboard; sharing creates a link you can copy, with device sharing available in supported browsers. Shared URLs contain country/capital IDs and selected filters, so anyone receiving a link can see that selection. No student names or other identity fields are included. Following an external source link sends you to another website, whose own privacy policy applies. Your browser makes normal requests to the server hosting the preview; server logs and hosting retention have not been configured for a public deployment.",
+            "Fonts, flags, map outlines, and geography data are served locally. Copying uses your browser clipboard; sharing creates a link you can copy, with device sharing available in supported browsers. Shared URLs contain country, capital, or city IDs and selected filters, so anyone receiving a link can see that selection. No student names or other identity fields are included. Following an external source link sends you to another website, whose own privacy policy applies. Your browser makes normal requests to the server hosting the preview; server logs and hosting retention have not been configured for a public deployment.",
         },
         {
           title: "Questions and future changes",

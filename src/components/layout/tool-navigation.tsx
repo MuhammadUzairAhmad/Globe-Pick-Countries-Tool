@@ -3,6 +3,7 @@ import Link from "next/link";
 const tools = [
   { path: "/random-country-generator", label: "Countries" },
   { path: "/random-capital-generator", label: "Capitals" },
+  { path: "/random-city-generator", label: "Cities" },
   { path: "/country-project-generator", label: "Country projects" },
 ] as const;
 
@@ -20,6 +21,7 @@ export function ToolNavigation({
         <Link
           key={tool.path}
           href={tool.path}
+          prefetch={tool.path === "/random-city-generator" ? false : undefined}
           aria-current={current === tool.path ? "page" : undefined}
           className={
             current === tool.path

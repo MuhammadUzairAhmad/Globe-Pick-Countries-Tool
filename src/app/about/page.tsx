@@ -20,11 +20,11 @@ export default function AboutPage() {
         <Card>
           <h2 className="text-card-title font-semibold">What you can do</h2>
           <p className="mt-4 text-muted">
-            Generate random countries or capitals for games, school projects,
-            and your own practice. Narrow the choices by continent, avoid
-            repeats, and save favorites in your browser. Hide capital answers
-            when you want to test yourself. For a classroom activity, create
-            unique country assignments and print research worksheets with
+            Generate random countries, capitals, or cities for games, school
+            projects, and your own practice. Narrow the choices by continent,
+            avoid repeats, and save favorites in your browser. Hide capital
+            answers when you want to test yourself. For a classroom activity,
+            create unique country assignments and print research worksheets with
             optional teacher notes.
           </p>
           <p className="mt-4 text-muted">
@@ -116,6 +116,47 @@ export default function AboutPage() {
               JASSO’s Basic Guide 2025 (PDF)
             </a>
             . No population estimates or travel advice are included.
+          </p>
+        </Card>
+        <Card>
+          <h2 className="text-card-title font-semibold">
+            City and town coverage
+          </h2>
+          <p className="mt-4 text-muted">
+            City mode uses 7,194 selected city and town points from Natural
+            Earth, covering 194 of our 195 countries. Nauru has no retained
+            records. The source favors regional significance, so coverage is
+            uneven and is not a complete city register. Each eligible record is
+            equally likely; countries with more records appear more often when
+            all countries are selected.
+          </p>
+          <p className="mt-4 text-muted">
+            We retain source names, administrative labels, and approximate
+            points, excluding historic places, stations, outside-scope country
+            references, and exact name/country/region duplicates. Source capital
+            and population fields are not presented as current facts.{" "}
+            <a
+              href="/data/cities/manifest.json"
+              className="text-brand underline underline-offset-4"
+            >
+              Review coverage and provenance
+            </a>
+            ,{" "}
+            <a
+              href="/data/cities/cities.json"
+              className="text-brand underline underline-offset-4"
+              download
+            >
+              download city records
+            </a>
+            , or read the{" "}
+            <a
+              href="/licenses/cities-Natural-Earth.txt"
+              className="text-brand underline underline-offset-4"
+            >
+              public-domain source notice
+            </a>
+            .
           </p>
         </Card>
         <Card>

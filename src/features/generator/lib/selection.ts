@@ -1,4 +1,5 @@
-import type { Country, Filters, Mode, Place } from "../types";
+import type { City, Country, Filters, Mode, Place } from "../types";
+import { citySource, cityReviewed } from "./city-source.ts";
 
 export const defaultFilters: Filters = {
   continent: "all",
@@ -12,7 +13,19 @@ export const defaultFilters: Filters = {
 export function placesForMode(
   countries: readonly Country[],
   mode: Mode,
+  cities: readonly City[] = [],
 ): Place[] {
+  if (mode === "city") {
+    const byCountry = new Map(
+      countries.map((country) => [country.id, country]),
+    );
+    return cities.flatMap((city): Place[] => {
+      const country = byCountry.get(city.countryId);
+      return country
+        ? [{ kind: "city", id: city.id, countryId: country.id, country, city }]
+        : [];
+    });
+  }
   return countries.flatMap((country): Place[] =>
     mode === "country"
       ? [{ kind: "country", id: country.id, countryId: country.id, country }]
@@ -102,11 +115,15 @@ export function selectPlaces(
 export function placeName(place: Place): string {
   return place.kind === "country"
     ? place.country.name
-    : `${place.capital.name}, ${place.country.name}`;
+    : place.kind === "city"
+      ? `${place.city.name}, ${place.city.adminRegion ? `${place.city.adminRegion}, ` : ""}${place.country.name}`
+      : `${place.capital.name}, ${place.country.name}`;
 }
 
 export function formatPlace(place: Place): string {
   const country = place.country;
+  if (place.kind === "city")
+    return `${placeName(place)}\nContinent: ${country.continent}\nApproximate city/town point: ${place.city.location.lat}, ${place.city.location.lng}\nData: Natural Earth (public domain); reviewed ${cityReviewed}.\nSource: ${citySource}`;
   const capital =
     place.kind === "capital"
       ? `${place.capital.name} (${place.capital.role})`

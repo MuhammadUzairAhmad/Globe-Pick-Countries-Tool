@@ -12,7 +12,7 @@ export default function TermsPage() {
         {
           title: "What is available",
           content:
-            "Country and capital generators, filters, capital practice, browser favorites, and shared results are available. The country project generator creates printable research worksheets with optional teacher notes. There are no paid services, accounts, subscriptions, or city tools.",
+            "Country, capital, and city generators, filters, capital practice, browser favorites, and shared results are available. The country project generator creates printable research worksheets with optional teacher notes. There are no paid services, accounts, or subscriptions.",
         },
         {
           title: "Educational use",

@@ -46,8 +46,8 @@ export function SavedPlaces({
   return (
     <section aria-label="Places saved in this browser" className="mt-8">
       <p className="mb-4 text-sm text-muted">
-        Your recent results and favorites are saved in this browser. Countries
-        and capitals have separate lists.
+        Your recent results and favorites are saved in this browser. Each tool
+        has its own list.
       </p>
       <div className="grid gap-5 lg:grid-cols-2">
         <Card>

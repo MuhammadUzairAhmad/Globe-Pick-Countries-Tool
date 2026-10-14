@@ -5,6 +5,7 @@ import { PlaceIdentity } from "./place-identity";
 import { LocationMap } from "./location-map";
 import type { Place } from "../types";
 import { CapitalRoleBadge } from "./capital-role-badge";
+import { citySource, cityReviewed } from "../lib/city-source";
 
 export function PlaceResultCard({
   place,
@@ -23,9 +24,13 @@ export function PlaceResultCard({
     <Card>
       <PlaceIdentity
         country={country}
-        title={country.name}
-        subtitle={country.continent}
-        heading={place.kind === "country"}
+        title={place.kind === "city" ? place.city.name : country.name}
+        subtitle={
+          place.kind === "city"
+            ? `${place.city.adminRegion ? `${place.city.adminRegion}, ` : ""}${country.name}`
+            : country.continent
+        }
+        heading={place.kind !== "capital"}
       />
       {learning}
       {!answerHidden && place.kind === "capital" && (
@@ -56,7 +61,7 @@ export function PlaceResultCard({
             <summary className="flex min-h-touch cursor-pointer items-center text-sm font-medium text-brand">
               Map and sources
             </summary>
-            {mapOpen && <LocationMap country={country} />}
+            {mapOpen && <LocationMap place={place} />}
             {place.kind === "country" &&
               country.capitals.map(
                 (capital) =>
@@ -67,20 +72,25 @@ export function PlaceResultCard({
                   ),
               )}
             <p className="mt-3 text-xs text-muted">
-              Data reviewed {country.reviewed}.{" "}
+              Data reviewed{" "}
+              {place.kind === "city" ? cityReviewed : country.reviewed}.{" "}
               <a
                 href={
-                  place.kind === "capital"
-                    ? place.capital.source
-                    : country.sources.geography
+                  place.kind === "city"
+                    ? citySource
+                    : place.kind === "capital"
+                      ? place.capital.source
+                      : country.sources.geography
                 }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand underline underline-offset-4"
               >
-                {place.kind === "capital"
-                  ? "Capital source"
-                  : "Country data source"}{" "}
+                {place.kind === "city"
+                  ? "City data source"
+                  : place.kind === "capital"
+                    ? "Capital source"
+                    : "Country data source"}{" "}
                 (new tab)
               </a>{" "}
               <a

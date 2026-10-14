@@ -1,6 +1,6 @@
 # GlobePick architecture and scope
 
-Updated 14 October 2026. Implements Phases 0–4 of the local plan.
+Updated 14 October 2026. Implements Phases 0–5 of the local plan.
 
 ## Starting point and stack
 
@@ -48,8 +48,14 @@ Named A4 and Letter `@page` rules supply 10mm margins. All worksheet styling use
 
 `src/lib/seo/site.ts` is the registry for metadata, navigation, and sitemap generation. Both working tools are published in that registry; home remains a distinct hub. Canonicals use base routes, including shared query variants. No region/country detail routes are published, so unknown slugs return actual 404 responses.
 
-Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin and rebuild for deployment. Missing configuration uses localhost for local previews, marks every page noindex, and emits an empty sitemap without a robots sitemap declaration. Robots permits crawling so page-level noindex is visible. A configured public origin produces only the seven published base pages, never query combinations. Social previews stay tool-level.
+Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin and rebuild for deployment. Missing configuration uses localhost for local previews, marks every page noindex, and emits an empty sitemap without a robots sitemap declaration. Robots permits crawling so page-level noindex is visible. A configured public origin produces only the eight published base pages, never query combinations. Social previews stay tool-level.
 
 ## Remaining release work
 
-Phases 5–6 are later expansion. Phase 7 launch review still needs the real operator identity and corrections contact, hosting-specific policy review, the actual deployment origin, broader accessibility/performance checks, and deployment authorization. No site was deployed as part of this implementation.
+Phase 6 is a later expansion. Phase 7 launch review still needs the real operator identity and corrections contact, hosting-specific policy review, the actual deployment origin, broader accessibility/performance checks, and deployment authorization. No site was deployed as part of this implementation.
+
+## City expansion
+
+The city route alone imports 7,194 adapted records from Natural Earth’s public-domain populated-places dataset. Shared modules import the City type and a small source-URL constant, never city records. City links disable prefetching. Country references resolve against the existing 195-country scope, leaving 194 covered countries and an honest Nauru empty state. The manifest records exclusions, duplicate merging, source commit/digests, and per-country counts.
+
+City mode extends the Place discriminated union and reuses selection, filters, cards, facts, optional maps, persistence, save/copy/share feedback, and URL validation. Country and administrative-region context distinguish homonyms. Neither population nor source capital classifications are presented as current facts. Equal probability applies to eligible city records, so larger country record pools have more chances in all-country mode. Storage validation has a bounded dataset-aware size limit so a full city consumed/favorite pool does not corrupt itself.

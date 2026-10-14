@@ -97,6 +97,16 @@ export const pages = [
     header: true,
     footer: false,
   },
+  {
+    path: "/random-city-generator",
+    label: "Random city",
+    title: "Random City Generator: Country Filters and No Repeats",
+    description:
+      "Pick selected cities and towns by country or continent, generate unique sets, and save or share your results. Clear coverage and source information.",
+    published: true,
+    header: true,
+    footer: false,
+  },
 ] as const;
 
 export type PagePath = (typeof pages)[number]["path"];

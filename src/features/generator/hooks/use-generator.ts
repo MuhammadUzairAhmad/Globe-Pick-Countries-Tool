@@ -10,17 +10,22 @@ import {
 } from "../lib/selection";
 import { readSavedState, writeSavedState } from "@/lib/storage/saved-state";
 import { parseSharedUrl } from "@/lib/share/url-state";
-import type { Country, Mode } from "../types";
+import type { City, Country, Mode } from "../types";
+const noCities: City[] = [];
 
-export function useGenerator(countries: Country[], mode: Mode) {
+export function useGenerator(
+  countries: Country[],
+  mode: Mode,
+  cities: City[] = noCities,
+) {
   const [state, dispatch] = useReducer(
     generatorReducer,
     undefined,
     initialState,
   );
   const places = useMemo(
-    () => placesForMode(countries, mode),
-    [countries, mode],
+    () => placesForMode(countries, mode, cities),
+    [countries, mode, cities],
   );
   const byId = useMemo(
     () => new Map(places.map((place) => [place.id, place])),
@@ -112,13 +117,17 @@ export function useGenerator(countries: Country[], mode: Mode) {
           ? count === 1
             ? "country"
             : "countries"
-          : state.saved.filters.guess
+          : mode === "city"
             ? count === 1
-              ? "capital question"
-              : "capital questions"
-            : count === 1
-              ? "capital or government seat"
-              : "capitals and government seats";
+              ? "city or town"
+              : "cities and towns"
+            : state.saved.filters.guess
+              ? count === 1
+                ? "capital question"
+                : "capital questions"
+              : count === 1
+                ? "capital or government seat"
+                : "capitals and government seats";
       dispatch({
         type: "generated",
         ids: selected.places.map((place) => place.id),

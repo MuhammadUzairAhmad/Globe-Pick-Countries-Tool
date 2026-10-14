@@ -1,0 +1,14 @@
+Natural Earth populated places: public-domain data.
+
+Authors: Natural Earth contributors, including Tom Patterson and Nathaniel Vaughn Kelso.
+Terms and public-domain declaration:
+https://www.naturalearthdata.com/about/terms-of-use/
+Dataset description:
+https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/
+
+GlobePick adapts a pinned Natural Earth source for country-scoped city/town selection.
+Names, administrative labels, and approximate points are a dated cartographic snapshot.
+This is selected coverage, not a complete register of cities or a current boundary authority.
+No population values or source capital classifications are displayed as current facts.
+The source commit, adaptation method, exclusion counts, per-country coverage, and checksum
+are available in /data/cities/manifest.json. Adapted city records remain public domain.

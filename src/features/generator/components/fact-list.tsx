@@ -3,6 +3,28 @@ import { CapitalRoleBadge } from "./capital-role-badge";
 
 export function FactList({ place }: { place: Place }) {
   const country = place.country;
+  if (place.kind === "city")
+    return (
+      <dl className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
+        {[
+          { label: "Country", value: country.name },
+          { label: "Continent", value: country.continent },
+          {
+            label: "Administrative region",
+            value: place.city.adminRegion || "Not listed in this source",
+          },
+          {
+            label: "Approximate coordinates",
+            value: `${place.city.location.lat.toFixed(3)}°, ${place.city.location.lng.toFixed(3)}°`,
+          },
+        ].map((fact) => (
+          <div key={fact.label}>
+            <dt className="text-xs text-muted">{fact.label}</dt>
+            <dd className="mt-1 text-sm">{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+    );
   return (
     <dl className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
       {place.kind === "country" && (

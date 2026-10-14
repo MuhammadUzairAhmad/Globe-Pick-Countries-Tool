@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+import type { City, Mode } from "@/features/generator/types";
 import { ToolNavigation } from "./tool-navigation";
 import { DatasetExplanation } from "@/components/content/dataset-explanation";
 import { ExampleResult } from "@/components/content/example-result";
@@ -8,7 +10,9 @@ import { countries } from "@/data/countries";
 import { ButtonLink } from "@/components/ui/button";
 
 type ToolPageProps = {
-  mode: "country" | "capital";
+  mode: Mode;
+  cities?: City[];
+  dataset?: ReactNode;
   title: string;
   description: string;
   steps: readonly { title: string; text: string }[];
@@ -19,6 +23,8 @@ export function ToolPageLayout({
   title,
   description,
   steps,
+  cities,
+  dataset,
 }: ToolPageProps) {
   return (
     <Container className="py-8 md:py-section">
@@ -33,7 +39,8 @@ export function ToolPageLayout({
           key={mode}
           countries={countries}
           mode={mode}
-          example={<ExampleResult mode={mode} />}
+          cities={cities}
+          example={mode === "city" ? undefined : <ExampleResult mode={mode} />}
         />
         <section className="mt-section max-w-reading">
           <h2 className="text-section-title font-semibold">
@@ -53,9 +60,9 @@ export function ToolPageLayout({
             Try a geography activity today
           </h2>
           <p className="mt-4 text-muted">
-            Pick a country above, then find it in an atlas. Name its capital and
-            a neighboring country or nearby island. What else would you like to
-            know about it?
+            {mode === "city"
+              ? "Find a result on a map. Describe its location using a nearby river, coastline, road, or other place. Compare the map with a local source and write one question you’d like to investigate."
+              : "Pick a country above, then find it in an atlas. Name its capital and a neighboring country or nearby island. What else would you like to know about it?"}
           </p>
           <ButtonLink href="/#learning" variant="secondary" className="mt-5">
             More learning ideas
@@ -68,7 +75,7 @@ export function ToolPageLayout({
             Create printable assignments
           </ButtonLink>
         </section>
-        <DatasetExplanation />
+        {dataset ?? <DatasetExplanation />}
       </div>
     </Container>
   );

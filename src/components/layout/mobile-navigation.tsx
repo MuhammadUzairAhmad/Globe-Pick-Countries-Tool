@@ -11,7 +11,7 @@ export function MobileNavigation({
   const [open, setOpen] = useState(false);
   return (
     <div
-      className="relative lg:hidden"
+      className="relative xl:hidden"
       onKeyDown={(event) => {
         if (event.key === "Escape") {
           setOpen(false);
@@ -40,6 +40,7 @@ export function MobileNavigation({
           <Link
             key={path}
             href={path}
+            prefetch={path === "/random-city-generator" ? false : undefined}
             onClick={() => setOpen(false)}
             className="flex min-h-touch items-center rounded-control px-4 text-sm hover:bg-brand-soft"
           >

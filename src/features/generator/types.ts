@@ -7,7 +7,14 @@ export const continents = [
   "Oceania",
 ] as const;
 export type Continent = (typeof continents)[number];
-export type Mode = "country" | "capital";
+export type Mode = "country" | "capital" | "city";
+export type City = {
+  id: string;
+  name: string;
+  countryId: string;
+  adminRegion: string;
+  location: { lat: number; lng: number };
+};
 export type Capital = {
   id: string;
   name: string;
@@ -44,6 +51,13 @@ export type Place =
       countryId: string;
       country: Country;
       capital: Capital;
+    }
+  | {
+      kind: "city";
+      id: string;
+      countryId: string;
+      country: Country;
+      city: City;
     };
 export type Filters = {
   continent: Continent | "all";
