@@ -2,16 +2,17 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import type { NavigationGroup } from "@/lib/seo/navigation";
 
 export function MobileNavigation({
-  links,
+  groups,
 }: {
-  links: readonly { path: string; label: string }[];
+  groups: readonly NavigationGroup[];
 }) {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className="relative xl:hidden"
+      className="relative md:hidden"
       onKeyDown={(event) => {
         if (event.key === "Escape") {
           setOpen(false);
@@ -34,18 +35,33 @@ export function MobileNavigation({
         id="mobile-menu"
         aria-label="Mobile navigation"
         hidden={!open}
-        className="absolute right-0 top-full z-30 mt-3 w-60 rounded-card border border-border bg-surface p-2 shadow-floating"
+        className="absolute right-0 top-full z-30 mt-3 max-h-[calc(100dvh-7rem)] w-[min(22rem,calc(100vw-2rem))] overflow-y-auto overscroll-contain rounded-card border border-border bg-surface p-3 shadow-floating"
       >
-        {links.map(({ path, label }) => (
-          <Link
-            key={path}
-            href={path}
-            prefetch={path === "/random-city-generator" ? false : undefined}
-            onClick={() => setOpen(false)}
-            className="flex min-h-touch items-center rounded-control px-4 text-sm hover:bg-brand-soft"
+        {groups.map((group) => (
+          <div
+            key={group.title}
+            className="border-border py-2 first:pt-0 last:pb-0 [&+div]:border-t"
           >
-            {label}
-          </Link>
+            <p className="px-3 py-2 text-xs font-semibold text-muted">
+              {group.title}
+            </p>
+            <ul>
+              {group.links.map(({ path, label }) => (
+                <li key={path}>
+                  <Link
+                    href={path}
+                    prefetch={
+                      path === "/random-city-generator" ? false : undefined
+                    }
+                    onClick={() => setOpen(false)}
+                    className="flex min-h-touch items-center rounded-control px-3 text-sm hover:bg-brand-soft"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </nav>
     </div>

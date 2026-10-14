@@ -2,14 +2,13 @@ import Link from "next/link";
 import { Glass } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { pages } from "@/lib/seo/site";
+import { siteNavigation } from "@/lib/seo/navigation";
 import { Container } from "./container";
 import { MobileNavigation } from "./mobile-navigation";
+import { NavigationDropdown } from "./navigation-dropdown";
 
 export function AppHeader() {
-  const links = [
-    ...pages.filter((page) => page.published && page.header),
-    { path: "/#learning", label: "Learning ideas" },
-  ];
+  const navigation = siteNavigation(pages);
   return (
     <header className="relative z-20 print:hidden">
       <Glass>
@@ -26,22 +25,21 @@ export function AppHeader() {
           </Link>
           <nav
             aria-label="Main navigation"
-            className="hidden items-center gap-5 xl:flex"
+            className="hidden items-center gap-2 md:flex lg:gap-5"
           >
-            {links.map(({ path, label }) => (
-              <Link
-                key={path}
-                href={path}
-                prefetch={path === "/random-city-generator" ? false : undefined}
-                className="inline-flex min-h-touch items-center text-sm font-medium text-muted transition-colors hover:text-brand motion-reduce:transition-none"
-              >
-                {label}
-              </Link>
-            ))}
+            <NavigationDropdown
+              label="Generators"
+              groups={navigation.generators}
+            />
+            <Link
+              href={navigation.worksheets.path}
+              className="inline-flex min-h-touch items-center rounded-control px-4 text-sm font-medium text-foreground hover:bg-brand-soft hover:text-brand"
+            >
+              {navigation.worksheets.label}
+            </Link>
+            <NavigationDropdown label="Explore" groups={navigation.explore} />
           </nav>
-          <MobileNavigation
-            links={links.map(({ path, label }) => ({ path, label }))}
-          />
+          <MobileNavigation groups={navigation.mobile} />
         </Container>
       </Glass>
     </header>

@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlaceIdentity } from "@/features/generator/components/place-identity";
 import { placeName } from "@/features/generator/lib/selection";
+import { savedPlaceLabel } from "./labels";
 import type { HistoryEntry, Place } from "@/features/generator/types";
 
 type Props = {
@@ -25,6 +26,10 @@ export function SavedPlaces({
   onClearHistory,
   onClearFavorites,
 }: Props) {
+  function actionLabel(id: string) {
+    const place = byId.get(id);
+    return place ? savedPlaceLabel(place, hiddenIds.has(id)) : "place";
+  }
   function identity(id: string) {
     const place = byId.get(id);
     return place ? (
@@ -83,7 +88,7 @@ export function SavedPlaces({
                   <Button
                     variant="secondary"
                     onClick={() => onReplay(entry.id)}
-                    aria-label={`Open ${byId.get(entry.id)?.country.name ?? "place"}`}
+                    aria-label={`Open ${actionLabel(entry.id)}`}
                   >
                     Open
                   </Button>
@@ -119,14 +124,14 @@ export function SavedPlaces({
                     <Button
                       variant="secondary"
                       onClick={() => onReplay(id)}
-                      aria-label={`Open favorite ${byId.get(id)?.country.name ?? "place"}`}
+                      aria-label={`Open favorite ${actionLabel(id)}`}
                     >
                       Open
                     </Button>
                     <Button
                       variant="secondary"
                       onClick={() => onRemoveFavorite(id)}
-                      aria-label={`Remove favorite ${byId.get(id)?.country.name ?? "place"}`}
+                      aria-label={`Remove favorite ${actionLabel(id)}`}
                     >
                       Remove
                     </Button>

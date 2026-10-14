@@ -33,6 +33,7 @@ export type Action =
       message: string;
     }
   | { type: "filters"; filters: Filters }
+  | { type: "resume"; saved?: SavedState; warning: string }
   | { type: "generated"; ids: string[]; at: number; message: string }
   | { type: "replay"; ids: string[]; filters?: Filters }
   | { type: "reveal"; id: string }
@@ -47,6 +48,7 @@ export function generatorReducer(
 ): GeneratorState {
   switch (action.type) {
     case "hydrate":
+      if (state.hydrated) return state;
       return {
         ...initialState(),
         saved: {
@@ -63,11 +65,30 @@ export function generatorReducer(
       return {
         ...state,
         dirty: true,
+        message:
+          action.filters.guess && !state.saved.filters.guess
+            ? "Answers hidden. Enter a guess or reveal an answer when you’re ready."
+            : state.message,
         revealed:
           action.filters.guess && !state.saved.filters.guess
             ? []
             : state.revealed,
         saved: { ...state.saved, filters: action.filters },
+      };
+    case "resume":
+      return {
+        ...state,
+        storageWarning: action.warning,
+        // Other routes share this mode's pool and saved lists; retain this
+        // view's filters, results and quiz progress when it becomes visible.
+        saved: action.saved
+          ? {
+              ...state.saved,
+              consumed: action.saved.consumed,
+              history: action.saved.history,
+              favorites: action.saved.favorites,
+            }
+          : state.saved,
       };
     case "generated":
       return {
@@ -96,10 +117,9 @@ export function generatorReducer(
         replay: true,
         message:
           "Opened your saved selection. Your picked places and history haven’t changed.",
-        saved: {
-          ...state.saved,
-          ...(action.filters ? { filters: action.filters } : {}),
-        },
+        saved: action.filters
+          ? { ...state.saved, filters: action.filters }
+          : state.saved,
       };
     case "reveal":
       return {

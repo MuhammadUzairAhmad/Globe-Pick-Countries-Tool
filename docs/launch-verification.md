@@ -22,11 +22,11 @@ The launch check loads `.env*` with the installed Next environment loader. It re
 
 ## Results
 
-Updated for the Phase 8 static starter packs.
+Updated for the starter packs and subsequent generator/navigation fixes.
 
-- 29 domain, storage, sharing, schema, production-inspection, and contrast tests pass. Country, city, and starter-pack validators, lint, type checking, formatting, and production compilation pass.
+- 34 domain, storage, sharing, schema, production-inspection, and contrast tests pass. Country, city, and starter-pack validators, lint, type checking, formatting, and production compilation pass.
 - Thirteen published content pages return 200; five unreviewed paths return actual 404. Sixteen sampled assets load, including byte-identical reviewed PDFs. Local metadata remains noindex and the local sitemap has zero entries.
-- Gzip-equivalent HTML is about 33–35 KB for country/capital/regional tools and 211 KB for city mode. The verifier budgets 120 KB per normal page and 250 KB for city mode. These cover HTML including serialized component data, not all JavaScript, fonts, images, or a network waterfall.
+- Gzip-equivalent HTML is about 34–36 KB for country/capital/regional tools and 212 KB for city mode. The verifier budgets 120 KB per normal page and 250 KB for city mode. These cover HTML including serialized component data, not all JavaScript, fonts, images, or a network waterfall.
 - Browser acceptance covers generation, capacity, no repeats, guess/reveal, save/refresh, replay, visible copy/share feedback, dialog focus return, missing city coverage, and worksheet preview. See `implementation-progress.md` for exercised flows and adapter failure tests.
 - City-page controls have accessible labels; the keyboard-operated mobile menu opens with Enter, closes with Escape, and restores focus. The skip link moves focus to the main content. Phone, tablet, and desktop checks found no horizontal overflow; observed production logs contain no warnings/errors.
 - Nine semantic small-text color pairs meet 4.5:1 against the actual CSS palette using the WCAG contrast formula. This does not certify every composited, disabled, focus, or assistive-technology state. Standalone related-learning links have the shared 44px minimum touch height.

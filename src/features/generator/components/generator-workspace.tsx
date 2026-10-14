@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/notice";
@@ -27,19 +28,28 @@ import { Icon } from "@/components/ui/icon";
 import { createShareUrl } from "@/lib/share/url-state";
 import type { City, Continent, Country, Mode, Place } from "../types";
 
-export function GeneratorWorkspace({
-  countries,
-  mode,
-  example,
-  cities,
-  initialContinent,
-}: {
+type GeneratorWorkspaceProps = {
   countries: Country[];
   mode: Mode;
   example?: ReactNode;
   cities?: City[];
   initialContinent?: Continent;
-}) {
+};
+
+export function GeneratorWorkspace(props: GeneratorWorkspaceProps) {
+  const { bfcacheId } = useRouter();
+  // A fresh link visit should apply its preset again, even at the same URL.
+  // Back/Forward retains this Next-provided identity and the existing session.
+  return <GeneratorSession key={bfcacheId} {...props} />;
+}
+
+function GeneratorSession({
+  countries,
+  mode,
+  example,
+  cities,
+  initialContinent,
+}: GeneratorWorkspaceProps) {
   const { state, dispatch, byId, eligible, remaining, generate } = useGenerator(
     countries,
     mode,
@@ -61,6 +71,20 @@ export function GeneratorWorkspace({
   const [copied, setCopied] = useState("");
   const busy = useRef(false);
   const feedbackId = useRef(0);
+  const resultsHeading = useRef<HTMLHeadingElement>(null);
+  const focusReplay = useRef(false);
+  useEffect(() => {
+    if (!focusReplay.current) return;
+    focusReplay.current = false;
+    const heading = resultsHeading.current;
+    heading?.focus({ preventScroll: true });
+    heading?.scrollIntoView({
+      block: "start",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }, [state.revision]);
   useEffect(() => {
     if (!toast) return;
     const timer = window.setTimeout(() => setToast(null), 6000);
@@ -192,7 +216,12 @@ export function GeneratorWorkspace({
           className="min-w-0 lg:col-span-2"
         >
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <h2 id="results-title" className="text-card-title font-semibold">
+            <h2
+              id="results-title"
+              ref={resultsHeading}
+              tabIndex={-1}
+              className="scroll-mt-6 text-card-title font-semibold"
+            >
               Your results
             </h2>
             <p className="text-sm text-muted">
@@ -355,7 +384,10 @@ export function GeneratorWorkspace({
         history={state.saved.history}
         favorites={state.saved.favorites}
         hiddenIds={hiddenIds}
-        onReplay={(id) => dispatch({ type: "replay", ids: [id] })}
+        onReplay={(id) => {
+          focusReplay.current = true;
+          dispatch({ type: "replay", ids: [id] });
+        }}
         onRemoveFavorite={(id) => dispatch({ type: "favorite", id })}
         onClearHistory={() => dispatch({ type: "clear-history" })}
         onClearFavorites={() => dispatch({ type: "clear-favorites" })}

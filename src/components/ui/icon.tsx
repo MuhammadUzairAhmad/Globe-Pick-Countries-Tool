@@ -2,6 +2,7 @@ import type { ComponentProps, ReactNode } from "react";
 
 export type IconName =
   | "globe"
+  | "chevron-down"
   | "arrow"
   | "compass"
   | "book"
@@ -11,6 +12,7 @@ export type IconName =
   | "loading"
   | "info";
 const paths: Record<IconName, ReactNode> = {
+  "chevron-down": <path d="m6 9 6 6 6-6" />,
   globe: (
     <>
       <circle cx="12" cy="12" r="9" />

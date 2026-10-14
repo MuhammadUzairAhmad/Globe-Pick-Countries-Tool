@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useRef } from "react";
 import { generatorReducer, initialState } from "../lib/state";
 import {
   eligiblePlaces,
@@ -36,6 +36,10 @@ export function useGenerator(
     () => new Map(places.map((place) => [place.id, place])),
     [places],
   );
+  const initialized = useRef(false);
+  const restoredUrl = useRef("");
+  const activePath = useRef("");
+  const skipResumedWrite = useRef(false);
   useEffect(() => {
     const placeIds = new Set(byId.keys());
     const countryIds = new Set(countries.map((country) => country.id));
@@ -45,27 +49,48 @@ export function useGenerator(
       placeIds,
       countryIds,
     );
-    const shared = parseSharedUrl(
-      window.location.href,
-      mode,
-      placeIds,
-      countryIds,
-    );
-    dispatch({
-      type: "hydrate",
-      saved: {
-        ...saved.saved,
-        filters: filtersForRegion(saved.saved.filters, initialContinent),
-      },
-      warning: saved.warning,
-      shared: shared.ok ? shared.state : null,
-      message: !shared.ok
-        ? shared.message
-        : shared.state?.resultIds.length
-          ? "Opened a shared selection. These results don’t count as new picks."
-          : "",
-    });
+    const urlKey = () => window.location.pathname + window.location.search;
+    if (!initialized.current) {
+      initialized.current = true;
+      activePath.current = window.location.pathname;
+      restoredUrl.current = urlKey();
+      const shared = parseSharedUrl(
+        window.location.href,
+        mode,
+        placeIds,
+        countryIds,
+      );
+      dispatch({
+        type: "hydrate",
+        saved: {
+          ...saved.saved,
+          filters: filtersForRegion(saved.saved.filters, initialContinent),
+        },
+        warning: saved.warning,
+        shared: shared.ok ? shared.state : null,
+        message: !shared.ok
+          ? shared.message
+          : shared.state?.resultIds.length
+            ? "Opened a shared selection. These results don’t count as new picks."
+            : "",
+      });
+    } else {
+      skipResumedWrite.current = true;
+      // Activity restarts effects on Back. Keep the active batch, and retain
+      // working memory if storage is unavailable or cannot be read safely.
+      dispatch({
+        type: "resume",
+        saved: saved.warning ? undefined : saved.saved,
+        warning: saved.warning,
+      });
+    }
     function restoreUrl() {
+      // A popstate event also reaches the route being hidden. Only restore
+      // this workspace's URL, never another tool's incoming shared state.
+      if (window.location.pathname !== activePath.current) return;
+      const key = urlKey();
+      if (key === restoredUrl.current) return;
+      restoredUrl.current = key;
       const next = parseSharedUrl(
         window.location.href,
         mode,
@@ -80,10 +105,15 @@ export function useGenerator(
           filters: next.state.filters,
         });
     }
+    restoreUrl();
     window.addEventListener("popstate", restoreUrl);
     return () => window.removeEventListener("popstate", restoreUrl);
   }, [byId, countries, mode, initialContinent]);
   useEffect(() => {
+    if (skipResumedWrite.current) {
+      skipResumedWrite.current = false;
+      return;
+    }
     // Hydration never writes: only actual user changes set dirty. This also protects
     // saved data during Strict Mode's repeated mount effects.
     if (!state.hydrated || !state.dirty) return;
