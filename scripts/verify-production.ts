@@ -85,11 +85,25 @@ const assets = [
   "/licenses/cities-Natural-Earth.txt",
   "/social-preview.png",
   "/icon.svg",
+  "/packs/globepick-country-profile-a4.pdf",
+  "/packs/globepick-country-profile-letter.pdf",
+  "/packs/manifest.json",
+  "/licenses/worksheet-fonts-DejaVu.txt",
 ];
 for (const path of assets) {
   const response = await fetch(new URL(path, base));
   assert.equal(response.status, 200, `${path} must load`);
-  await response.arrayBuffer();
+  const body = Buffer.from(await response.arrayBuffer());
+  if (path.endsWith(".pdf")) {
+    assert.ok(
+      response.headers.get("content-type")?.includes("application/pdf"),
+    );
+    assert.deepEqual(
+      body,
+      readFileSync("public" + path),
+      "Served PDF differs from the reviewed download.",
+    );
+  }
 }
 const sitemap = await (await fetch(new URL("/sitemap.xml", base))).text();
 const entries = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(

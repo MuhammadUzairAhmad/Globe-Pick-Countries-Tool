@@ -3,6 +3,7 @@ import { ToolNavigation } from "@/components/layout/tool-navigation";
 import { Container } from "@/components/layout/container";
 import { PageIntro } from "@/components/layout/page-intro";
 import { DatasetExplanation } from "@/components/content/dataset-explanation";
+import { StarterPackDownloads } from "@/components/content/starter-pack-downloads";
 import { ProjectWorkspace } from "@/features/worksheets/project-workspace";
 import { countries } from "@/data/countries";
 import { pageMetadata } from "@/lib/seo/site";
@@ -21,6 +22,7 @@ export default function CountryProjectPage() {
       </div>
       <ToolNavigation current="/country-project-generator" />
       <ProjectWorkspace countries={countries} />
+      <StarterPackDownloads />
       <div className="mt-section max-w-reading print:hidden">
         <h2 className="text-section-title font-semibold">
           Make a classroom activity in three steps

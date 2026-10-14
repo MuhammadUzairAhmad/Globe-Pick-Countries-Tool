@@ -1,12 +1,13 @@
 # GlobePick
 
-A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6 and the local Phase 7 checks are implemented.
+A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6, local Phase 7 checks, and a Phase 8 starter pack are implemented. Public launch and real-usage experiments are pending.
 
 - Random country, capital/government-seat, and city/town selection with continent and searchable inclusion/exclusion filters.
 - Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
 - Facts, local flags, optional approximate map markers, and visible sources.
 - Capital guess/reveal, local history/favorites/settings, copy, and validated shareable replays.
 - Country project assignments with three reviewed question sets, optional teacher notes, and printable A4/US Letter worksheets.
+- Free four-page Japan/South Africa starter PDFs in A4 and US Letter, with teacher guidance, reference sources, and download checksums.
 - Pre-rendered introductions and samples, clean metadata, published-route registry, sitemap, robots, and 404/error handling.
 
 ## Develop
@@ -73,6 +74,10 @@ Before launch, add the maintainer's public identity and corrections contact, rev
 Open `/country-project-generator`. Choose a research topic, filter countries, and create 1–20 unique assignments. The existing random-selection engine and filter controls are shared with the country tool. Project assignments and repeat prevention live only in page memory; leaving or refreshing starts a new session. No student names or answers are stored.
 
 Preview and print use the same assignment objects. Select A4 or US Letter and optionally append teacher notes, then use Print worksheets to print or save through the browser. Use the matching paper size, standard scale, and disable browser headers/footers. Research-question review notes are in `docs/research-prompts.md`.
+
+## Starter packs
+
+The project page also offers two static PDF formats of a Japan/South Africa activity. Both reuse the existing country-profile questions, source notes, and teacher references. All eight PDF pages were rendered and visually checked. Build validation checks their source/question digest, download checksums, and shared palette; stale PDFs must be regenerated and reviewed. PDF authoring is offline and does not add a runtime package or backend. See `docs/growth-experiments.md` for regeneration and the experiments deferred until real usage.
 
 ## City data
 

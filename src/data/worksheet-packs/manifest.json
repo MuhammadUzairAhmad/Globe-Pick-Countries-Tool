@@ -1,0 +1,27 @@
+{
+  "id": "country-profile",
+  "reviewed": "2026-10-14",
+  "countryIds": ["JP", "ZA"],
+  "sourceSha256": "32a0b4a85aeb45d78aaac78531241a04f1ae7a0008ef3312e8ab0fe4574c4829",
+  "palette": {
+    "foreground": "#172033",
+    "muted": "#526174",
+    "brand": "#2563eb"
+  },
+  "files": [
+    {
+      "paper": "a4",
+      "path": "/packs/globepick-country-profile-a4.pdf",
+      "pages": 4,
+      "bytes": 56257,
+      "sha256": "6f83a5a2a673b97290efcb14e8e9423daca3f58912dfbb936ec616000fca7145"
+    },
+    {
+      "paper": "letter",
+      "path": "/packs/globepick-country-profile-letter.pdf",
+      "pages": 4,
+      "bytes": 56247,
+      "sha256": "97af08535739079f826a10aebf95c6778ad7e02923e77a3dd3544c5ae694a884"
+    }
+  ]
+}

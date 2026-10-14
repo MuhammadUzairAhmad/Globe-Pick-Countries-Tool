@@ -86,6 +86,15 @@ These are focused correctness and browser checks, not a full assistive-technolog
 - Keyboard checks confirm mobile menu operation and Escape focus return, skip-link focus, and accessible city control labels. Responsive layouts and production warning/error logs pass the focused checks.
 - `docs/launch-verification.md` records commands, observations, payload budgets, and remaining native printing, assistive-technology, representative mobile performance, deployment, and Search Console work. Local HTTP timings are not field Core Web Vitals.
 
+## Phase 8: local preparation
+
+- Added a free Japan/South Africa country-profile pack in A4 and US Letter to the project page. Each PDF has two student worksheets and two teacher sheets with questions from the existing model, dated reference facts, primary/community sources, and attribution.
+- Offline authoring produces static files; no browser PDF library, accounts, payments, advertisements, analytics, or new search route was introduced. DejaVu fonts are embedded with an attached/published notice.
+- Rendered and visually inspected all eight pages; checked page counts, exact paper boxes, extracted text, source links, and font attachments. Native printer output and PDF reading-order/tagging checks remain pending.
+- Added source/question and palette consistency checks plus downloadable-file digests to prebuild validation. Production HTTP verification includes both PDFs, their manifest, and the font notice, bringing sampled assets to sixteen.
+- Final production verification passes for thirteen pages, five genuine 404s, and sixteen assets, with byte-identical served PDFs. A browser click downloaded the A4 pack with its reviewed checksum. New download controls fit phone/tablet/desktop layouts, meet the shared touch height, and produce no observed warning/error logs. All 29 tests, data/artifact validation, lint, type checking, formatting, and compilation pass.
+- `docs/growth-experiments.md` records concrete hypotheses and decision boundaries. Real usage, Search Console observations, advertising approval, monetization decisions, optional challenges, and backend planning are deferred. This phase is prepared for experimentation, not validated by visitors.
+
 ## Remaining launch requirements
 
 The baseline is functional locally. Before public launch: provide the real operator identity and corrections contact, review hosting-specific privacy/terms, set the actual HTTPS deployment origin, complete broader accessibility/performance checks, and authorize deployment. Dataset facts follow a pinned community source with reviewed exceptions; the About page and manifest disclose that this is not an independent audit of every field. Deployment/Search Console and real-usage growth experiments remain pending.

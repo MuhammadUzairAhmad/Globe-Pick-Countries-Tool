@@ -46,7 +46,7 @@ Named A4 and Letter `@page` rules supply 10mm margins. All worksheet styling use
 
 ## Routes and SEO
 
-`src/lib/seo/site.ts` is the registry for metadata, navigation, and sitemap generation. Both working tools are published in that registry; home remains a distinct hub. Canonicals use base routes, including shared query variants. Only three regional and two country-guide slugs are published; lookup guards send unknown slugs to actual 404 responses.
+`src/lib/seo/site.ts` is the registry for metadata, navigation, and sitemap generation. All working tools are published in that registry; home remains a distinct hub. Canonicals use base routes, including shared query variants. Only three regional and two country-guide slugs are published; lookup guards send unknown slugs to actual 404 responses.
 
 Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin and rebuild for deployment. Missing configuration uses localhost for local previews, marks every page noindex, and emits an empty sitemap without a robots sitemap declaration. Robots permits crawling so page-level noindex is visible. A configured public origin produces only the thirteen published pages, never query combinations. Social previews stay tool-level.
 
@@ -65,3 +65,9 @@ City mode extends the Place discriminated union and reuses selection, filters, c
 Five reviewed routes share the page registry. Africa/Asia/Europe reuse the same workspace and initialize its reducer with the region; hydration clears stale inclusion/exclusion filters for that landing page without resetting saved history, favorites, or consumed IDs. Clear filters restores the preset. Share URLs open the main generator with a versioned region/result state. Japan and South Africa guides contain original research activities and checked capital context, with dated dataset tables and primary links. Only five explicit static route files are published. Cache Components forbids dynamicParams, and streamed unknown dynamic routes returned HTTP 200 during testing; explicit routes ensure real root 404 responses. Shared content lookups retain defensive notFound guards.
 
 Native JSON-LD scripts escape `<`. Visible breadcrumbs produce BreadcrumbList data; picker pages produce accurate free WebApplication data. Related links are crawlable, while sitemap URLs contain neither queries nor unpublished permutations. Search research is qualitative; no search volume, rankings, or Search Console observations are invented.
+
+## Starter packs and verification
+
+The project page links two static four-page starter PDFs; files are loaded only when requested. The offline TypeScript exporter creates normalized content through the same assignment/reference model. A Python authoring script lays it out with embedded DejaVu fonts, source links, and an attached font notice. A4 and Letter artifacts are rendered and reviewed before publication. Build-time checks compare model/palette/digests with the reviewed artifacts, preventing stale question/reference exports from silently shipping. PDF authoring is neither a browser dependency nor a runtime backend.
+
+The production verifier reads the existing published registry and checks initial HTML, metadata, canonicals/indexing, schemas, genuine 404s, sampled assets, exact served PDF bytes, and HTML payload budgets. The configuration check uses the installed Next environment loader and records missing public launch details. It does not modify visible operator/policy content or authorize deployment. See `launch-verification.md` and `growth-experiments.md` for the remaining device, hosting, and real-usage gates.
