@@ -23,9 +23,21 @@ test("semantic body, link, badge and button colors retain small-text contrast", 
     ...lightColors,
     ...palette(css.match(/:root\[data-theme="dark"\]\s*\{([^}]+)\}/)![1]),
   };
+  const previewBase = palette(
+    css.match(/\[data-preview-theme\]\s*\{([^}]+)\}/)![1],
+  );
+  const previewColors = Object.fromEntries(
+    [...css.matchAll(/\[data-preview-theme="([a-z]+)"\]\s*\{([^}]+)\}/g)].map(
+      ([, name, source]) => [
+        name,
+        { ...darkColors, ...previewBase, ...palette(source) },
+      ],
+    ),
+  );
   for (const [theme, colors] of Object.entries({
     light: lightColors,
     dark: darkColors,
+    ...previewColors,
   })) {
     for (const [foreground, background] of [
       ["foreground", "page"],

@@ -39,4 +39,10 @@ Dark palette overrides apply only to screen media. Printed worksheets use the li
 
 Theme tests cover system/saved preferences, startup, tab synchronization, and storage failures. Contrast tests check twelve semantic text/background pairs in each palette. Browser checks cover responsive layout, rendered controls/dialogs, and paper previews; native printer and assistive-technology checks remain part of launch verification.
 
+## Dark palette studio
+
+Open `/theme-showcase` to compare Forest, Moss, Lagoon, Graphite, Plum, and Espresso. The route is excluded from public navigation and the sitemap and always has noindex metadata. Each palette is scoped with `data-preview-theme` inside the page; switching previews does not write the saved site theme or generator data. Shared country cards, fields, buttons, and atlas artwork demonstrate the palette with Japan, South Africa, and Brazil. Preview country/fact/save controls use page memory only.
+
+Palette tokens remain in `globals.css`; the studio uses inline Tailwind for its layout and states. Contrast checks cover all six preview palettes alongside the existing light/dark colors. A final site palette can be chosen after comparing these options.
+
 References: [Tailwind theme variables](https://tailwindcss.com/docs/theme), [base styles](https://tailwindcss.com/docs/adding-custom-styles), and [manual dark mode](https://tailwindcss.com/docs/dark-mode). The installed Next.js guide is `node_modules/next/dist/docs/01-app/02-guides/preventing-flash-before-hydration.md`.

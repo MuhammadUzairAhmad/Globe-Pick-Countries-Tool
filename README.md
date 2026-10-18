@@ -22,6 +22,8 @@ npm run dev
 
 Open [localhost:3000](http://localhost:3000). The app needs no runtime geography service or backend.
 
+For local design review, `/theme-showcase` compares six dark palettes with live component previews. It keeps the saved site theme unchanged and is excluded from public navigation, the sitemap, and search indexing.
+
 ## Check
 
 ```bash
