@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field } from "@/components/ui/field";
 import { Notice } from "@/components/ui/notice";
-import { CountryChoices } from "@/features/generator/components/country-choices";
 import { PlaceResultCard } from "@/features/generator/components/place-result-card";
 import { ResultActions } from "@/features/generator/components/result-actions";
 import { useGenerator } from "@/features/generator/hooks/use-generator";
@@ -24,6 +23,7 @@ import { SavedPlaces } from "@/features/saved-places/saved-places";
 import { useCountryWheel } from "../hooks/use-country-wheel";
 import { spinSnapshot } from "../lib/wheel";
 import { CountryWheel } from "./country-wheel";
+import { AvailableCountries } from "./available-countries";
 
 type Props = { countries: Country[] };
 
@@ -33,19 +33,24 @@ export function HomepageSpinner(props: Props) {
 }
 
 function SpinnerSession({ countries }: Props) {
-  const { state, dispatch, byId, eligible, remaining, generate } = useGenerator(
-    countries,
-    "country",
-    undefined,
-    { singlePick: true },
-  );
+  const {
+    state,
+    dispatch,
+    byId,
+    eligible,
+    remaining,
+    generate,
+    selectionFilters: filters,
+  } = useGenerator(countries, "country", undefined, {
+    singlePick: true,
+    ignoreCountryChoices: true,
+  });
   const { wheel, element, start, skip, reset } = useCountryWheel();
   const { copy, share, pending, copied, feedback } =
     useResultFeedback("country");
   const [resultFilters, setResultFilters] = useState<Filters | null>(null);
   const spinButton = useRef<HTMLButtonElement>(null);
   const id = useId();
-  const filters = state.saved.filters;
   const spinning = Boolean(wheel?.spinning);
   const busy = spinning || Boolean(pending);
   const ready = state.hydrated;
@@ -55,12 +60,17 @@ function SpinnerSession({ countries }: Props) {
       : undefined;
   const shownPool = wheel?.snapshot.pool ?? remaining;
 
-  function changeFilters(value: Filters) {
+  function changeFilters(
+    value: Partial<Pick<Filters, "continent" | "noRepeat">>,
+  ) {
     reset();
-    dispatch({ type: "filters", filters: value });
+    dispatch({
+      type: "filters",
+      filters: { ...state.saved.filters, ...value },
+    });
     dispatch({
       type: "message",
-      message: "Country choices updated.",
+      message: "Spinner settings updated.",
     });
   }
 
@@ -85,7 +95,8 @@ function SpinnerSession({ countries }: Props) {
       <div className="mb-7 max-w-reading">
         <h2>Spin a random country</h2>
         <p className="mt-3 text-muted">
-          Choose a continent, adjust your country pool, and spin to make a pick.
+          Choose a continent and spin. Every available country has an equal
+          chance.
         </p>
       </div>
       <div className="grid gap-5 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
@@ -98,7 +109,6 @@ function SpinnerSession({ countries }: Props) {
                 value={filters.continent}
                 onChange={(event) =>
                   changeFilters({
-                    ...filters,
                     continent: event.target.value as Filters["continent"],
                   })
                 }
@@ -115,7 +125,7 @@ function SpinnerSession({ countries }: Props) {
                 type="checkbox"
                 checked={filters.noRepeat}
                 onChange={(event) =>
-                  changeFilters({ ...filters, noRepeat: event.target.checked })
+                  changeFilters({ noRepeat: event.target.checked })
                 }
                 className="size-5 accent-brand"
               />
@@ -123,15 +133,8 @@ function SpinnerSession({ countries }: Props) {
             </label>
             <p className="mt-2 text-sm text-muted">
               {ready
-                ? `${remaining.length} of ${eligible.length} matching countries available`
+                ? `${spinning ? shownPool.length : remaining.length} of ${eligible.length} matching countries available`
                 : "Restoring your country choices…"}
-            </p>
-            <p className="mt-1 text-xs text-muted">
-              {filters.continent === "all"
-                ? "All continents"
-                : filters.continent}{" "}
-              · {filters.include.length} included · {filters.exclude.length}{" "}
-              excluded
             </p>
             {ready && !remaining.length && (
               <div className="mt-3">
@@ -144,53 +147,28 @@ function SpinnerSession({ countries }: Props) {
                 >
                   {eligible.length
                     ? "Reset picked places, allow repeats, or change your filters to spin again."
-                    : "Try another continent or clear your country choices."}
+                    : "Try another continent or allow repeats."}
                 </Notice>
               </div>
             )}
-            <CountryChoices
-              countries={countries}
-              value={filters}
-              onChange={changeFilters}
+            <AvailableCountries
+              key={`${filters.continent}:${filters.noRepeat}`}
+              places={spinning ? shownPool : remaining}
+              ready={ready}
+              spinning={spinning}
             />
-            <details>
-              <summary className="min-h-touch cursor-pointer py-2 text-sm font-semibold text-brand">
-                Countries in the next spin ({remaining.length})
-              </summary>
-              {spinning ? (
-                <p className="py-2 text-sm text-muted">
-                  The next pool will be ready when this spin ends.
-                </p>
-              ) : remaining.length ? (
-                <ul
-                  aria-label="Available countries"
-                  tabIndex={0}
-                  className="max-h-48 overflow-y-auto overscroll-contain rounded-control border border-border p-3 text-sm text-muted sm:columns-2"
-                >
-                  {remaining.map((place) => (
-                    <li key={place.id} className="py-1">
-                      {place.country.name}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="py-2 text-sm text-muted">
-                  No countries are available with these choices.
-                </p>
-              )}
-            </details>
             <div className="flex flex-wrap gap-x-4">
               <button
                 type="button"
                 className="min-h-touch text-sm font-medium text-brand"
                 onClick={() =>
                   changeFilters({
-                    ...defaultFilters,
-                    quantity: filters.quantity,
+                    continent: defaultFilters.continent,
+                    noRepeat: defaultFilters.noRepeat,
                   })
                 }
               >
-                Clear filters
+                Reset settings
               </button>
               <button
                 type="button"

@@ -6,6 +6,7 @@ import {
   eligiblePlaces,
   placesForMode,
   filtersForRegion,
+  filtersWithoutCountryChoices,
 } from "../lib/selection";
 import { readSavedState, writeSavedState } from "@/lib/storage/saved-state";
 import { parseSharedUrl } from "@/lib/share/url-state";
@@ -20,7 +21,12 @@ export function useGenerator(
   {
     initialContinent,
     singlePick = false,
-  }: { initialContinent?: Continent; singlePick?: boolean } = {},
+    ignoreCountryChoices = false,
+  }: {
+    initialContinent?: Continent;
+    singlePick?: boolean;
+    ignoreCountryChoices?: boolean;
+  } = {},
 ) {
   const [state, dispatch] = useReducer(generatorReducer, undefined, () => {
     const initial = initialState();
@@ -85,6 +91,7 @@ export function useGenerator(
         saved: saved.warning ? undefined : saved.saved,
         warning: saved.warning,
         syncQuantity: singlePick,
+        syncCountryChoices: ignoreCountryChoices,
       });
     }
     function restoreUrl() {
@@ -111,7 +118,14 @@ export function useGenerator(
     restoreUrl();
     window.addEventListener("popstate", restoreUrl);
     return () => window.removeEventListener("popstate", restoreUrl);
-  }, [byId, countries, mode, initialContinent, singlePick]);
+  }, [
+    byId,
+    countries,
+    mode,
+    initialContinent,
+    singlePick,
+    ignoreCountryChoices,
+  ]);
   useEffect(() => {
     if (skipResumedWrite.current) {
       skipResumedWrite.current = false;
@@ -127,13 +141,18 @@ export function useGenerator(
     );
     dispatch({ type: "storage-warning", warning });
   }, [state.saved, state.hydrated, state.dirty, mode]);
+  // Keep the full tool's saved custom choices intact while the spinner draws
+  // from every country in the selected continent.
+  const selectionFilters = ignoreCountryChoices
+    ? filtersWithoutCountryChoices(state.saved.filters)
+    : state.saved.filters;
   const eligible = eligiblePlaces(places, {
-    ...state.saved.filters,
+    ...selectionFilters,
     noRepeat: false,
   });
   const remaining = eligiblePlaces(
     places,
-    state.saved.filters,
+    selectionFilters,
     state.saved.consumed,
   );
   function generate(
@@ -145,7 +164,7 @@ export function useGenerator(
         remaining,
         quantity,
         mode,
-        state.saved.filters.guess,
+        selectionFilters.guess,
       );
       if (!generation.ok) {
         dispatch({ type: "message", message: generation.message });
@@ -161,5 +180,14 @@ export function useGenerator(
       });
     }
   }
-  return { state, dispatch, places, byId, eligible, remaining, generate };
+  return {
+    state,
+    dispatch,
+    places,
+    byId,
+    eligible,
+    remaining,
+    generate,
+    selectionFilters,
+  };
 }

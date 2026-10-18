@@ -38,6 +38,7 @@ export type Action =
       saved?: SavedState;
       warning: string;
       syncQuantity?: boolean;
+      syncCountryChoices?: boolean;
     }
   | { type: "generated"; ids: string[]; at: number; message: string }
   | { type: "replay"; ids: string[]; filters?: Filters }
@@ -89,12 +90,21 @@ export function generatorReducer(
         saved: action.saved
           ? {
               ...state.saved,
-              filters: action.syncQuantity
-                ? {
-                    ...state.saved.filters,
-                    quantity: action.saved.filters.quantity,
-                  }
-                : state.saved.filters,
+              filters:
+                action.syncQuantity || action.syncCountryChoices
+                  ? {
+                      ...state.saved.filters,
+                      ...(action.syncQuantity
+                        ? { quantity: action.saved.filters.quantity }
+                        : {}),
+                      ...(action.syncCountryChoices
+                        ? {
+                            include: action.saved.filters.include,
+                            exclude: action.saved.filters.exclude,
+                          }
+                        : {}),
+                    }
+                  : state.saved.filters,
               consumed: action.saved.consumed,
               history: action.saved.history,
               favorites: action.saved.favorites,

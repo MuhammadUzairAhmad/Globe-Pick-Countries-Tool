@@ -12,7 +12,7 @@ This extends [the main implementation plan](GlobePick-Nextjs-SEO-First-Plan.md).
 A visitor can open the homepage, spin the wheel, and learn about the selected country without navigating to another page.
 
 1. Choose a continent or keep all continents.
-2. Optionally include/exclude countries and keep previous picks excluded.
+2. Keep previous picks excluded if desired. The spinner uses every country in the selected continent; custom include/exclude choices remain exclusive to the full generator.
 3. Select **Spin a country**.
 4. The wheel lands on the selected country and displays its flag and name.
 5. Read the existing country facts and map/source details, save a favorite, copy, share, or spin again.
@@ -29,15 +29,15 @@ One spin selects one country. The existing country tool continues to offer batch
 
 Updated to follow the owner’s layout revision: restore the original hero, including its atlas panel, wording, and links. Place the interactive spinner in its own section immediately after the hero. Keep learning content and links to other tools below it.
 
-| Area           | Proposed behavior                                                                                                                           |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Desktop        | Settings and filters on the left; wheel and Spin button on the right. Show the last result immediately below these panels.                  |
-| Phone/tablet   | Keep the original hero above the feature. Stack settings above the wheel on phones; use the two-panel layout from tablet widths.            |
-| Primary action | One prominent Spin button in the right-hand wheel panel. Restore the original hero links to the existing full tools.                        |
-| Quick controls | Continent, no-repeat checkbox, available-country count, and an expandable country-choice section.                                           |
-| Active filters | Show the selected continent and included/excluded counts even when country choices are collapsed. Never apply invisible saved restrictions. |
-| Result         | Reuse the existing country card, flag, facts, optional map, source details, and Save/Copy/Share controls.                                   |
-| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                                       |
+| Area           | Proposed behavior                                                                                                                   |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Desktop        | Settings and filters on the left; wheel and Spin button on the right. Show the last result immediately below these panels.          |
+| Phone/tablet   | Keep the original hero above the feature. Stack settings above the wheel on phones; use the two-panel layout from tablet widths.    |
+| Primary action | One prominent Spin button in the right-hand wheel panel. Restore the original hero links to the existing full tools.                |
+| Quick controls | Continent, no-repeat checkbox, and available-country count. No include/exclude controls in the spinner.                             |
+| Active filters | Show the continent and no-repeat setting. Ignore saved custom include/exclude restrictions while preserving them for the full tool. |
+| Result         | Reuse the existing country card, flag, facts, optional map, source details, and Save/Copy/Share controls.                           |
+| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                               |
 
 The original hero occupies the first part of the page, with the spinner section following in normal scroll order. Keep settings and actions at the shared touch size on phones, including 375 × 812. Avoid automatic result dialogs or forced scrolling after every spin: show the winner beside/below the wheel and offer a **View details** anchor if needed.
 
@@ -45,18 +45,18 @@ The original hero occupies the first part of the page, with the spinner section 
 
 The wheel must use the existing generator as its source of truth.
 
-| Existing code                                   | Reuse or small extension                                                                                                                                                                  |
-| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/features/generator/lib/selection.ts`       | Reuse `placesForMode`, `eligiblePlaces`, `selectPlaces`, and the crypto random adapter.                                                                                                   |
-| `src/features/generator/hooks/use-generator.ts` | Reuse hydration, generation, warnings, persistence, and route-reactivation handling. Extend generation to return the successful selection to its caller while retaining existing callers. |
-| `src/features/generator/lib/state.ts`           | Reuse the existing generated/favorite/replay/reset actions. A spin records one generated country.                                                                                         |
-| `src/lib/storage/saved-state.ts`                | Use the existing `globepick:v1:country` record, history, favorites, and consumed pool. Do not create a separate spinner history or repeat pool.                                           |
-| `src/lib/share`                                 | Reuse validated links, clipboard/device-share fallbacks, dialogs, and visible feedback.                                                                                                   |
-| Generator UI components                         | Reuse country cards, result actions, saved lists, Field/Button/Card primitives, and appropriate country-choice controls.                                                                  |
+| Existing code                                   | Reuse or small extension                                                                                                                                                                                                                        |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/features/generator/lib/selection.ts`       | Reuse `placesForMode`, `eligiblePlaces`, `selectPlaces`, and the crypto random adapter.                                                                                                                                                         |
+| `src/features/generator/hooks/use-generator.ts` | Reuse hydration, generation, warnings, persistence, and route-reactivation handling; use effective filters without custom country choices. Extend generation to return the successful selection to its caller while retaining existing callers. |
+| `src/features/generator/lib/state.ts`           | Reuse the existing generated/favorite/replay/reset actions. A spin records one generated country.                                                                                                                                               |
+| `src/lib/storage/saved-state.ts`                | Use the existing `globepick:v1:country` record, history, favorites, and consumed pool. Do not create a separate spinner history or repeat pool.                                                                                                 |
+| `src/lib/share`                                 | Reuse validated links, clipboard/device-share fallbacks, dialogs, and visible feedback.                                                                                                                                                         |
+| Generator UI components                         | Reuse country cards, result actions, saved lists, and Field/Button/Card primitives. Keep custom country-choice controls in the full generators.                                                                                                 |
 
 ### Required behavior
 
-- Restore saved country filters and show their active summary. Loading storage must never erase the existing record. Keep Spin disabled until hydration finishes.
+- Restore continent/no-repeat settings, and show the complete available pool. Ignore the full tool’s saved include/exclude choices without erasing them. Loading storage must never erase the existing record. Keep Spin disabled until hydration finishes.
 - Draw with an explicit count of one. Do not overwrite the full tool's saved batch quantity just because the visitor used the spinner.
 - A successful Spin selects and records its country once at the start. Animation completion, skipping, or failure must never generate or record a second country. Leaving during a spin still counts that accepted pick, consistent with the existing Generate action.
 - Keep all existing no-repeat semantics: filter changes and clearing history do not reset consumption; the explicit pool reset does. Enabling repeats permits earlier picks, while subsequent no-repeat mode still remembers generated IDs.
@@ -70,7 +70,7 @@ The wheel must use the existing generator as its source of truth.
 ### Real pool, readable presentation
 
 - Render an original SVG wheel with equal-size sectors for the available countries, in a stable order, and a fixed pointer.
-- For pools of up to 24 countries, show short readable country labels where they fit. For larger pools, keep the sectors but omit cramped labels; show the pool count and provide the country-choice/list disclosure. Always display the final winner in normal readable text.
+- For pools of up to 24 countries, show short readable country labels where they fit. For larger pools, keep the sectors but omit cramped labels; show the pool count and provide the always-visible flag list with eight-country pages and Previous/Next navigation. Always display the final winner in normal readable text.
 - Handle zero countries with an explanatory empty/exhausted state. Handle one country with a full-circle sector and an immediate or minimal-motion result.
 - Use local country flags only for the selected result; do not load 195 flag images for wheel sectors.
 
@@ -96,7 +96,7 @@ The animation illustrates an existing uniform choice; it does not calculate a se
 - Keep semantic theme values in `src/app/globals.css`; use inline Tailwind for layout, responsive behavior, hover/focus, and selected states. Add shared wheel color tokens only if the existing palette roles are insufficient.
 - Match Lagoon's teal surfaces, sea-glass accent, borders, typography, and shared buttons. Verify light mode as well.
 - Use a native button with a visible busy label such as **Spinning…**. Support Enter/Space and retain keyboard focus. If Show result now disappears after activation, return focus to Spin. Announce the result once through the existing live-status pattern after settling.
-- Make the decorative SVG hidden from assistive technology. Provide the country pool, result, errors, and controls as ordinary labeled HTML. Country names and states must not rely on color.
+- Make the decorative SVG hidden from assistive technology. Provide the country pool, result, errors, and controls as ordinary labeled HTML. Country names and states must not rely on color. Keep the country list open with local flags, page/range counts, disabled boundary buttons, and no inner scrollbar. Pagination must never constrain the draw pool.
 - Honor the system's reduced-motion setting, including a preference change during an active spin. The same chosen country appears without the rotation. [MDN reduced-motion reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
 - Keep the homepage a Server Component. Introduce a focused client spinner boundary; do not move the entire homepage or root layout to the client.
 - Pre-render a stable wheel/loading frame without choosing a random country during render. Reserve its dimensions to avoid layout shifts while storage hydrates.

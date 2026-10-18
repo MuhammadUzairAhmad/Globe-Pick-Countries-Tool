@@ -10,6 +10,10 @@ export const defaultFilters: Filters = {
   guess: false,
 };
 
+export function filtersWithoutCountryChoices(filters: Filters): Filters {
+  return { ...filters, include: [], exclude: [] };
+}
+
 export function filtersForRegion(
   filters: Filters,
   continent?: Continent,

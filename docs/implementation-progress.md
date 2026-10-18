@@ -134,3 +134,12 @@ The baseline is functional locally. Before public launch: provide the real opera
 - Moved the spinner directly below the hero in its own section. Tablet and desktop layouts put settings/filters on the left and the wheel and Spin button on the right; phones stack those panels. Results and saved lists remain below the panels.
 - Selection, persistence, share snapshots, animation/skip behavior, and existing tool routes are unchanged.
 - Verification: 43 tests, lint, production build/TypeScript, all thirteen published routes, five real 404s, and sixteen assets pass. Browser checks confirm the original hero precedes the feature, tablet/desktop columns, phone stacking, both themes, filter/spin/skip behavior, and no observed warning/error logs.
+
+## Spinner pool simplification and flag pages
+
+- Removed include/exclude controls and counts from the spinner. Its continent and no-repeat settings operate on every country in the selected continent; custom selections in the full tool do not restrict spinner draws or shares.
+- Preserved the full tool’s stored custom choices and batch quantity when saving spinner changes. Cached Home reactivation refreshes those stored fields so it does not overwrite newer choices from the full tool.
+- Replaced the collapsed, internally scrolling pool list with an always-open list of local flags and country names, eight per page, Previous/Next navigation, and visible page/range counts. Pagination only changes the displayed rows; every available country can win.
+- The list resets for continent/no-repeat changes, clamps to a valid page as the pool shrinks, and keeps the accepted pool visible during motion so the winner is revealed at settlement.
+- Four new tests cover effective filters and unchanged custom settings, cached state, page coverage/off-page eligibility, and empty/shrinking page bounds. All 47 tests pass.
+- Production build/TypeScript, lint, formatting, the thirteen-page HTTP audit, five real 404s, and sixteen assets pass. Browser checks confirm flag loading, keyboard/page boundaries, filter reset, unchanged full-tool custom choices/quantity, clean share snapshots, and responsive Lagoon/light layouts without observed console warnings/errors.
