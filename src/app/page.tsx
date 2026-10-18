@@ -64,8 +64,8 @@ export default function Home() {
             how many capitals you remember.
           </p>
           <p className="mt-4 max-w-reading text-base text-muted">
-            Filter by continent, pick several places at once, and save the ones
-            you want to learn more about.
+            Spin for a country or city, explore its facts and map, and save
+            places you want to revisit.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <ButtonLink href="#country-spinner">
@@ -107,14 +107,14 @@ export default function Home() {
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-brand">
-              A simple toolkit
+              More geography tools
             </p>
             <h2 id="building-title" className="mt-3 tracking-tight">
-              What would you like to pick?
+              Need a list, a quiz, or a worksheet?
             </h2>
           </div>
           <p className="text-sm text-muted">
-            Explore countries, practice capitals, or make a worksheet.
+            Pick several places, practice capitals, or plan a class activity.
           </p>
         </div>
         <div className="mt-7 grid gap-5 md:grid-cols-2">
@@ -126,12 +126,16 @@ export default function Home() {
             </div>
             <h3 className="mt-5">Random country generator</h3>
             <p className="mt-3 text-muted">
-              Get one country or a set of up to 20. Choose a continent, leave
-              out countries you don’t want, and keep repeats off for a fresh
-              pick each time.
+              Pick up to 20 countries at once for a game or project. Filter by
+              continent, include specific countries or leave some out, then copy
+              or share the results.
             </p>
-            <ButtonLink href="/random-country-generator" className="mt-5">
-              Pick a country
+            <ButtonLink
+              href="/random-country-generator"
+              variant="secondary"
+              className="mt-5"
+            >
+              Pick multiple countries
             </ButtonLink>
           </Card>
           <Card>
@@ -159,9 +163,9 @@ export default function Home() {
             </span>
             <h3 className="mt-5">Random city generator</h3>
             <p className="mt-3 text-muted">
-              Choose a country and discover a city or town to locate on a map.
-              Clear country and region labels help you tell places with the same
-              name apart.
+              Pick up to 20 cities and towns from one country, a continent, or
+              across the world. Include or leave out countries to shape your
+              list, with a map and location details for each result.
             </p>
             <ButtonLink
               href="/random-city-generator"
@@ -169,7 +173,7 @@ export default function Home() {
               variant="secondary"
               className="mt-5"
             >
-              Pick a city
+              Pick multiple cities
             </ButtonLink>
           </Card>
           <Card>

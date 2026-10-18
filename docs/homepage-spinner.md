@@ -18,6 +18,14 @@ The wheel uses equal SVG sectors. Small pools have labels; dense pools use a res
 
 The modal places a larger local flag and country heading above the shared capital/language/currency facts in tiles. It reuses the existing source/map disclosure and Save/Copy/Share controls without a nested result-card border or duplicate country heading. Spin again remains the primary footer action; native modal focus and dismissal behavior are retained.
 
+The homepage presents the wheel as its primary action. A secondary link directly
+below the wheel opens the country or city generator for the active tab, where
+users can select up to 20 results and use the full filters. The city link disables
+prefetching so it does not load city records before they are requested. The tool
+cards below the spinner use “Pick multiple countries” and “Pick multiple cities”
+to distinguish these workflows from a single spin; capital practice and worksheets
+remain separate tools.
+
 ## Automated checks
 
 - 54 tests pass, including every landing sector in pools of 1, 2, 3, 24, 25, 195, and 769 across successive rotations.

@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field } from "@/components/ui/field";
@@ -204,6 +205,16 @@ export function SpinnerWorkspace({ countries, cities, ...controls }: Props) {
               View last {noun}
             </button>
           ) : null}
+          <Link
+            href={
+              isCity ? "/random-city-generator" : "/random-country-generator"
+            }
+            prefetch={isCity ? false : undefined}
+            className="mt-3 inline-flex min-h-touch items-center justify-center gap-2 border-t border-border pt-3 text-center text-sm font-medium text-brand underline underline-offset-4 hover:text-brand-strong"
+          >
+            Need multiple results or more filters?
+            <Icon name="arrow" className="size-4 shrink-0" />
+          </Link>
         </Card>
         <Card className="min-w-0 xl:order-first">
           <h3 className="text-card-title">Spin settings</h3>
