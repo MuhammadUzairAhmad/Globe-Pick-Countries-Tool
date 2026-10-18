@@ -17,7 +17,7 @@ export function CountryWheel({
   return (
     <div
       aria-hidden="true"
-      className="relative mx-auto size-60 sm:size-72 lg:size-80"
+      className="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md xl:max-w-xl"
     >
       <div
         ref={wheelRef}
@@ -84,14 +84,18 @@ export function CountryWheel({
         </svg>
       </div>
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div className="flex size-20 flex-col items-center justify-center rounded-full border-4 border-surface bg-page shadow-card">
-          <span className="text-xl font-semibold text-brand">G</span>
-          <span className="text-[9px] font-medium text-muted">GlobePick</span>
+        <div className="flex size-16 flex-col items-center justify-center rounded-full border-4 border-surface bg-page shadow-card sm:size-24 xl:size-28">
+          <span className="text-xl font-semibold text-brand sm:text-2xl xl:text-3xl">
+            G
+          </span>
+          <span className="text-[8px] font-medium text-muted sm:text-[10px] xl:text-xs">
+            GlobePick
+          </span>
         </div>
       </div>
       <svg
         viewBox="0 0 30 34"
-        className="absolute -top-1 left-1/2 h-8 w-7 -translate-x-1/2 fill-brand stroke-surface"
+        className="absolute -top-1 left-1/2 h-8 w-7 -translate-x-1/2 fill-brand stroke-surface sm:h-10 sm:w-9 xl:h-12 xl:w-10"
         strokeWidth="2"
       >
         <path d="M2 2H28L15 31Z" />

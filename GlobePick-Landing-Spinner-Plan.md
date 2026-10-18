@@ -29,15 +29,15 @@ One spin selects one country. The existing country tool continues to offer batch
 
 Updated to follow the owner’s layout revision: restore the original hero, including its atlas panel, wording, and links. Place the interactive spinner in its own section immediately after the hero. Keep learning content and links to other tools below it.
 
-| Area           | Proposed behavior                                                                                                                         |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Desktop        | Settings and filters on the left; wheel and Spin button on the right. Open the selected country in a modal above the page.                |
-| Phone/tablet   | Keep the original hero above the feature. Stack settings above the wheel on phones; use the two-panel layout from tablet widths.          |
-| Primary action | One prominent Spin button in the right-hand wheel panel. Restore the original hero links to the existing full tools.                      |
-| Quick controls | Continent, no-repeat checkbox, and available-country count. No include/exclude controls in the spinner.                                   |
-| Active filters | Show the continent and no-repeat setting. Ignore saved custom include/exclude restrictions while preserving them for the full tool.       |
-| Result         | Show the existing country card, flag, facts, map/source details, and Save/Copy/Share in a result modal with Back to wheel and Spin again. |
-| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                                     |
+| Area           | Proposed behavior                                                                                                                               |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Desktop        | From 1280px, settings and filters on the left; a larger, width-fitting wheel and Spin button on the right. Open the result in a modal.          |
+| Phone/tablet   | Keep the original hero above the feature. Below 1280px, use a flex column with the wheel first and settings below, including landscape tablets. |
+| Primary action | One prominent Spin button in the right-hand wheel panel. Restore the original hero links to the existing full tools.                            |
+| Quick controls | Continent, no-repeat checkbox, and available-country count. No include/exclude controls in the spinner.                                         |
+| Active filters | Show the continent and no-repeat setting. Ignore saved custom include/exclude restrictions while preserving them for the full tool.             |
+| Result         | Show the existing country card, flag, facts, map/source details, and Save/Copy/Share in a result modal with Back to wheel and Spin again.       |
+| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                                           |
 
 The original hero occupies the first part of the page, with the spinner section following in normal scroll order. Keep settings and actions at the shared touch size on phones, including 375 × 812. Following the owner’s later request, open a result modal automatically when the accepted spin settles. Keep the page scroll position; provide Close/Escape, Back to wheel, Spin again, and View last country.
 

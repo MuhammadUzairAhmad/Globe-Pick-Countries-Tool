@@ -119,8 +119,68 @@ function SpinnerSession({ countries }: Props) {
           chance.
         </p>
       </div>
-      <div className="grid gap-5 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-        <Card className="min-w-0">
+      <div className="flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <Card className="flex min-w-0 flex-col">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+            <h3 className="text-card-title">Country wheel</h3>
+            <span className="text-xs text-muted">One country per spin</span>
+          </div>
+          <CountryWheel
+            pool={shownPool}
+            rotation={wheel?.rotation ?? 0}
+            wheelRef={element}
+          />
+          <Button
+            ref={spinButton}
+            className="mt-3 w-full"
+            onClick={spin}
+            disabled={!ready || Boolean(pending)}
+            aria-disabled={spinning || !remaining.length}
+            aria-busy={spinning}
+          >
+            {spinning ? "Spinning…" : "Spin a country"}
+          </Button>
+          <p
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            className="mt-3 min-h-6 text-center text-sm text-muted"
+          >
+            {spinning
+              ? "Spinning…"
+              : state.message ||
+                (ready
+                  ? "Every available country has an equal chance."
+                  : "Loading your saved settings…")}
+          </p>
+          {spinning ? (
+            <Button
+              variant="secondary"
+              className="mt-2 w-full"
+              onClick={() => {
+                skip();
+                spinButton.current?.focus();
+              }}
+            >
+              Show result now
+            </Button>
+          ) : result ? (
+            <button
+              type="button"
+              aria-haspopup="dialog"
+              onClick={() =>
+                setResultView({
+                  dismissedRevision: state.revision,
+                  reopen: true,
+                })
+              }
+              className="flex min-h-touch items-center justify-center text-sm font-semibold text-brand underline underline-offset-4"
+            >
+              View last country
+            </button>
+          ) : null}
+        </Card>
+        <Card className="min-w-0 xl:order-first">
           <h3 className="text-card-title">Spin settings</h3>
           <fieldset disabled={!ready || busy} className="mt-4 min-w-0">
             <Field id={`${id}-continent`} label="Continent">
@@ -202,66 +262,6 @@ function SpinnerSession({ countries }: Props) {
               </button>
             </div>
           </fieldset>
-        </Card>
-        <Card className="flex min-w-0 flex-col justify-center">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <h3 className="text-card-title">Country wheel</h3>
-            <span className="text-xs text-muted">One country per spin</span>
-          </div>
-          <CountryWheel
-            pool={shownPool}
-            rotation={wheel?.rotation ?? 0}
-            wheelRef={element}
-          />
-          <Button
-            ref={spinButton}
-            className="mt-3 w-full"
-            onClick={spin}
-            disabled={!ready || Boolean(pending)}
-            aria-disabled={spinning || !remaining.length}
-            aria-busy={spinning}
-          >
-            {spinning ? "Spinning…" : "Spin a country"}
-          </Button>
-          <p
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-            className="mt-3 min-h-6 text-center text-sm text-muted"
-          >
-            {spinning
-              ? "Spinning…"
-              : state.message ||
-                (ready
-                  ? "Every available country has an equal chance."
-                  : "Loading your saved settings…")}
-          </p>
-          {spinning ? (
-            <Button
-              variant="secondary"
-              className="mt-2 w-full"
-              onClick={() => {
-                skip();
-                spinButton.current?.focus();
-              }}
-            >
-              Show result now
-            </Button>
-          ) : result ? (
-            <button
-              type="button"
-              aria-haspopup="dialog"
-              onClick={() =>
-                setResultView({
-                  dismissedRevision: state.revision,
-                  reopen: true,
-                })
-              }
-              className="flex min-h-touch items-center justify-center text-sm font-semibold text-brand underline underline-offset-4"
-            >
-              View last country
-            </button>
-          ) : null}
         </Card>
       </div>
       {state.storageWarning && (

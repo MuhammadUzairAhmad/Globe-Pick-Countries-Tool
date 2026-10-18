@@ -41,7 +41,7 @@ export function AvailableCountries({
       {!ready ? (
         <div
           aria-hidden="true"
-          className="mt-3 grid min-h-[31.5rem] grid-cols-1 content-start gap-2 lg:min-h-[15.5rem] lg:grid-cols-2"
+          className="mt-3 grid min-h-[31.5rem] grid-cols-1 content-start gap-2 sm:min-h-[15.5rem] sm:grid-cols-2"
         >
           {Array.from({ length: COUNTRY_PAGE_SIZE }, (_, index) => (
             <div
@@ -56,7 +56,7 @@ export function AvailableCountries({
       ) : places.length ? (
         <ul
           aria-labelledby={headingId}
-          className="mt-3 grid min-h-[31.5rem] grid-cols-1 content-start gap-2 lg:min-h-[15.5rem] lg:grid-cols-2"
+          className="mt-3 grid min-h-[31.5rem] grid-cols-1 content-start gap-2 sm:min-h-[15.5rem] sm:grid-cols-2"
         >
           {countries.map((place) => (
             <li

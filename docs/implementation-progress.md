@@ -152,3 +152,11 @@ The baseline is functional locally. Before public launch: provide the real opera
 - Added modal focus, Escape/backdrop dismissal, background scroll locking, and trigger restoration. Copy notifications stay within the result modal; sharing opens the existing dialog above it. Full generators keep their feedback behavior.
 - Three motion-adapter tests bring the suite to 50 passing tests.
 - Production build/TypeScript, lint, formatting, the thirteen-page HTTP audit, five real 404s, and sixteen assets pass. Browser checks cover normal/skip reveal and visible confetti, no extra selection on modal close/reopen/replay, one new pick from Spin again, Save/Copy/Share layering, Escape/backdrop dismissal, Tab/Shift+Tab wrapping, scroll/focus restoration, long map content, light/dark themes, and phone/default-window sizing. Observed warning/error logs are empty; real-device/assistive-technology checks remain launch work.
+
+## Larger wheel and responsive panel order
+
+- Increased the desktop wheel from 320px to a responsive square capped at 576px, with a larger center badge and pointer. It fits its panel width and no longer sits inside a large vertically centered gap.
+- Kept settings on the left and the wheel on the right from 1280px. Below that width, a flex column presents the wheel and Spin button before settings, including 1024px landscape tablets. The same mounted wheel and controls remain in use when resizing.
+- The available-country list uses two columns from 640px so wider tablet settings stay compact. Phones retain one column, page controls, and local flags. The wheel heading wraps without squeezing its title.
+- Browser measurements at 320px, 375px, 768px, 1024px, 1279px, 1280px, and 1440px confirm the intended order, a square wheel, and no horizontal overflow. The desktop wheel measures 576px and tablet wheel 448px; narrow phones fit the available card width.
+- Verification: 50 tests, lint, TypeScript/production build, changed-file formatting, and the production HTTP audit pass. A tablet spin survived resizing to phone width and opened the same accepted result modal with one added history entry; closing returned focus to Spin. Observed warning/error logs are empty, and temporary viewport overrides were reset.
