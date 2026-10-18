@@ -113,26 +113,27 @@
 
 /* Theme overrides only affect screens. Paper and downloadable PDFs stay light. */
 @media screen {
-  :root[data-theme="dark"] {
+  :root[data-theme="dark"],
+  [data-preview-theme="graphite"] {
     color-scheme: dark;
-    --color-page: #0b1220;
-    --color-surface: #121e30;
-    --color-foreground: #e6edf7;
-    --color-muted: #a9b8cc;
-    --color-brand: #8bb7ff;
-    --color-brand-strong: #accbff;
-    --color-on-brand: #0b1220;
-    --color-brand-soft: #1c3252;
-    --color-border: #30435d;
-    --color-glass: #121e30;
-    --color-atlas: #263c58;
-    --color-accent: #fbbf24;
-    --color-accent-soft: #382a13;
-    --color-success: #86efac;
-    --color-danger: #fca5a5;
-    --color-overlay: #020617;
-    --shadow-card: 0 4px 24px rgb(0 0 0 / 0.2);
-    --shadow-floating: 0 16px 48px rgb(0 0 0 / 0.4);
+    --color-page: #171818;
+    --color-surface: #242727;
+    --color-foreground: #f0f0e9;
+    --color-muted: #b3b8b4;
+    --color-brand: #c8e7c6;
+    --color-brand-strong: #e0f3dc;
+    --color-on-brand: #1c281d;
+    --color-brand-soft: #354137;
+    --color-border: #454e47;
+    --color-glass: #242727;
+    --color-atlas: #454e47;
+    --color-accent: #e5c58f;
+    --color-accent-soft: #3b3021;
+    --color-success: #b7d4a4;
+    --color-danger: #f3aaa0;
+    --color-overlay: #080b09;
+    --shadow-card: 0 4px 24px rgb(0 0 0 / 0.16);
+    --shadow-floating: 0 16px 48px rgb(0 0 0 / 0.24);
   }
 
   /* Local design studio palettes. These do not change the saved site theme. */
@@ -184,19 +185,6 @@
     --color-border: #355651;
     --color-accent: #e2c892;
     --color-accent-soft: #362e1f;
-  }
-  [data-preview-theme="graphite"] {
-    --color-page: #171818;
-    --color-surface: #242727;
-    --color-foreground: #f0f0e9;
-    --color-muted: #b3b8b4;
-    --color-brand: #c8e7c6;
-    --color-brand-strong: #e0f3dc;
-    --color-on-brand: #1c281d;
-    --color-brand-soft: #354137;
-    --color-border: #454e47;
-    --color-accent: #e5c58f;
-    --color-accent-soft: #3b3021;
   }
   [data-preview-theme="plum"] {
     --color-page: #1c1620;

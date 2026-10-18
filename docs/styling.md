@@ -33,6 +33,8 @@ Utilities such as `bg-surface`, `text-muted`, and `border-border` come from sema
 
 The header toggle switches light/dark mode. With no valid saved choice, the app follows the system preference and subsequent system changes. A manual choice is stored separately under `globepick:theme` and syncs to other open tabs. Clearing site storage restores system preference. Blocked storage still permits switching for the current visit.
 
+Dark mode uses Graphite: charcoal backgrounds, soft white text, mint primary actions, and warm gold accents. The site and the Graphite studio preview share a single palette declaration in `globals.css`.
+
 `src/lib/theme.ts` defines validated preferences and a static head script that applies the palette before paint. `src/lib/theme-browser.ts` handles changes and subscriptions; `ThemeToggle` reads them through `useSyncExternalStore`. This keeps pages statically rendered without cookies or a theme package. Root hydration suppression is limited to the attributes changed by that head script.
 
 Dark palette overrides apply only to screen media. Printed worksheets use the light palette; downloadable PDFs retain their reviewed colors. Changing the shared light palette requires regenerating and reviewing the starter PDFs, as enforced by data validation.
@@ -43,7 +45,7 @@ Theme tests cover system/saved preferences, startup, tab synchronization, and st
 
 Open `/theme-showcase` to compare Forest, Moss, Lagoon, Graphite, Plum, and Espresso. The route is excluded from public navigation and the sitemap and always has noindex metadata. Each palette is scoped with `data-preview-theme` inside the page; switching previews does not write the saved site theme or generator data. Shared country cards, fields, buttons, and atlas artwork demonstrate the palette with Japan, South Africa, and Brazil. Preview country/fact/save controls use page memory only.
 
-Palette tokens remain in `globals.css`; the studio uses inline Tailwind for its layout and states. Contrast checks cover all six preview palettes alongside the existing light/dark colors. A final site palette can be chosen after comparing these options.
+Palette tokens remain in `globals.css`; the studio uses inline Tailwind for its layout and states. Contrast checks cover all six preview palettes alongside the existing light/dark colors. Graphite is the selected site dark palette and the studio's initial selection.
 
 ## Preview freshness
 

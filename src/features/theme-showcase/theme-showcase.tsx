@@ -12,7 +12,7 @@ import type { Country } from "@/features/generator/types";
 import { darkPalettes } from "./palettes";
 
 export function ThemeShowcase({ samples }: { samples: Country[] }) {
-  const [paletteId, setPaletteId] = useState<string>(darkPalettes[0].id);
+  const [paletteId, setPaletteId] = useState<string>("graphite");
   const [sampleIndex, setSampleIndex] = useState(0);
   const [showFacts, setShowFacts] = useState(true);
   const [savedIds, setSavedIds] = useState<string[]>([]);

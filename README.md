@@ -9,7 +9,7 @@ A frontend-only geography learning tool built with Next.js App Router, React, st
 - Country project assignments with three reviewed question sets, optional teacher notes, and printable A4/US Letter worksheets.
 - Free four-page Japan/South Africa starter PDFs in A4 and US Letter, with teacher guidance, reference sources, and download checksums.
 - Pre-rendered introductions and samples, clean metadata, published-route registry, sitemap, robots, and 404/error handling.
-- Light/dark theme toggle with system defaults, a saved preference, and white worksheet paper.
+- Light/Graphite dark theme toggle with system defaults, a saved preference, and white worksheet paper.
 
 ## Develop
 
