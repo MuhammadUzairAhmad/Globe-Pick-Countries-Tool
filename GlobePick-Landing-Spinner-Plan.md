@@ -27,19 +27,19 @@ One spin selects one country. The existing country tool continues to offer batch
 
 ## 2. Homepage layout
 
-Replace the decorative atlas panel in the hero with an interactive spinner card. Keep the homepage's server-rendered heading, short introduction, learning content, and links to other tools.
+Updated to follow the owner’s layout revision: restore the original hero, including its atlas panel, wording, and links. Place the interactive spinner in its own section immediately after the hero. Keep learning content and links to other tools below it.
 
-| Area           | Proposed behavior                                                                                                                                   |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Desktop        | Brief introduction on the left; spinner and its primary action on the right. Show the last result immediately below the hero.                       |
-| Phone/tablet   | Short heading and one-sentence introduction, then the wheel and Spin button. Put secondary explanations and saved lists below the working tool.     |
-| Primary action | One prominent Spin button inside the spinner card. Remove the duplicate hero country-generation link; keep a quieter link to the full country tool. |
-| Quick controls | Continent, no-repeat checkbox, available-country count, and an expandable country-choice section.                                                   |
-| Active filters | Show the selected continent and included/excluded counts even when country choices are collapsed. Never apply invisible saved restrictions.         |
-| Result         | Reuse the existing country card, flag, facts, optional map, source details, and Save/Copy/Share controls.                                           |
-| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                                               |
+| Area           | Proposed behavior                                                                                                                           |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Desktop        | Settings and filters on the left; wheel and Spin button on the right. Show the last result immediately below these panels.                  |
+| Phone/tablet   | Keep the original hero above the feature. Stack settings above the wheel on phones; use the two-panel layout from tablet widths.            |
+| Primary action | One prominent Spin button in the right-hand wheel panel. Restore the original hero links to the existing full tools.                        |
+| Quick controls | Continent, no-repeat checkbox, available-country count, and an expandable country-choice section.                                           |
+| Active filters | Show the selected continent and included/excluded counts even when country choices are collapsed. Never apply invisible saved restrictions. |
+| Result         | Reuse the existing country card, flag, facts, optional map, source details, and Save/Copy/Share controls.                                   |
+| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                                       |
 
-Keep the primary interaction near the first viewport at common phone sizes such as 375 × 812. At smaller heights, allow normal scrolling rather than shrinking controls below the shared touch size. Avoid automatic result dialogs or forced scrolling after every spin: show the winner beside/below the wheel and offer a **View details** anchor if needed.
+The original hero occupies the first part of the page, with the spinner section following in normal scroll order. Keep settings and actions at the shared touch size on phones, including 375 × 812. Avoid automatic result dialogs or forced scrolling after every spin: show the winner beside/below the wheel and offer a **View details** anchor if needed.
 
 ## 3. Selection, storage, and sharing contract
 
@@ -112,7 +112,7 @@ Complete and verify each phase before the next. Make a local commit for each imp
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | 1. Shared generation contract | Return the selected country from the existing generation path; define spin snapshots and one-pick/shared-storage behavior. Extract only the filter/action pieces genuinely needed by both UIs. | Tests cover single-pick generation, unchanged saved batch quantity, no-repeat pool, and exactly one history entry. Existing tools keep their behavior.            | `refactor: expose shared country selection for the homepage spinner` |
 | 2. Wheel and motion           | Add pure sector/landing-angle helpers, the SVG wheel, animation lifecycle, reduced motion, skip, and error fallback.                                                                           | Every selected country maps to the correct pointer sector, including zero/one-country states and interrupted animation. No second selection occurs on completion. | `feat: add accessible country spinner with deterministic landing`    |
-| 3. Homepage integration       | Replace the hero artwork; connect filters, result details, saved places, and shared copy/share feedback. Update homepage wording and metadata.                                                 | A visitor can spin, inspect, save, copy, share, and continue to the full tool directly from Home in either theme.                                                 | `feat: add the country spinner to the GlobePick homepage`            |
+| 3. Homepage integration       | Add the spinner section after the restored hero; connect filters, result details, saved places, and shared copy/share feedback. Update homepage wording and metadata.                          | A visitor can spin, inspect, save, copy, share, and continue to the full tool directly from Home in either theme.                                                 | `feat: add the country spinner to the GlobePick homepage`            |
 | 4. Verification and polish    | Exercise responsive layouts, cached navigation, failures, hydration, output payloads, and existing tool regressions. Update documentation and fix only observed issues.                        | Checks below pass and remaining device/performance limitations are recorded honestly.                                                                             | `test: verify homepage spinner and shared generator behavior`        |
 
 Indicative new files belong under `src/features/spinner/`: a homepage workspace, a presentational country wheel, a small animation hook if needed, and a pure wheel-geometry helper. Keep shared selection/storage in their existing generator modules. Extract existing copy/share feedback from `GeneratorWorkspace` only as needed; do not duplicate that implementation or rewrite the whole workspace.

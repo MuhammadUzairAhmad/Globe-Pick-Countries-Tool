@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/container";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { AtlasArt } from "@/components/content/atlas-art";
 import { HomepageSpinner } from "@/features/spinner/components/homepage-spinner";
 import { countries } from "@/data/countries";
 import { ExampleResult } from "@/components/content/example-result";
@@ -47,39 +48,58 @@ const ideas: {
 export default function Home() {
   return (
     <Container>
-      <HomepageSpinner countries={countries}>
-        <div className="lg:self-start lg:pt-12">
-          <p className="text-sm font-medium text-brand">
+      <section className="grid items-center gap-8 py-section lg:grid-cols-2 lg:gap-12">
+        <div>
+          <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted">
+            <span className="size-1.5 rounded-full bg-accent" />
             Geography for curious minds
           </p>
-          <h1 className="mt-3">
-            Spin the wheel.
+          <h1 className="mt-6">
+            Pick a country.
             <br />
-            <span className="text-brand">Discover a country.</span>
+            <span className="text-brand">Test your geography.</span>
           </h1>
-          <p className="mt-4 max-w-reading text-lg text-muted">
-            Find a country for your next game or school project. Spin, explore
-            its facts, and see where it takes you.
+          <p className="mt-5 max-w-reading text-lg text-muted">
+            Choose a random country for your next game or school project, or see
+            how many capitals you remember.
           </p>
-          <div className="mt-4 flex flex-wrap gap-x-5">
-            <Link
-              href="/random-country-generator"
-              className="inline-flex min-h-touch items-center gap-2 text-sm font-semibold text-brand underline underline-offset-4"
-            >
-              Pick several countries <Icon name="arrow" className="size-4" />
-            </Link>
-            <Link
-              href="/random-capital-generator"
-              className="inline-flex min-h-touch items-center text-sm font-semibold text-brand underline underline-offset-4"
-            >
+          <p className="mt-4 max-w-reading text-base text-muted">
+            Filter by continent, pick several places at once, and save the ones
+            you want to learn more about.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <ButtonLink href="/random-country-generator">
+              Pick a random country
+              <Icon name="arrow" className="size-4" />
+            </ButtonLink>
+            <ButtonLink href="/random-capital-generator" variant="secondary">
               Practice capitals
-            </Link>
+            </ButtonLink>
           </div>
-          <p className="mt-3 hidden text-xs text-muted lg:block">
+          <p className="mt-5 text-xs text-muted">
             Free to use. No account needed.
           </p>
         </div>
-      </HomepageSpinner>
+        <div className="relative overflow-hidden rounded-card border border-border bg-surface p-6">
+          <div className="flex items-center justify-between text-xs font-medium uppercase tracking-widest text-muted">
+            <span>Explore the world</span>
+            <Icon name="compass" className="size-5 text-brand" />
+          </div>
+          <AtlasArt />
+          <div className="flex items-end justify-between gap-4 border-t border-border pt-5">
+            <div>
+              <p className="text-card-title font-semibold">
+                195 countries to choose from
+              </p>
+              <p className="mt-1 text-sm text-muted">Which one will you get?</p>
+            </div>
+            <span className="hidden size-10 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand sm:flex">
+              <Icon name="arrow" />
+            </span>
+          </div>
+        </div>
+      </section>
+      <HomepageSpinner countries={countries} />
       <section
         aria-labelledby="building-title"
         className="border-t border-border py-section"

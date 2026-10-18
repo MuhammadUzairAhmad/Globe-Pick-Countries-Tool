@@ -127,3 +127,10 @@ The baseline is functional locally. Before public launch: provide the real opera
 - Country filters, consumed IDs, history, and favorites share `globepick:v1:country`. The spinner preserves the full tool’s batch quantity, including cached navigation back from that tool. Share links capture quantity one and the pick’s original filters.
 - Extracted the existing country-choice controls and copy/share feedback for reuse. Added a readable available-country list, country facts/maps/sources, saved replay, keyboard spin/skip, and accessible status messages.
 - Automated geometry, snapshot/sharing, generation/reducer, and motion fallback checks bring the suite to 43 passing tests. Browser checks cover repeated clicks, normal/skip completion, cached route interruption, shared lists, batch quantity, exact replay, empty/one-country pools, save/copy/share feedback, responsive layouts, both themes, and existing tool workflows. See `homepage-spinner.md` for payload measurements and the remaining real-device/assistive-technology limits.
+
+## Homepage spinner layout revision
+
+- Restored the original homepage hero with its heading, atlas artwork, introduction, and tool links.
+- Moved the spinner directly below the hero in its own section. Tablet and desktop layouts put settings/filters on the left and the wheel and Spin button on the right; phones stack those panels. Results and saved lists remain below the panels.
+- Selection, persistence, share snapshots, animation/skip behavior, and existing tool routes are unchanged.
+- Verification: 43 tests, lint, production build/TypeScript, all thirteen published routes, five real 404s, and sixteen assets pass. Browser checks confirm the original hero precedes the feature, tablet/desktop columns, phone stacking, both themes, filter/spin/skip behavior, and no observed warning/error logs.

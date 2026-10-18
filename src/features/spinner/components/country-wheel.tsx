@@ -15,7 +15,10 @@ export function CountryWheel({
   wheelRef: Ref<HTMLDivElement>;
 }) {
   return (
-    <div aria-hidden="true" className="relative mx-auto size-60 sm:size-72">
+    <div
+      aria-hidden="true"
+      className="relative mx-auto size-60 sm:size-72 lg:size-80"
+    >
       <div
         ref={wheelRef}
         style={{ transform: `rotate(${rotation}deg)` }}

@@ -82,7 +82,7 @@ The header groups published tools under Generators, keeps Worksheets direct, and
 
 ## Homepage country spinner
 
-The homepage remains a Server Component and passes country records plus its server-rendered introduction into a focused client workspace. That workspace uses the existing generator hook in single-pick mode and the same country storage record. Single-pick mode refreshes the stored batch quantity on route reactivation; other view filters and the last result remain local to the retained route. Existing full generators keep their own batch behavior.
+The homepage remains a Server Component, renders the original hero with its atlas artwork, and passes country records into a separate client spinner section below it. The section places settings left and the wheel/action right on tablet and desktop, and stacks them on phones. That workspace uses the existing generator hook in single-pick mode and the same country storage record. Single-pick mode refreshes the stored batch quantity on route reactivation; other view filters and the last result remain local to the retained route. Existing full generators keep their own batch behavior.
 
 `prepareGeneration` returns the selected places and the sole generated reducer event. The spinner locks its handler synchronously, accepts one country, snapshots the ordered pool and share filters, then illustrates that choice with an equal-sector SVG and native Web Animations. Pure landing geometry targets the fixed top pointer. No randomness occurs during rendering or on animation completion. The pool stays fixed for the accepted animation and landed result; changing filters or resetting picks redraws it, and a new spin snapshots the current available pool.
 

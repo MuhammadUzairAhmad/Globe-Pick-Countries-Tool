@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState, type ReactNode } from "react";
+import { useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -25,14 +25,14 @@ import { useCountryWheel } from "../hooks/use-country-wheel";
 import { spinSnapshot } from "../lib/wheel";
 import { CountryWheel } from "./country-wheel";
 
-type Props = { countries: Country[]; children: ReactNode };
+type Props = { countries: Country[] };
 
 export function HomepageSpinner(props: Props) {
   const { bfcacheId } = useRouter();
   return <SpinnerSession key={bfcacheId} {...props} />;
 }
 
-function SpinnerSession({ countries, children }: Props) {
+function SpinnerSession({ countries }: Props) {
   const { state, dispatch, byId, eligible, remaining, generate } = useGenerator(
     countries,
     "country",
@@ -79,66 +79,19 @@ function SpinnerSession({ countries, children }: Props) {
   return (
     <section
       aria-label="Country spinner"
-      className="py-6 sm:py-10 lg:py-section"
+      id="country-spinner"
+      className="border-t border-border py-section"
     >
-      <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
-        {children}
+      <div className="mb-7 max-w-reading">
+        <h2>Spin a random country</h2>
+        <p className="mt-3 text-muted">
+          Choose a continent, adjust your country pool, and spin to make a pick.
+        </p>
+      </div>
+      <div className="grid gap-5 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <Card className="min-w-0">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <h2 className="text-card-title">Where will you land?</h2>
-            <span className="text-xs text-muted">One country per spin</span>
-          </div>
-          <CountryWheel
-            pool={shownPool}
-            rotation={wheel?.rotation ?? 0}
-            wheelRef={element}
-          />
-          <Button
-            ref={spinButton}
-            className="mt-3 w-full"
-            onClick={spin}
-            disabled={!ready || Boolean(pending)}
-            aria-disabled={spinning || !remaining.length}
-            aria-busy={spinning}
-          >
-            {spinning ? "Spinning…" : "Spin a country"}
-          </Button>
-          <p
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-            className="mt-3 min-h-6 text-center text-sm text-muted"
-          >
-            {spinning
-              ? "Spinning…"
-              : state.message ||
-                (ready
-                  ? "Every available country has an equal chance."
-                  : "Loading your saved settings…")}
-          </p>
-          {spinning ? (
-            <Button
-              variant="secondary"
-              className="mt-2 w-full"
-              onClick={() => {
-                skip();
-                spinButton.current?.focus();
-              }}
-            >
-              Show result now
-            </Button>
-          ) : result ? (
-            <a
-              href={`#${id}-result`}
-              className="flex min-h-touch items-center justify-center text-sm font-semibold text-brand underline underline-offset-4"
-            >
-              View country details
-            </a>
-          ) : null}
-          <fieldset
-            disabled={!ready || busy}
-            className="mt-4 min-w-0 border-t border-border pt-4"
-          >
+          <h3 className="text-card-title">Spin settings</h3>
+          <fieldset disabled={!ready || busy} className="mt-4 min-w-0">
             <Field id={`${id}-continent`} label="Continent">
               <select
                 id={`${id}-continent`}
@@ -251,6 +204,59 @@ function SpinnerSession({ countries, children }: Props) {
               </button>
             </div>
           </fieldset>
+        </Card>
+        <Card className="flex min-w-0 flex-col justify-center">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <h3 className="text-card-title">Country wheel</h3>
+            <span className="text-xs text-muted">One country per spin</span>
+          </div>
+          <CountryWheel
+            pool={shownPool}
+            rotation={wheel?.rotation ?? 0}
+            wheelRef={element}
+          />
+          <Button
+            ref={spinButton}
+            className="mt-3 w-full"
+            onClick={spin}
+            disabled={!ready || Boolean(pending)}
+            aria-disabled={spinning || !remaining.length}
+            aria-busy={spinning}
+          >
+            {spinning ? "Spinning…" : "Spin a country"}
+          </Button>
+          <p
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            className="mt-3 min-h-6 text-center text-sm text-muted"
+          >
+            {spinning
+              ? "Spinning…"
+              : state.message ||
+                (ready
+                  ? "Every available country has an equal chance."
+                  : "Loading your saved settings…")}
+          </p>
+          {spinning ? (
+            <Button
+              variant="secondary"
+              className="mt-2 w-full"
+              onClick={() => {
+                skip();
+                spinButton.current?.focus();
+              }}
+            >
+              Show result now
+            </Button>
+          ) : result ? (
+            <a
+              href={`#${id}-result`}
+              className="flex min-h-touch items-center justify-center text-sm font-semibold text-brand underline underline-offset-4"
+            >
+              View country details
+            </a>
+          ) : null}
         </Card>
       </div>
       {state.storageWarning && (
