@@ -24,6 +24,7 @@ import { useCountryWheel } from "../hooks/use-country-wheel";
 import { spinSnapshot } from "../lib/wheel";
 import { CountryWheel } from "./country-wheel";
 import { AvailableCountries } from "./available-countries";
+import { SpinnerResultDialog } from "./spinner-result-dialog";
 
 type Props = { countries: Country[] };
 
@@ -46,19 +47,38 @@ function SpinnerSession({ countries }: Props) {
     ignoreCountryChoices: true,
   });
   const { wheel, element, start, skip, reset } = useCountryWheel();
-  const { copy, share, pending, copied, feedback } =
-    useResultFeedback("country");
   const [resultFilters, setResultFilters] = useState<Filters | null>(null);
+  const [resultView, setResultView] = useState({
+    dismissedRevision: 0,
+    reopen: false,
+  });
   const spinButton = useRef<HTMLButtonElement>(null);
   const id = useId();
   const spinning = Boolean(wheel?.spinning);
-  const busy = spinning || Boolean(pending);
   const ready = state.hydrated;
   const result =
     !spinning && state.resultIds.length
       ? byId.get(state.resultIds[0])
       : undefined;
+  const showResult = Boolean(
+    result &&
+    (state.revision !== resultView.dismissedRevision || resultView.reopen),
+  );
+  const {
+    copy,
+    share,
+    pending,
+    copied,
+    feedback,
+    toastFeedback,
+    dialogFeedback,
+  } = useResultFeedback("country", { inlineToast: showResult });
+  const busy = spinning || Boolean(pending);
   const shownPool = wheel?.snapshot.pool ?? remaining;
+
+  function closeResult() {
+    setResultView({ dismissedRevision: state.revision, reopen: false });
+  }
 
   function changeFilters(
     value: Partial<Pick<Filters, "continent" | "noRepeat">>,
@@ -228,12 +248,19 @@ function SpinnerSession({ countries }: Props) {
               Show result now
             </Button>
           ) : result ? (
-            <a
-              href={`#${id}-result`}
+            <button
+              type="button"
+              aria-haspopup="dialog"
+              onClick={() =>
+                setResultView({
+                  dismissedRevision: state.revision,
+                  reopen: true,
+                })
+              }
               className="flex min-h-touch items-center justify-center text-sm font-semibold text-brand underline underline-offset-4"
             >
-              View country details
-            </a>
+              View last country
+            </button>
           ) : null}
         </Card>
       </div>
@@ -242,45 +269,44 @@ function SpinnerSession({ countries }: Props) {
           <Notice title="Browser saving notice">{state.storageWarning}</Notice>
         </div>
       )}
-      {result && (
-        <section
-          id={`${id}-result`}
-          aria-labelledby={`${id}-result-title`}
-          className="mt-8 scroll-mt-6"
+      {result && showResult && (
+        <SpinnerResultDialog
+          key={state.revision}
+          country={result.country.name}
+          replay={state.replay}
+          celebrate={
+            !state.replay && state.revision !== resultView.dismissedRevision
+          }
+          canSpin={remaining.length > 0}
+          pending={Boolean(pending)}
+          feedback={toastFeedback}
+          onClose={closeResult}
+          onSpinAgain={() => {
+            closeResult();
+            spin();
+          }}
         >
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-            <h2 id={`${id}-result-title`} className="text-card-title">
-              {state.replay ? "Saved country" : "Your last pick"}
-            </h2>
-            <p className="text-sm text-muted">
-              {state.replay
-                ? "Viewing this country doesn’t count as a new pick."
-                : "Spin again whenever you’re ready."}
-            </p>
-          </div>
-          <div className="max-w-reading">
-            <PlaceResultCard
-              key={result.id}
-              place={result}
-              actions={
-                <ResultActions
-                  saved={state.saved.favorites.includes(result.id)}
-                  disabled={busy}
-                  label={result.country.name}
-                  copying={pending === `copy-${result.id}`}
-                  copied={copied === `copy-${result.id}`}
-                  onSave={() => dispatch({ type: "favorite", id: result.id })}
-                  onCopy={() => copy(formatPlace(result), `copy-${result.id}`)}
-                  onShare={() =>
-                    share(resultFilters ?? { ...filters, quantity: 1 }, [
-                      result.id,
-                    ])
-                  }
-                />
-              }
-            />
-          </div>
-        </section>
+          <PlaceResultCard
+            key={result.id}
+            place={result}
+            actions={
+              <ResultActions
+                saved={state.saved.favorites.includes(result.id)}
+                disabled={busy}
+                label={result.country.name}
+                copying={pending === `copy-${result.id}`}
+                copied={copied === `copy-${result.id}`}
+                onSave={() => dispatch({ type: "favorite", id: result.id })}
+                onCopy={() => copy(formatPlace(result), `copy-${result.id}`)}
+                onShare={() =>
+                  share(resultFilters ?? { ...filters, quantity: 1 }, [
+                    result.id,
+                  ])
+                }
+              />
+            }
+          />
+        </SpinnerResultDialog>
       )}
       <details className="mt-5 border-t border-border pt-2">
         <summary className="min-h-touch cursor-pointer py-2 text-sm font-semibold text-brand">
@@ -312,7 +338,7 @@ function SpinnerSession({ countries }: Props) {
           </fieldset>
         )}
       </details>
-      {feedback}
+      {showResult ? dialogFeedback : feedback}
     </section>
   );
 }

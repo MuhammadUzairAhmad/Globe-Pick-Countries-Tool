@@ -24,7 +24,7 @@ The launch check loads `.env*` with the installed Next environment loader. It re
 
 Updated for the starter packs, generator/navigation fixes, light/dark styling, and the homepage spinner. See [spinner verification](homepage-spinner.md) for its focused checks.
 
-- 47 domain, storage, sharing, schema, production-inspection, theme, and contrast tests pass. Country, city, and starter-pack validators, lint, type checking, formatting, and production compilation pass.
+- 50 domain, storage, sharing, schema, production-inspection, theme, and contrast tests pass. Country, city, and starter-pack validators, lint, type checking, formatting, and production compilation pass.
 - Thirteen published content pages return 200; five unreviewed paths return actual 404. Sixteen sampled assets load, including byte-identical reviewed PDFs. Local metadata remains noindex and the local sitemap has zero entries.
 - Gzip-equivalent HTML is about 34–36 KB for country/capital/regional tools and 212 KB for city mode. The verifier budgets 120 KB per normal page and 250 KB for city mode. These cover HTML including serialized component data, not all JavaScript, fonts, images, or a network waterfall.
 - Browser acceptance covers generation, capacity, no repeats, guess/reveal, save/refresh, replay, visible copy/share feedback, dialog focus return, missing city coverage, and worksheet preview. See `implementation-progress.md` for exercised flows and adapter failure tests.

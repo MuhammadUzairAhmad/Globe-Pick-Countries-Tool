@@ -2,7 +2,7 @@
 
 A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6, local Phase 7 checks, and a Phase 8 starter pack are implemented. Public launch and real-usage experiments are pending.
 
-- Homepage country spinner with continent/no-repeat settings, shared country history/favorites, and an always-visible paginated flag list.
+- Homepage country spinner with continent/no-repeat settings, a confetti result modal, shared country history/favorites, and an always-visible paginated flag list.
 - Random country, capital/government-seat, and city/town selection with continent and searchable inclusion/exclusion filters.
 - Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
 - Facts, local flags, optional approximate map markers, and visible sources.

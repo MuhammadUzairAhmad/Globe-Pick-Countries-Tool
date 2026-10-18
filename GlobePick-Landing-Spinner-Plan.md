@@ -14,7 +14,7 @@ A visitor can open the homepage, spin the wheel, and learn about the selected co
 1. Choose a continent or keep all continents.
 2. Keep previous picks excluded if desired. The spinner uses every country in the selected continent; custom include/exclude choices remain exclusive to the full generator.
 3. Select **Spin a country**.
-4. The wheel lands on the selected country and displays its flag and name.
+4. The wheel lands on the selected country and opens a result modal with its flag, name, and a short confetti celebration.
 5. Read the existing country facts and map/source details, save a favorite, copy, share, or spin again.
 
 One spin selects one country. The existing country tool continues to offer batches of 1–20. Capital practice, cities, and worksheets remain accessible through their existing links; their own spinner modes are outside this first increment.
@@ -29,17 +29,17 @@ One spin selects one country. The existing country tool continues to offer batch
 
 Updated to follow the owner’s layout revision: restore the original hero, including its atlas panel, wording, and links. Place the interactive spinner in its own section immediately after the hero. Keep learning content and links to other tools below it.
 
-| Area           | Proposed behavior                                                                                                                   |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Desktop        | Settings and filters on the left; wheel and Spin button on the right. Show the last result immediately below these panels.          |
-| Phone/tablet   | Keep the original hero above the feature. Stack settings above the wheel on phones; use the two-panel layout from tablet widths.    |
-| Primary action | One prominent Spin button in the right-hand wheel panel. Restore the original hero links to the existing full tools.                |
-| Quick controls | Continent, no-repeat checkbox, and available-country count. No include/exclude controls in the spinner.                             |
-| Active filters | Show the continent and no-repeat setting. Ignore saved custom include/exclude restrictions while preserving them for the full tool. |
-| Result         | Reuse the existing country card, flag, facts, optional map, source details, and Save/Copy/Share controls.                           |
-| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                               |
+| Area           | Proposed behavior                                                                                                                         |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Desktop        | Settings and filters on the left; wheel and Spin button on the right. Open the selected country in a modal above the page.                |
+| Phone/tablet   | Keep the original hero above the feature. Stack settings above the wheel on phones; use the two-panel layout from tablet widths.          |
+| Primary action | One prominent Spin button in the right-hand wheel panel. Restore the original hero links to the existing full tools.                      |
+| Quick controls | Continent, no-repeat checkbox, and available-country count. No include/exclude controls in the spinner.                                   |
+| Active filters | Show the continent and no-repeat setting. Ignore saved custom include/exclude restrictions while preserving them for the full tool.       |
+| Result         | Show the existing country card, flag, facts, map/source details, and Save/Copy/Share in a result modal with Back to wheel and Spin again. |
+| Saved places   | Provide a compact expandable recent-results/favorites area using the existing saved-place components.                                     |
 
-The original hero occupies the first part of the page, with the spinner section following in normal scroll order. Keep settings and actions at the shared touch size on phones, including 375 × 812. Avoid automatic result dialogs or forced scrolling after every spin: show the winner beside/below the wheel and offer a **View details** anchor if needed.
+The original hero occupies the first part of the page, with the spinner section following in normal scroll order. Keep settings and actions at the shared touch size on phones, including 375 × 812. Following the owner’s later request, open a result modal automatically when the accepted spin settles. Keep the page scroll position; provide Close/Escape, Back to wheel, Spin again, and View last country.
 
 ## 3. Selection, storage, and sharing contract
 
@@ -80,7 +80,7 @@ The wheel must use the existing generator as its source of truth.
 2. Snapshot the ordered available pool and effective filters.
 3. Call the existing generation path once for one country; record that result through the existing reducer/persistence flow.
 4. Calculate the target sector from that exact country ID. Rotate several turns and stop at the sector's center under the pointer.
-5. Reveal the selected result and announce it once. Unlock the controls.
+5. Reveal the selected result in a native modal, with a short decorative confetti burst and reduced-motion support. Unlock the controls without drawing again.
 
 The animation illustrates an existing uniform choice; it does not calculate a second winner from timing or wheel physics.
 
@@ -135,4 +135,4 @@ Run the existing unit tests, data validators, lint, type checking, formatting, p
 
 The increment is complete when users can spin directly on Home with matching filters, a correct landing, full existing country-result actions, shared browser state, both themes, reduced motion, and passing regression checks.
 
-Sound effects, confetti, custom wheel themes, flag-only modes, user-entered countries, wheel downloads, full-screen presentation, accounts, paid features, and capital/city spinners are later options. They are not required to deliver this homepage feature.
+Confetti and the result modal are now included following the owner’s later request. Sound effects, custom wheel themes, flag-only modes, user-entered countries, wheel downloads, full-screen presentation, accounts, paid features, and capital/city spinners are later options. They are not required to deliver this homepage feature.

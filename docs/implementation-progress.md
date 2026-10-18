@@ -143,3 +143,12 @@ The baseline is functional locally. Before public launch: provide the real opera
 - The list resets for continent/no-repeat changes, clamps to a valid page as the pool shrinks, and keeps the accepted pool visible during motion so the winner is revealed at settlement.
 - Four new tests cover effective filters and unchanged custom settings, cached state, page coverage/off-page eligibility, and empty/shrinking page bounds. All 47 tests pass.
 - Production build/TypeScript, lint, formatting, the thirteen-page HTTP audit, five real 404s, and sixteen assets pass. Browser checks confirm flag loading, keyboard/page boundaries, filter reset, unchanged full-tool custom choices/quantity, clean share snapshots, and responsive Lagoon/light layouts without observed console warnings/errors.
+
+## Spinner celebration and result modal
+
+- Replaced the below-wheel result card and scrolling details link with an automatic native result modal after a spin settles, plus View last country to reopen it.
+- Kept country facts/maps/sources and Save/Copy/Share, and added Back to wheel and Spin again. Presentation changes never select or record a second country. Saved replay opens without confetti.
+- Added a short 32-particle native-animation confetti burst using semantic theme colors, with reduced-motion/hidden-tab suppression, bounded geometry, finite duration, and cancellation/cleanup.
+- Added modal focus, Escape/backdrop dismissal, background scroll locking, and trigger restoration. Copy notifications stay within the result modal; sharing opens the existing dialog above it. Full generators keep their feedback behavior.
+- Three motion-adapter tests bring the suite to 50 passing tests.
+- Production build/TypeScript, lint, formatting, the thirteen-page HTTP audit, five real 404s, and sixteen assets pass. Browser checks cover normal/skip reveal and visible confetti, no extra selection on modal close/reopen/replay, one new pick from Spin again, Save/Copy/Share layering, Escape/backdrop dismissal, Tab/Shift+Tab wrapping, scroll/focus restoration, long map content, light/dark themes, and phone/default-window sizing. Observed warning/error logs are empty; real-device/assistive-technology checks remain launch work.

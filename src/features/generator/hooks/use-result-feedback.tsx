@@ -10,7 +10,10 @@ import { copyText, getClipboard, shareLink } from "@/lib/share/browser";
 import { createShareUrl } from "@/lib/share/url-state";
 import type { Mode, Filters } from "../types";
 
-export function useResultFeedback(mode: Mode) {
+export function useResultFeedback(
+  mode: Mode,
+  { inlineToast = false }: { inlineToast?: boolean } = {},
+) {
   const [dialog, setDialog] = useState<CopyShareTarget | null>(null);
   const [toast, setToast] = useState<{ id: number; message: string } | null>(
     null,
@@ -105,39 +108,45 @@ export function useResultFeedback(mode: Mode) {
       setPending("");
     }
   }
+  const dialogFeedback = dialog && (
+    <CopyShareDialog
+      target={dialog}
+      pending={
+        pending === "dialog-copy"
+          ? "copy"
+          : pending === "dialog-share"
+            ? "share"
+            : null
+      }
+      copied={copied === "dialog-copy"}
+      message={toast?.message ?? ""}
+      messageId={toast?.id ?? 0}
+      onDismiss={() => setToast(null)}
+      onCopy={() => copy(dialog.text, "dialog-copy", dialog.link)}
+      onShare={shareOnDevice}
+      onClose={() => setDialog(null)}
+    />
+  );
+
+  const toastFeedback = toast && !dialog && (
+    <Toast
+      key={toast.id}
+      message={toast.message}
+      onDismiss={() => setToast(null)}
+      floating={!inlineToast}
+    />
+  );
   return {
     copy,
     share,
     pending,
     copied,
+    dialogFeedback,
+    toastFeedback,
     feedback: (
       <>
-        {dialog && (
-          <CopyShareDialog
-            target={dialog}
-            pending={
-              pending === "dialog-copy"
-                ? "copy"
-                : pending === "dialog-share"
-                  ? "share"
-                  : null
-            }
-            copied={copied === "dialog-copy"}
-            message={toast?.message ?? ""}
-            messageId={toast?.id ?? 0}
-            onDismiss={() => setToast(null)}
-            onCopy={() => copy(dialog.text, "dialog-copy", dialog.link)}
-            onShare={shareOnDevice}
-            onClose={() => setDialog(null)}
-          />
-        )}
-        {toast && !dialog && (
-          <Toast
-            key={toast.id}
-            message={toast.message}
-            onDismiss={() => setToast(null)}
-          />
-        )}
+        {dialogFeedback}
+        {toastFeedback}
       </>
     ),
   };
