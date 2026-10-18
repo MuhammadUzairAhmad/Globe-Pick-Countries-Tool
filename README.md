@@ -24,6 +24,8 @@ Open [localhost:3000](http://localhost:3000). The app needs no runtime geography
 
 For local design review, `/theme-showcase` compares six dark palettes with live component previews. It keeps the saved site theme unchanged and is excluded from public navigation, the sitemap, and search indexing.
 
+Use `npm run dev` while editing; it updates the browser as source files change. `npm run start` serves the last production build and needs a rebuild and server restart to show edits. The installed compiler has reused stale Tailwind output across runs, so its development/build disk caches are disabled in `next.config.ts`. Normal browser caching of versioned production assets remains enabled.
+
 ## Check
 
 ```bash

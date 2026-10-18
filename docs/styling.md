@@ -45,4 +45,8 @@ Open `/theme-showcase` to compare Forest, Moss, Lagoon, Graphite, Plum, and Espr
 
 Palette tokens remain in `globals.css`; the studio uses inline Tailwind for its layout and states. Contrast checks cover all six preview palettes alongside the existing light/dark colors. A final site palette can be chosen after comparing these options.
 
+## Preview freshness
+
+Use `npm run dev` for live styling changes. A running `npm run start` does not watch the source; stop it, rebuild, and restart it when testing production output. The installed Turbopack/Tailwind integration has restored an older stylesheet from the compiler's disk cache. `turbopackFileSystemCacheForDev` and `turbopackFileSystemCacheForBuild` are disabled as a workaround, trading faster warm starts for reliable CSS output. This does not disable Next's page caching, generator session restoration, or browser caching of content-hashed assets. Revisit the workaround after a verified compiler update.
+
 References: [Tailwind theme variables](https://tailwindcss.com/docs/theme), [base styles](https://tailwindcss.com/docs/adding-custom-styles), and [manual dark mode](https://tailwindcss.com/docs/dark-mode). The installed Next.js guide is `node_modules/next/dist/docs/01-app/02-guides/preventing-flash-before-hydration.md`.
