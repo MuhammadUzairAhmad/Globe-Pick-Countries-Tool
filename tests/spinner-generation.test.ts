@@ -88,3 +88,46 @@ test("empty pools produce no generated action, while existing batch and quiz mes
   assert.match(quiz.action.message, /capital question: Japan/);
   assert.ok(!quiz.action.message.includes("Tokyo"));
 });
+
+test("cached homepage resumes the full tool’s batch quantity while retaining its own country choices", () => {
+  const original = initialState();
+  original.saved.filters = {
+    ...original.saved.filters,
+    quantity: 2,
+    continent: "Asia",
+  };
+  const saved = {
+    ...original.saved,
+    filters: {
+      ...original.saved.filters,
+      quantity: 8,
+      continent: "Europe" as const,
+    },
+    consumed: ["JP"],
+    favorites: ["JP"],
+    history: [{ id: "JP", at: 1 }],
+  };
+  const resumed = generatorReducer(original, {
+    type: "resume",
+    saved,
+    warning: "",
+    syncQuantity: true,
+  });
+  assert.equal(resumed.saved.filters.quantity, 8);
+  assert.equal(resumed.saved.filters.continent, "Asia");
+  assert.deepEqual(resumed.saved.history, saved.history);
+  assert.deepEqual(resumed.saved.favorites, saved.favorites);
+  assert.deepEqual(resumed.saved.consumed, saved.consumed);
+  const unavailable = generatorReducer(resumed, {
+    type: "resume",
+    warning: "Storage blocked",
+    syncQuantity: true,
+  });
+  assert.equal(unavailable.saved, resumed.saved);
+  const batchTool = generatorReducer(original, {
+    type: "resume",
+    saved,
+    warning: "",
+  });
+  assert.equal(batchTool.saved.filters.quantity, 2);
+});

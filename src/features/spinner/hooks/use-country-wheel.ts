@@ -69,5 +69,15 @@ export function useCountryWheel() {
     };
   }, [wheel]);
 
-  return { wheel, element, start, skip: () => finish.current?.() };
+  return {
+    wheel,
+    element,
+    start,
+    skip: () => finish.current?.(),
+    reset: () => {
+      if (locked.current) return;
+      rotation.current = 0;
+      setWheel(null);
+    },
+  };
 }

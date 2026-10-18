@@ -33,7 +33,12 @@ export type Action =
       message: string;
     }
   | { type: "filters"; filters: Filters }
-  | { type: "resume"; saved?: SavedState; warning: string }
+  | {
+      type: "resume";
+      saved?: SavedState;
+      warning: string;
+      syncQuantity?: boolean;
+    }
   | { type: "generated"; ids: string[]; at: number; message: string }
   | { type: "replay"; ids: string[]; filters?: Filters }
   | { type: "reveal"; id: string }
@@ -84,6 +89,12 @@ export function generatorReducer(
         saved: action.saved
           ? {
               ...state.saved,
+              filters: action.syncQuantity
+                ? {
+                    ...state.saved.filters,
+                    quantity: action.saved.filters.quantity,
+                  }
+                : state.saved.filters,
               consumed: action.saved.consumed,
               history: action.saved.history,
               favorites: action.saved.favorites,

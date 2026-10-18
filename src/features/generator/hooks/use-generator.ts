@@ -17,7 +17,10 @@ export function useGenerator(
   countries: Country[],
   mode: Mode,
   cities: City[] = noCities,
-  initialContinent?: Continent,
+  {
+    initialContinent,
+    singlePick = false,
+  }: { initialContinent?: Continent; singlePick?: boolean } = {},
 ) {
   const [state, dispatch] = useReducer(generatorReducer, undefined, () => {
     const initial = initialState();
@@ -81,6 +84,7 @@ export function useGenerator(
         type: "resume",
         saved: saved.warning ? undefined : saved.saved,
         warning: saved.warning,
+        syncQuantity: singlePick,
       });
     }
     function restoreUrl() {
@@ -107,7 +111,7 @@ export function useGenerator(
     restoreUrl();
     window.addEventListener("popstate", restoreUrl);
     return () => window.removeEventListener("popstate", restoreUrl);
-  }, [byId, countries, mode, initialContinent]);
+  }, [byId, countries, mode, initialContinent, singlePick]);
   useEffect(() => {
     if (skipResumedWrite.current) {
       skipResumedWrite.current = false;

@@ -49,9 +49,9 @@ export const pages = [
   {
     path: "/",
     label: "Home",
-    title: "GlobePick: Geography Generators and Printable Worksheets",
+    title: "GlobePick: Country Spinner and Geography Learning Tools",
     description:
-      "Pick countries or cities, practice capitals, and create research worksheets. Free geography tools for games, school projects, and learning.",
+      "Spin the country wheel, explore country facts, practice capitals, and create research worksheets. Free geography tools for games and school projects.",
     published: true,
     header: true,
     footer: false,
