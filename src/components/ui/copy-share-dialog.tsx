@@ -55,10 +55,10 @@ export function CopyShareDialog({
         event.preventDefault();
         onClose();
       }}
-      className="fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-card border border-border bg-surface p-card text-foreground shadow-floating backdrop:bg-foreground/40"
+      className="fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-card border border-border bg-surface p-card text-foreground shadow-floating backdrop:bg-overlay/40 dark:backdrop:bg-overlay/70"
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 id="share-title" className="text-card-title font-semibold">
+        <h2 id="share-title" className="text-card-title">
           {target.title}
         </h2>
         <button

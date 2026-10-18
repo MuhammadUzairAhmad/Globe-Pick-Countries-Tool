@@ -137,7 +137,7 @@ export function ProjectWorkspace({ countries }: { countries: Country[] }) {
       <section aria-labelledby="worksheet-title" className="min-w-0">
         <div className="mb-5 space-y-4 print:hidden">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="worksheet-title" className="text-card-title font-semibold">
+            <h2 id="worksheet-title" className="text-card-title">
               Worksheet preview
             </h2>
             <p className="text-sm text-muted">
@@ -206,9 +206,7 @@ export function ProjectWorkspace({ countries }: { countries: Country[] }) {
           />
         ) : (
           <Card className="print:hidden">
-            <h3 className="text-card-title font-semibold">
-              A different country for each assignment
-            </h3>
+            <h3>A different country for each assignment</h3>
             <p className="mt-3 text-muted">
               Create a set to see the research questions and writing space. You
               can preview every page before printing.

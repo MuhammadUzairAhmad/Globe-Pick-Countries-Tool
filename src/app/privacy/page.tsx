@@ -17,7 +17,7 @@ export default function PrivacyPage() {
         {
           title: "Cookies and browser storage",
           content:
-            "The application sets no cookies. The country, capital, and city generators save your settings, picked places, up to 100 recent results, and favorites in your browser’s local storage. These records do not sync to other devices. Use Clear history, Clear favorites, Clear filters, and Reset picked places to reset their corresponding data, or clear site data in your browser to remove everything. Generation works when saving is unavailable.",
+            "The application sets no cookies. The country, capital, and city generators save your settings, picked places, up to 100 recent results, and favorites in your browser’s local storage. Your light or dark theme choice is saved separately in this browser. Without a saved choice, the theme follows your system setting. These records do not sync to other devices. Use Clear history, Clear favorites, Clear filters, and Reset picked places to reset their corresponding data, or clear site data in your browser to remove everything, including the theme choice. Generation and theme switching work when saving is unavailable; those changes may be lost after you leave or refresh.",
         },
         {
           title: "Fonts, external links, and requests",

@@ -35,9 +35,7 @@ export function PlaceResultCard({
       {learning}
       {!answerHidden && place.kind === "capital" && (
         <div className="mt-4">
-          <h3 className="text-card-title font-semibold">
-            {place.capital.name}
-          </h3>
+          <h3>{place.capital.name}</h3>
           <div className="mt-2">
             <CapitalRoleBadge role={place.capital.role} />
           </div>

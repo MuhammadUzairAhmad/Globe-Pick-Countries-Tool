@@ -41,9 +41,7 @@ function SheetHeading({
         {teacher ? "Teacher notes" : `Assignment ${assignment.number}`} •{" "}
         {assignment.title}
       </p>
-      <h3 className="mt-2 text-2xl font-semibold leading-tight">
-        {assignment.country.name}
-      </h3>
+      <h3 className="mt-2 text-2xl leading-tight">{assignment.country.name}</h3>
     </header>
   );
 }
@@ -59,7 +57,7 @@ function StudentWorksheet({ assignment }: { assignment: CountryAssignment }) {
       <ol className="mt-5 space-y-5">
         {assignment.prompts.map((prompt, index) => (
           <li key={prompt.id}>
-            <h4 className="font-semibold">
+            <h4>
               {index + 1}. {prompt.title}
             </h4>
             <p className="mt-1">{prompt.question}</p>
@@ -72,7 +70,7 @@ function StudentWorksheet({ assignment }: { assignment: CountryAssignment }) {
         ))}
       </ol>
       <section aria-label="Sources used" className="mt-6">
-        <h4 className="font-semibold">Your sources</h4>
+        <h4>Your sources</h4>
         <p className="mt-1 text-xs">
           Write the title or website, author or organization, and date. For a
           website, include the page address.
@@ -117,7 +115,7 @@ function TeacherNotes({ assignment }: { assignment: CountryAssignment }) {
       <ol className="mt-5 space-y-3 text-xs">
         {assignment.prompts.map((prompt, index) => (
           <li key={prompt.id}>
-            <h4 className="font-semibold">
+            <h4>
               {index + 1}. {prompt.title}
             </h4>
             <p className="mt-1">{prompt.guidance}</p>
@@ -125,7 +123,7 @@ function TeacherNotes({ assignment }: { assignment: CountryAssignment }) {
         ))}
       </ol>
       <section className="mt-5 border-t border-black/30 pt-3 text-xs">
-        <h4 className="font-semibold">Reference sources</h4>
+        <h4>Reference sources</h4>
         <p className="mt-1">
           Data reviewed {assignment.country.reviewed}. This is a dated
           reference, not an independent check of every fact. Verify changing

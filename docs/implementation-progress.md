@@ -1,6 +1,6 @@
 # Implementation progress
 
-Plan: `GlobePick-Nextjs-SEO-First-Plan.md`. Updated 14 October 2026.
+Plan: `GlobePick-Nextjs-SEO-First-Plan.md`. Updated 18 October 2026.
 
 ## Completed local gates
 
@@ -13,7 +13,7 @@ Phases 4–6 are implemented below. Phase 7 has local checks; broader device/per
 
 ## Meaningful validation
 
-- `npm test`: **34 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, and native-share success/failure/cancellation.
+- `npm test`: **37 tests pass**, covering eligible-only selection, inclusion/exclusion conflicts, distinct batches without mutation, no-repeat preservation/reset, capacity and quantity failures, independent capital IDs/roles, crypto rejection sampling, copied source/context notes, corrupt/old/oversized storage, deleted IDs, history caps, blocked/quota-limited storage, URL round-trips and invalid states, hydration/replay invariants, clipboard failure fallback, native-share success/failure/cancellation, theme preferences/startup/synchronization, and both palettes' text contrast.
 - `npm run validate:data`: passes for all records, unique IDs/slugs, country membership counts, capital IDs/roles, valid coordinates, source URLs/review dates, local flags, licenses, and the identical app/download database plus SHA-256 digest. Validation runs automatically before every production build.
 - `npm run lint`, `npm run typecheck`, `npm run format:check`, `git diff --check`, and the final production build pass. All thirteen content routes remain statically pre-rendered.
 - Initial HTML includes tool H1s, useful descriptions, how-to content, control labels, and fixed samples. Local pages are noindex; query variants retain clean base canonicals. A simulated public HTTPS origin confirms thirteen published routes, a clean project canonical, and indexable project metadata.
@@ -105,6 +105,15 @@ These are focused correctness and browser checks, not a full assistive-technolog
 - The header now has Generators and Explore dropdowns plus a direct Worksheets link. The logo opens Home; About and policies are in the footer. Grouped links are checked against the published registry, and city prefetch remains disabled. Keyboard Arrow Down/Tab/Escape, focus return, outside clicks, exclusive dropdown opening, and the scrollable phone menu pass focused checks.
 - The footer has grouped tool, learning, and policy links with larger tablet/desktop spacing. Phone policy links remain compact; all footer groups appear from tablet size. Phone/tablet/desktop layouts have no horizontal overflow. Observed warning/error logs are empty.
 - All 34 tests, data/artifact validation, lint, type checking, formatting, and compilation pass. The final production audit passes thirteen pages, five genuine 404s, and sixteen assets.
+
+## Shared styling and dark mode
+
+- Moved common body, heading, and paragraph defaults into the single global stylesheet, removing repeated heading utilities across pages and components. Layout, spacing, responsive styles, and states remain inline Tailwind; shared buttons retain reusable variants. `docs/styling.md` records the conventions.
+- Added screen light/dark semantic palettes and an always-visible header toggle. A validated head script applies the saved or system preference before paint. System changes apply until a manual choice; manual choices persist separately and sync between tabs. Blocked storage leaves the toggle usable for the visit.
+- Reviewed primary-button foregrounds, active tool navigation, toggle icons, dialog overlays, and semantic text colors in both themes. Twelve text/background pairs per palette meet 4.5:1 in focused contrast tests.
+- Browser checks confirmed the initial dark system preference, an explicit light choice surviving reload, and cross-tab changes. Generation and the share dialog render in dark mode. Worksheet previews remain white with black text; A4 desktop dimensions and A4/Letter responsive fit were checked. Native print-driver verification remains pending.
+- At 320px, 768px, and the default desktop viewport, the header/toggle and tested pages have no horizontal overflow. The mobile menu and theme toggle work together; the toggle is 44px square. Observed production warning/error logs are empty.
+- All 37 tests, data/artifact validation, lint, type checking, formatting, compilation, and the production HTTP audit pass. The audit checks thirteen pages, five genuine 404s, sixteen assets, and clean query canonicals. Hosting remains deferred.
 
 ## Remaining launch requirements
 

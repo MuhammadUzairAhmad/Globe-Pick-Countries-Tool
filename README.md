@@ -9,6 +9,7 @@ A frontend-only geography learning tool built with Next.js App Router, React, st
 - Country project assignments with three reviewed question sets, optional teacher notes, and printable A4/US Letter worksheets.
 - Free four-page Japan/South Africa starter PDFs in A4 and US Letter, with teacher guidance, reference sources, and download checksums.
 - Pre-rendered introductions and samples, clean metadata, published-route registry, sitemap, robots, and 404/error handling.
+- Light/dark theme toggle with system defaults, a saved preference, and white worksheet paper.
 
 ## Develop
 
@@ -49,7 +50,7 @@ The pinned community database has structural checks and reviewed exceptional cas
 
 ## Structure
 
-- `src/app/globals.css`: common design tokens; component styling uses Tailwind classes.
+- `src/app/globals.css`: theme tokens and common body/heading/paragraph defaults; component styling uses inline Tailwind utilities and shared variants. See [styling conventions](docs/styling.md).
 - `src/components`: shared primitives, layout, and pre-rendered learning content.
 - `src/features/generator`: typed records, pure selection/reducer, hydration hook, filters and result components.
 - `src/features/learning` and `src/features/saved-places`: quiz and browser-saved place presentation.
@@ -62,6 +63,8 @@ The pinned community database has structural checks and reviewed exceptional cas
 ## Browser data
 
 Each tool has its own versioned localStorage record. Refresh restores settings, history, favorites, and consumed IDs without an initial empty overwrite. Clear controls operate separately; clearing history does not reset the no-repeat pool. There is no account, cloud sync, or cross-tab merging. Storage failures leave the tool usable. Shared results replay without consuming the recipient's pool or adding history.
+
+The appearance preference uses a separate `globepick:theme` key. It follows the system until you use the header toggle, then remembers the choice and syncs it between open tabs. Blocked storage permits switching for the current visit.
 
 ## Deployment
 

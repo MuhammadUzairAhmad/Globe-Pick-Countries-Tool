@@ -24,12 +24,10 @@ export default function CountryProjectPage() {
       <ProjectWorkspace countries={countries} />
       <StarterPackDownloads />
       <div className="mt-section max-w-reading print:hidden">
-        <h2 className="text-section-title font-semibold">
-          Make a classroom activity in three steps
-        </h2>
+        <h2>Make a classroom activity in three steps</h2>
         <ol className="mt-6 space-y-4">
           <li>
-            <h3 className="font-semibold">1. Choose a topic and countries</h3>
+            <h3 className="text-base">1. Choose a topic and countries</h3>
             <p className="mt-1 text-sm text-muted">
               Start with a country profile, explore land and water, or research
               people and places. Filter by continent or include specific
@@ -37,7 +35,7 @@ export default function CountryProjectPage() {
             </p>
           </li>
           <li>
-            <h3 className="font-semibold">2. Review the questions</h3>
+            <h3 className="text-base">2. Review the questions</h3>
             <p className="mt-1 text-sm text-muted">
               Each worksheet has four research questions and space for answers
               and sources. Check the questions against your learners’ needs.
@@ -46,7 +44,7 @@ export default function CountryProjectPage() {
             </p>
           </li>
           <li>
-            <h3 className="font-semibold">3. Print or save as PDF</h3>
+            <h3 className="text-base">3. Print or save as PDF</h3>
             <p className="mt-1 text-sm text-muted">
               Choose A4 or US Letter and add teacher notes if you want them.
               Select Print worksheets, then use your browser’s print dialog. Use
@@ -55,9 +53,7 @@ export default function CountryProjectPage() {
             </p>
           </li>
         </ol>
-        <h2 className="mt-8 text-section-title font-semibold">
-          What’s in the teacher notes?
-        </h2>
+        <h2 className="mt-8">What’s in the teacher notes?</h2>
         <p className="mt-4 text-muted">
           Reference facts cover capitals and government seats, languages, and
           currencies from our dated country dataset. Research questions about

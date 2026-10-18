@@ -39,9 +39,7 @@ export function GuessReveal({
         );
       }}
     >
-      <h3 className="text-card-title font-semibold">
-        What is the {place.capital.role.toLocaleLowerCase()}?
-      </h3>
+      <h3>What is the {place.capital.role.toLocaleLowerCase()}?</h3>
       <p className="text-sm text-muted">
         {place.country.capitals.length > 1
           ? `${place.country.name} has more than one capital or government seat. Use the role above as your clue.`

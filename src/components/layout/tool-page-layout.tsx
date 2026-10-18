@@ -73,22 +73,18 @@ export function ToolPageLayout({
           example={mode === "city" ? undefined : <ExampleResult mode={mode} />}
         />
         <section className="mt-section max-w-reading">
-          <h2 className="text-section-title font-semibold">
-            How to use this generator
-          </h2>
+          <h2>How to use this generator</h2>
           <ol className="my-6 space-y-4">
             {steps.map((step, index) => (
               <li key={step.title}>
-                <h3 className="font-semibold">
+                <h3 className="text-base">
                   {index + 1}. {step.title}
                 </h3>
                 <p className="mt-1 text-sm text-muted">{step.text}</p>
               </li>
             ))}
           </ol>
-          <h2 className="text-section-title font-semibold">
-            Try a geography activity today
-          </h2>
+          <h2>Try a geography activity today</h2>
           <p className="mt-4 text-muted">
             {mode === "city"
               ? "Find a result on a map. Describe its location using a nearby river, coastline, road, or other place. Compare the map with a local source and write one question you’d like to investigate."

@@ -52,7 +52,7 @@ export default function Home() {
             <span className="size-1.5 rounded-full bg-accent" />
             Geography for curious minds
           </p>
-          <h1 className="mt-6 text-page-title font-semibold tracking-tight">
+          <h1 className="mt-6">
             Pick a country.
             <br />
             <span className="text-brand">Test your geography.</span>
@@ -106,10 +106,7 @@ export default function Home() {
             <p className="text-xs font-semibold uppercase tracking-widest text-brand">
               A simple toolkit
             </p>
-            <h2
-              id="building-title"
-              className="mt-3 text-section-title font-semibold tracking-tight"
-            >
+            <h2 id="building-title" className="mt-3 tracking-tight">
               What would you like to pick?
             </h2>
           </div>
@@ -124,9 +121,7 @@ export default function Home() {
                 <Icon name="globe" className="size-6" />
               </span>
             </div>
-            <h3 className="mt-5 text-card-title font-semibold">
-              Random country generator
-            </h3>
+            <h3 className="mt-5">Random country generator</h3>
             <p className="mt-3 text-muted">
               Get one country or a set of up to 20. Choose a continent, leave
               out countries you don’t want, and keep repeats off for a fresh
@@ -142,9 +137,7 @@ export default function Home() {
                 <Icon name="pin" className="size-6" />
               </span>
             </div>
-            <h3 className="mt-5 text-card-title font-semibold">
-              Random capital generator
-            </h3>
+            <h3 className="mt-5">Random capital generator</h3>
             <p className="mt-3 text-muted">
               Learn a capital and its country, or hide the answers and test
               yourself. Check your guess when you’re ready.
@@ -161,9 +154,7 @@ export default function Home() {
             <span className="flex size-11 items-center justify-center rounded-control bg-accent-soft text-accent">
               <Icon name="compass" className="size-6" />
             </span>
-            <h3 className="mt-5 text-card-title font-semibold">
-              Random city generator
-            </h3>
+            <h3 className="mt-5">Random city generator</h3>
             <p className="mt-3 text-muted">
               Choose a country and discover a city or town to locate on a map.
               Clear country and region labels help you tell places with the same
@@ -182,9 +173,7 @@ export default function Home() {
             <span className="flex size-11 items-center justify-center rounded-control bg-brand-soft text-brand">
               <Icon name="book" className="size-6" />
             </span>
-            <h3 className="mt-5 text-card-title font-semibold">
-              Country project generator
-            </h3>
+            <h3 className="mt-5">Country project generator</h3>
             <p className="mt-3 text-muted">
               Create a different country assignment for each learner. Choose
               research questions, preview the worksheets, and print with
@@ -208,10 +197,7 @@ export default function Home() {
         <p className="text-xs font-semibold uppercase tracking-widest text-brand">
           Learning ideas
         </p>
-        <h2
-          id="learning-title"
-          className="mt-3 text-section-title font-semibold tracking-tight"
-        >
+        <h2 id="learning-title" className="mt-3 tracking-tight">
           Three activities to try
         </h2>
         <p className="mt-3 text-muted">
@@ -224,9 +210,7 @@ export default function Home() {
               <p className="mt-5 text-xs font-medium text-muted">
                 {idea.audience}
               </p>
-              <h3 className="mt-2 text-card-title font-semibold">
-                {idea.title}
-              </h3>
+              <h3 className="mt-2">{idea.title}</h3>
               <p className="mt-3 text-sm text-muted">{idea.text}</p>
               <details className="group mt-5 border-t border-border pt-2">
                 <summary className="flex min-h-touch cursor-pointer list-none items-center justify-between gap-2 text-sm font-semibold text-brand">
@@ -252,10 +236,7 @@ export default function Home() {
           <p className="text-xs font-semibold uppercase tracking-widest text-brand">
             Inside each result
           </p>
-          <h2
-            id="approach-title"
-            className="mt-3 text-section-title font-semibold tracking-tight"
-          >
+          <h2 id="approach-title" className="mt-3 tracking-tight">
             Get to know the place you picked
           </h2>
           <p className="mt-4 text-muted">

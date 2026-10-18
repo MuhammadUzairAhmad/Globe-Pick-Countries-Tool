@@ -35,10 +35,7 @@ export function AppFooter() {
                   : "hidden min-w-0 md:block"
               }
             >
-              <h2
-                id={`footer-group-${index}`}
-                className="mb-3 text-sm font-semibold"
-              >
+              <h2 id={`footer-group-${index}`} className="mb-3 text-sm">
                 {group.title}
               </h2>
               <ul

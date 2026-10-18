@@ -31,9 +31,7 @@ export function CountryGuidePage({ slug }: { slug: string }) {
       <div className="mt-8 max-w-reading space-y-8">
         <p className="text-lg text-muted">{guide.introduction}</p>
         <section>
-          <h2 className="text-section-title font-semibold">
-            {guide.contextTitle}
-          </h2>
+          <h2>{guide.contextTitle}</h2>
           <p className="mt-4 text-muted">{guide.context}</p>
           <ul className="mt-3 space-y-2 text-sm">
             {guide.sources.map((source) => (
@@ -75,13 +73,11 @@ export function CountryGuidePage({ slug }: { slug: string }) {
           </p>
         </Card>
         <section>
-          <h2 className="text-section-title font-semibold">
-            Three activities to try
-          </h2>
+          <h2>Three activities to try</h2>
           <ol className="mt-5 space-y-6">
             {guide.activities.map((activity, index) => (
               <li key={activity.title}>
-                <h3 className="text-card-title font-semibold">
+                <h3>
                   {index + 1}. {activity.title}
                 </h3>
                 <p className="mt-3 text-muted">{activity.text}</p>
@@ -90,9 +86,7 @@ export function CountryGuidePage({ slug }: { slug: string }) {
           </ol>
         </section>
         <section className="border-t border-border pt-6">
-          <h2 className="text-card-title font-semibold">
-            Put the questions into practice
-          </h2>
+          <h2 className="text-card-title">Put the questions into practice</h2>
           <div className="mt-4 flex flex-wrap gap-3">
             <ButtonLink href={practice}>
               Practice {country.name}’s capitals

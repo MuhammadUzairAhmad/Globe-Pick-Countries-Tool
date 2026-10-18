@@ -57,7 +57,7 @@ export function SavedPlaces({
       <div className="grid gap-5 lg:grid-cols-2">
         <Card>
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="text-card-title font-semibold">
+            <h2 className="text-card-title">
               Recent results ({history.length})
             </h2>
             <button
@@ -99,9 +99,7 @@ export function SavedPlaces({
         </Card>
         <Card>
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="text-card-title font-semibold">
-              Favorites ({favorites.length})
-            </h2>
+            <h2 className="text-card-title">Favorites ({favorites.length})</h2>
             <button
               type="button"
               onClick={onClearFavorites}

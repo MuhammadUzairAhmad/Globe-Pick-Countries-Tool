@@ -59,7 +59,7 @@ export function GeneratorFilters({
   return (
     <Card>
       <div className="flex items-center justify-between gap-2">
-        <h2 className="text-card-title font-semibold">Filters</h2>
+        <h2 className="text-card-title">Filters</h2>
         <button
           type="button"
           onClick={onResetFilters}

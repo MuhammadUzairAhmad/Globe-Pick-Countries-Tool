@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* Named paper boxes are print mechanics; worksheet presentation uses Tailwind. */
 @page project-a4 {
   size: A4;
@@ -17,6 +19,7 @@
   --color-muted: #526174;
   --color-brand: #2563eb;
   --color-brand-strong: #1d4ed8;
+  --color-on-brand: #ffffff;
   --color-brand-soft: #edf3ff;
   --color-border: #e2e8f0;
   --color-glass: #ffffff;
@@ -25,6 +28,8 @@
   --color-accent-soft: #fff7ed;
   --color-success: #166534;
   --color-danger: #b91c1c;
+  --color-overlay: #172033;
+  --tracking-heading: -0.025em;
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
   --text-sm: 0.875rem;
@@ -67,6 +72,35 @@
   html {
     color-scheme: light;
   }
+  body {
+    @apply font-sans text-base;
+    background-color: var(--color-page);
+    color: var(--color-foreground);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+  h1 {
+    font-size: var(--text-page-title);
+    line-height: var(--text-page-title--line-height);
+    letter-spacing: var(--tracking-heading);
+  }
+  h2 {
+    font-size: var(--text-section-title);
+    line-height: var(--text-section-title--line-height);
+  }
+  h3 {
+    font-size: var(--text-card-title);
+    line-height: var(--text-card-title--line-height);
+  }
+  p {
+    text-wrap: pretty;
+  }
   :focus-visible {
     outline: 2px solid var(--color-brand);
     outline-offset: 4px;
@@ -74,5 +108,36 @@
   ::selection {
     background: var(--color-atlas);
     color: var(--color-foreground);
+  }
+}
+
+/* Theme overrides only affect screens. Paper and downloadable PDFs stay light. */
+@media screen {
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --color-page: #0b1220;
+    --color-surface: #121e30;
+    --color-foreground: #e6edf7;
+    --color-muted: #a9b8cc;
+    --color-brand: #8bb7ff;
+    --color-brand-strong: #accbff;
+    --color-on-brand: #0b1220;
+    --color-brand-soft: #1c3252;
+    --color-border: #30435d;
+    --color-glass: #121e30;
+    --color-atlas: #263c58;
+    --color-accent: #fbbf24;
+    --color-accent-soft: #382a13;
+    --color-success: #86efac;
+    --color-danger: #fca5a5;
+    --color-overlay: #020617;
+    --shadow-card: 0 4px 24px rgb(0 0 0 / 0.2);
+    --shadow-floating: 0 16px 48px rgb(0 0 0 / 0.4);
+  }
+}
+
+@media print {
+  p {
+    text-wrap: wrap;
   }
 }

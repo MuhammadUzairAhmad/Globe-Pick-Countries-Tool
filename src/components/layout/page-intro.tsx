@@ -12,7 +12,7 @@ export function PageIntro({
       <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-brand">
         {eyebrow}
       </p>
-      <h1 className="text-page-title font-semibold tracking-tight">{title}</h1>
+      <h1>{title}</h1>
       <p className="mt-5 max-w-reading text-lg text-muted">{description}</p>
     </div>
   );

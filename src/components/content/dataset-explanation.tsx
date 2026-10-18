@@ -5,9 +5,7 @@ import { Card } from "@/components/ui/card";
 export function DatasetExplanation() {
   return (
     <Card className="mt-8">
-      <h2 className="text-card-title font-semibold">
-        Which countries are included?
-      </h2>
+      <h2 className="text-card-title">Which countries are included?</h2>
       <p className="mt-3 text-sm text-muted">
         You can pick from {manifest.countryCount} countries: the 193 UN members,
         Palestine, and Vatican City, which represents the Holy See’s territory.

@@ -22,7 +22,7 @@ export function InformationPage({
       <div className="mt-8 max-w-reading space-y-5">
         {sections.map((section) => (
           <Card key={section.title}>
-            <h2 className="text-card-title font-semibold">{section.title}</h2>
+            <h2 className="text-card-title">{section.title}</h2>
             <div className="mt-3 text-muted">{section.content}</div>
           </Card>
         ))}

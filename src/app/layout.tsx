@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { AppHeader } from "@/components/layout/app-header";
 import { AppFooter } from "@/components/layout/app-footer";
 import { isPublicSite, siteOrigin } from "@/lib/seo/site";
+import { themeBootstrapScript } from "@/lib/theme";
 import "./globals.css";
 
 const geist = localFont({
@@ -22,11 +23,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geist.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-page font-sans text-foreground print:block print:min-h-0 print:bg-white print:text-black">
+    <html
+      lang="en"
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${geist.variable} h-full antialiased`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
+      </head>
+      <body className="flex min-h-full flex-col print:block print:min-h-0 print:bg-white print:text-black">
         <a
           href="#main-content"
-          className="sr-only z-50 rounded-control bg-brand px-5 py-3 font-semibold text-surface focus:not-sr-only focus:fixed focus:top-3 focus:left-3 print:hidden"
+          className="sr-only z-50 rounded-control bg-brand px-5 py-3 font-semibold text-on-brand focus:not-sr-only focus:fixed focus:top-3 focus:left-3 print:hidden"
         >
           Skip to content
         </a>

@@ -5,9 +5,7 @@ import { Card } from "@/components/ui/card";
 export function CityDatasetExplanation() {
   return (
     <Card className="mt-8">
-      <h2 className="text-card-title font-semibold">
-        Which cities are included?
-      </h2>
+      <h2 className="text-card-title">Which cities are included?</h2>
       <p className="mt-3 text-sm text-muted">
         This tool includes {manifest.cityCount.toLocaleString("en")} selected
         cities and towns across {manifest.coveredCountryCount} of our 195

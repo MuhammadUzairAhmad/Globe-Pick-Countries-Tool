@@ -220,7 +220,7 @@ function GeneratorSession({
               id="results-title"
               ref={resultsHeading}
               tabIndex={-1}
-              className="scroll-mt-6 text-card-title font-semibold"
+              className="scroll-mt-6 text-card-title"
             >
               Your results
             </h2>
@@ -312,9 +312,7 @@ function GeneratorSession({
           )}
           {!results.length ? (
             <Card>
-              <h3 className="text-card-title font-semibold">
-                Ready to pick a {mode}?
-              </h3>
+              <h3>Ready to pick a {mode}?</h3>
               <p className="mt-3 text-muted">
                 Choose a continent or keep all countries, then select Generate{" "}
                 {mode === "country"

@@ -18,7 +18,7 @@ export default function AboutPage() {
       />
       <div className="mt-8 max-w-reading space-y-6">
         <Card>
-          <h2 className="text-card-title font-semibold">What you can do</h2>
+          <h2 className="text-card-title">What you can do</h2>
           <p className="mt-4 text-muted">
             Generate random countries, capitals, or cities for games, school
             projects, and your own practice. Narrow the choices by continent,
@@ -37,9 +37,7 @@ export default function AboutPage() {
           <DatasetExplanation />
         </div>
         <Card>
-          <h2 className="text-card-title font-semibold">
-            Sources and review limits
-          </h2>
+          <h2 className="text-card-title">Sources and review limits</h2>
           <p className="mt-4 text-muted">
             The adapted country database is based on{" "}
             <a
@@ -119,9 +117,7 @@ export default function AboutPage() {
           </p>
         </Card>
         <Card>
-          <h2 className="text-card-title font-semibold">
-            City and town coverage
-          </h2>
+          <h2 className="text-card-title">City and town coverage</h2>
           <p className="mt-4 text-muted">
             City mode uses 7,194 selected city and town points from Natural
             Earth, covering 194 of our 195 countries. Nauru has no retained
@@ -160,9 +156,7 @@ export default function AboutPage() {
           </p>
         </Card>
         <Card>
-          <h2 className="text-card-title font-semibold">
-            Attribution and reusable data
-          </h2>
+          <h2 className="text-card-title">Attribution and reusable data</h2>
           <ul className="mt-4 space-y-4 text-sm text-muted">
             <li>
               Country database: mledoze/countries contributors,{" "}

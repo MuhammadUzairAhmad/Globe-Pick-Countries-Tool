@@ -33,14 +33,10 @@ export function RegionalCountryPage({ slug }: { slug: string }) {
       ]}
       editorial={
         <section className="mt-8 max-w-reading space-y-5">
-          <h2 className="text-section-title font-semibold">
-            {region.activityTitle}
-          </h2>
+          <h2>{region.activityTitle}</h2>
           <p className="text-muted">{region.activity}</p>
           <p className="text-muted">{region.discussion}</p>
-          <h2 className="text-card-title font-semibold">
-            Countries in this filter
-          </h2>
+          <h2 className="text-card-title">Countries in this filter</h2>
           <p className="text-sm text-muted">
             These {pool.length} names follow our country coverage and continent
             conventions. The filter is a learning convenience, not a definition

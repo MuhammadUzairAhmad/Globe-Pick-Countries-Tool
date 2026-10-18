@@ -26,7 +26,7 @@ export function MobileNavigation({
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen(!open)}
-        className="inline-flex min-h-touch items-center gap-2 rounded-control border border-border bg-surface px-4 text-sm font-medium"
+        className="inline-flex min-h-touch items-center gap-2 rounded-control border border-border bg-surface px-3 text-sm font-medium"
       >
         {open ? "Close" : "Menu"}
         <span aria-hidden="true">{open ? "×" : "☰"}</span>

@@ -10,9 +10,7 @@ export function StarterPackDownloads() {
       <p className="text-sm font-semibold text-brand">
         Free classroom starter pack
       </p>
-      <h2 className="mt-2 text-card-title font-semibold">
-        {starterPack.title}
-      </h2>
+      <h2 className="mt-2 text-card-title">{starterPack.title}</h2>
       <p className="mt-3 max-w-reading text-muted">
         {starterPack.description} Compare one capital with several capital
         roles, locate each country, and research languages and currencies. Use

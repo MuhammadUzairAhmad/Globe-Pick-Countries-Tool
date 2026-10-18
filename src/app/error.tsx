@@ -11,9 +11,7 @@ export default function ErrorPage({
 }) {
   return (
     <Container className="py-section">
-      <h1 className="text-section-title font-semibold">
-        We couldn’t load this page.
-      </h1>
+      <h1 className="text-section-title">We couldn’t load this page.</h1>
       <p className="mt-4 text-muted">
         Please try again, or return to the homepage.
       </p>

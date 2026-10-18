@@ -1,6 +1,6 @@
 # GlobePick architecture and scope
 
-Updated 14 October 2026. Implements Phases 0–6 of the local plan.
+Updated 18 October 2026. Implements Phases 0–6 of the local plan, local launch checks, and starter-pack preparation.
 
 ## Starting point and stack
 
@@ -10,7 +10,9 @@ The repository contained an unchanged create-next-app page, root layout, and glo
 
 Routes, introductions, samples, how-to content, dataset explanations, and metadata remain Server Components and are statically pre-rendered. Generator interaction is a Client Component boundary, with pure selection/state functions, presentational country/capital components, and separate browser adapters. There are no custom API routes, Server Actions, authentication, database, runtime geography requests, or global state libraries.
 
-`src/app/globals.css` owns shared Tailwind theme tokens. Components compose Tailwind utilities. Country and capital tools reuse ToolPageLayout, GeneratorWorkspace, GeneratorFilters, QuantityControl, ResultsGrid, PlaceResultCard, PlaceIdentity, FactList, ResultActions, and saved-place lists. Glass has an opaque fallback. The vendored Geist font uses `next/font/local`; no remote font request is needed. Original brand assets are generated from theme colors by `scripts/generate-brand-assets.mjs`.
+`src/app/globals.css` owns shared Tailwind theme tokens and base body/heading/paragraph defaults. Components compose inline Tailwind utilities for layout, responsive behavior, and states; repeated patterns use shared components and variants. See `styling.md`. Country and capital tools reuse ToolPageLayout, GeneratorWorkspace, GeneratorFilters, QuantityControl, ResultsGrid, PlaceResultCard, PlaceIdentity, FactList, ResultActions, and saved-place lists. Glass has an opaque fallback. The vendored Geist font uses `next/font/local`; no remote font request is needed. Original brand assets are generated from theme colors by `scripts/generate-brand-assets.mjs`.
+
+The header theme toggle follows the system until a manual choice is saved under `globepick:theme`. A static inline head script validates that choice and applies root theme attributes before paint; no cookie or request-specific rendering is needed. A `useSyncExternalStore` subscription handles system changes, manual changes, and cross-tab storage events. Storage failures retain a working per-visit toggle. Semantic utilities consume the selected palette, with separate foreground-on-brand and overlay roles. Dark overrides apply only to screen media; worksheet paper and printed output use white/light colors.
 
 ## Dataset and geography model
 

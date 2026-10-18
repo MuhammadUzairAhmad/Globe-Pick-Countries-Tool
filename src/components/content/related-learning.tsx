@@ -7,7 +7,7 @@ export function RelatedLearning() {
       className="mt-8 border-t border-border pt-6"
       aria-labelledby="related-learning-title"
     >
-      <h2 id="related-learning-title" className="text-card-title font-semibold">
+      <h2 id="related-learning-title" className="text-card-title">
         Explore a region or a learning guide
       </h2>
       <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">

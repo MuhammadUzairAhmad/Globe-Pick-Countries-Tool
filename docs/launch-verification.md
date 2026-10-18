@@ -1,6 +1,6 @@
 # Local launch verification
 
-Checked 14 October 2026. Hosting is deferred by the owner. This is a local verification record, not a public-launch sign-off.
+Checked 18 October 2026. Hosting is deferred by the owner. This is a local verification record, not a public-launch sign-off.
 
 ## Repeatable checks
 
@@ -22,14 +22,15 @@ The launch check loads `.env*` with the installed Next environment loader. It re
 
 ## Results
 
-Updated for the starter packs and subsequent generator/navigation fixes.
+Updated for the starter packs, generator/navigation fixes, and light/dark styling.
 
-- 34 domain, storage, sharing, schema, production-inspection, and contrast tests pass. Country, city, and starter-pack validators, lint, type checking, formatting, and production compilation pass.
+- 37 domain, storage, sharing, schema, production-inspection, theme, and contrast tests pass. Country, city, and starter-pack validators, lint, type checking, formatting, and production compilation pass.
 - Thirteen published content pages return 200; five unreviewed paths return actual 404. Sixteen sampled assets load, including byte-identical reviewed PDFs. Local metadata remains noindex and the local sitemap has zero entries.
 - Gzip-equivalent HTML is about 34–36 KB for country/capital/regional tools and 212 KB for city mode. The verifier budgets 120 KB per normal page and 250 KB for city mode. These cover HTML including serialized component data, not all JavaScript, fonts, images, or a network waterfall.
 - Browser acceptance covers generation, capacity, no repeats, guess/reveal, save/refresh, replay, visible copy/share feedback, dialog focus return, missing city coverage, and worksheet preview. See `implementation-progress.md` for exercised flows and adapter failure tests.
 - City-page controls have accessible labels; the keyboard-operated mobile menu opens with Enter, closes with Escape, and restores focus. The skip link moves focus to the main content. Phone, tablet, and desktop checks found no horizontal overflow; observed production logs contain no warnings/errors.
-- Nine semantic small-text color pairs meet 4.5:1 against the actual CSS palette using the WCAG contrast formula. This does not certify every composited, disabled, focus, or assistive-technology state. Standalone related-learning links have the shared 44px minimum touch height.
+- Twelve semantic small-text color pairs in each light/dark palette meet 4.5:1 using the WCAG contrast formula. This does not certify every composited, disabled, focus, or assistive-technology state. Standalone related-learning links and the theme toggle have the shared 44px minimum touch size.
+- The rendered theme follows the initial system preference, preserves a manual choice after reload, and syncs between open tabs. Dark generators and share dialogs render with the semantic palette. White worksheet previews fit A4/Letter layouts; screen-only dark overrides preserve light print colors. Phone/tablet/desktop checks show no horizontal overflow or observed warning/error logs.
 
 ## Pending before public launch
 

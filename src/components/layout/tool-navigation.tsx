@@ -23,11 +23,11 @@ export function ToolNavigation({
           href={tool.path}
           prefetch={tool.path === "/random-city-generator" ? false : undefined}
           aria-current={current === tool.path ? "page" : undefined}
-          className={
+          className={`inline-flex min-h-touch items-center rounded-control px-5 text-sm ${
             current === tool.path
-              ? "inline-flex min-h-touch items-center rounded-control bg-brand px-5 text-sm font-semibold text-surface"
-              : "inline-flex min-h-touch items-center rounded-control border border-border bg-surface px-5 text-sm font-medium text-muted hover:bg-brand-soft"
-          }
+              ? "bg-brand font-semibold text-on-brand"
+              : "border border-border bg-surface font-medium text-muted hover:bg-brand-soft"
+          }`}
         >
           {tool.label}
         </Link>
