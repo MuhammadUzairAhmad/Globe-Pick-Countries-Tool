@@ -5,13 +5,12 @@ import { generatorReducer, initialState } from "../lib/state";
 import {
   eligiblePlaces,
   placesForMode,
-  placeName,
-  selectPlaces,
   filtersForRegion,
 } from "../lib/selection";
 import { readSavedState, writeSavedState } from "@/lib/storage/saved-state";
 import { parseSharedUrl } from "@/lib/share/url-state";
-import type { City, Continent, Country, Mode } from "../types";
+import { prepareGeneration } from "../lib/generation";
+import type { City, Continent, Country, Mode, Place } from "../types";
 const noCities: City[] = [];
 
 export function useGenerator(
@@ -133,45 +132,23 @@ export function useGenerator(
     state.saved.filters,
     state.saved.consumed,
   );
-  function generate(quantity = state.saved.filters.quantity) {
+  function generate(
+    quantity = state.saved.filters.quantity,
+  ): Place[] | undefined {
     if (!state.hydrated) return;
     try {
-      const selected = selectPlaces(remaining, quantity);
-      if (!selected.ok) {
-        dispatch({ type: "message", message: selected.message });
+      const generation = prepareGeneration(
+        remaining,
+        quantity,
+        mode,
+        state.saved.filters.guess,
+      );
+      if (!generation.ok) {
+        dispatch({ type: "message", message: generation.message });
         return;
       }
-      const names = selected.places
-        .slice(0, 3)
-        .map((place) =>
-          state.saved.filters.guess && mode === "capital"
-            ? place.country.name
-            : placeName(place),
-        )
-        .join(", ");
-      const count = selected.places.length;
-      const label =
-        mode === "country"
-          ? count === 1
-            ? "country"
-            : "countries"
-          : mode === "city"
-            ? count === 1
-              ? "city or town"
-              : "cities and towns"
-            : state.saved.filters.guess
-              ? count === 1
-                ? "capital question"
-                : "capital questions"
-              : count === 1
-                ? "capital or government seat"
-                : "capitals and government seats";
-      dispatch({
-        type: "generated",
-        ids: selected.places.map((place) => place.id),
-        at: Date.now(),
-        message: `Picked ${count} ${label}: ${names}${count > 3 ? ", and more" : ""}.`,
-      });
+      dispatch(generation.action);
+      return generation.places;
     } catch {
       dispatch({
         type: "message",
