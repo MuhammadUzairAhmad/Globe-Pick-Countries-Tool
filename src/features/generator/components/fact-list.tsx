@@ -13,9 +13,12 @@ export function FactList({
   const tileClass = tiles
     ? "min-w-0 rounded-control border border-border bg-surface p-3"
     : undefined;
+  const listClass = tiles
+    ? "grid grid-cols-2 gap-3"
+    : "mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2";
   if (place.kind === "city")
     return (
-      <dl className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
+      <dl className={listClass}>
         {[
           { label: "Country", value: country.name },
           { label: "Continent", value: country.continent },
@@ -28,9 +31,9 @@ export function FactList({
             value: `${place.city.location.lat.toFixed(3)}°, ${place.city.location.lng.toFixed(3)}°`,
           },
         ].map((fact) => (
-          <div key={fact.label}>
+          <div key={fact.label} className={tileClass}>
             <dt className="text-xs text-muted">{fact.label}</dt>
-            <dd className="mt-1 text-sm">{fact.value}</dd>
+            <dd className="mt-1 break-words text-sm">{fact.value}</dd>
           </div>
         ))}
       </dl>

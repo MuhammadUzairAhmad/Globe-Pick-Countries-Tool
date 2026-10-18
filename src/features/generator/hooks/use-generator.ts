@@ -7,6 +7,7 @@ import {
   placesForMode,
   filtersForRegion,
   filtersWithoutCountryChoices,
+  filtersForCountry,
 } from "../lib/selection";
 import { readSavedState, writeSavedState } from "@/lib/storage/saved-state";
 import { parseSharedUrl } from "@/lib/share/url-state";
@@ -22,10 +23,12 @@ export function useGenerator(
     initialContinent,
     singlePick = false,
     ignoreCountryChoices = false,
+    selectionCountryId,
   }: {
     initialContinent?: Continent;
     singlePick?: boolean;
     ignoreCountryChoices?: boolean;
+    selectionCountryId?: string;
   } = {},
 ) {
   const [state, dispatch] = useReducer(generatorReducer, undefined, () => {
@@ -143,15 +146,20 @@ export function useGenerator(
   }, [state.saved, state.hydrated, state.dirty, mode]);
   // Keep the full tool's saved custom choices intact while the spinner draws
   // from every country in the selected continent.
-  const selectionFilters = ignoreCountryChoices
-    ? filtersWithoutCountryChoices(state.saved.filters)
-    : state.saved.filters;
-  const eligible = eligiblePlaces(places, {
+  const selectionFilters =
+    selectionCountryId !== undefined
+      ? filtersForCountry(state.saved.filters, selectionCountryId)
+      : ignoreCountryChoices
+        ? filtersWithoutCountryChoices(state.saved.filters)
+        : state.saved.filters;
+  // Keep every ID available for storage validation while awaiting a country.
+  const selectionPlaces = selectionCountryId === "" ? [] : places;
+  const eligible = eligiblePlaces(selectionPlaces, {
     ...selectionFilters,
     noRepeat: false,
   });
   const remaining = eligiblePlaces(
-    places,
+    selectionPlaces,
     selectionFilters,
     state.saved.consumed,
   );

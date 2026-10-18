@@ -2,7 +2,7 @@
 
 A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6, local Phase 7 checks, and a Phase 8 starter pack are implemented. Public launch and real-usage experiments are pending.
 
-- Homepage country spinner with continent/no-repeat settings, a confetti result modal, shared country history/favorites, and an always-visible paginated flag list.
+- Homepage country/city spinner with Countries/Cities tabs, continent or country settings, no-repeat controls, a confetti result modal, shared mode-specific history/favorites, and a paginated flag list. City records load only when requested.
 - Random country, capital/government-seat, and city/town selection with continent and searchable inclusion/exclusion filters.
 - Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
 - Facts, local flags, optional approximate map markers, and visible sources.
@@ -68,7 +68,7 @@ The pinned community database has structural checks and reviewed exceptional cas
 
 ## Browser data
 
-Each generator mode has its own versioned localStorage record. The homepage spinner shares the country record; each spin draws one country without changing the full tool’s saved batch quantity or custom include/exclude choices. The spinner ignores those custom choices and uses all countries in its selected continent. Its eight-country pages only paginate the visible list, never the draw pool. Refresh restores settings, history, favorites, and consumed IDs without an initial empty overwrite. Clear controls operate separately; clearing history does not reset the no-repeat pool. There is no account, cloud sync, or cross-tab merging. Storage failures leave the tool usable. Shared results replay without consuming the recipient's pool or adding history.
+Each generator mode has its own versioned localStorage record. The homepage spinner shares each mode’s existing record; each spin draws one place without changing the full tool’s saved batch quantity or custom include/exclude choices. Countries mode uses every eligible country in its selected continent. Cities mode loads records on demand and requires a country; its effective country scope leaves the full city tool’s saved filters intact. Switching tabs retains each workspace’s current selection and result. Four-place phone pages and eight-place wider pages only paginate the visible list, never the draw pool. Refresh restores settings, history, favorites, and consumed IDs without an initial empty overwrite. Clear controls operate separately; clearing history does not reset the no-repeat pool. There is no account, cloud sync, or cross-tab merging. Storage failures leave the tool usable. Shared results replay without consuming the recipient's pool or adding history.
 
 The appearance preference uses a separate `globepick:theme` key. It follows the system until you use the header toggle, then remembers the choice and syncs it between open tabs. Blocked storage permits switching for the current visit.
 

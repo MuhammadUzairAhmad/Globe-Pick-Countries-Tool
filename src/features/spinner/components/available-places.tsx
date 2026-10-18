@@ -4,19 +4,26 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import type { Place } from "@/features/generator/types";
 import { countryPage } from "../lib/pagination";
-import { useCountryPageSize } from "../hooks/use-country-page-size";
+import { usePlacePageSize } from "../hooks/use-place-page-size";
 
-export function AvailableCountries({
+export function AvailablePlaces({
   places,
   ready,
   spinning,
+  mode = "country",
+  awaitingCountry = false,
 }: {
   places: readonly Place[];
   ready: boolean;
   spinning: boolean;
+  mode?: "country" | "city";
+  awaitingCountry?: boolean;
 }) {
+  const isCity = mode === "city";
+  const noun = isCity ? "city" : "country";
+  const plural = isCity ? "cities" : "countries";
   const [requestedOffset, setOffset] = useState(0);
-  const pageSize = useCountryPageSize();
+  const pageSize = usePlacePageSize();
   const { countries, page, pageCount, first, last } = countryPage(
     places,
     Math.floor(requestedOffset / pageSize) + 1,
@@ -30,7 +37,7 @@ export function AvailableCountries({
     >
       <div className="flex items-center justify-between gap-3">
         <h4 id={headingId} className="text-sm font-semibold">
-          Countries in the next spin
+          {isCity ? "Cities" : "Countries"} in the next spin
         </h4>
         <span className="rounded-full bg-brand-soft px-2.5 py-1 text-xs font-semibold text-brand">
           {ready ? places.length : "…"}
@@ -39,7 +46,7 @@ export function AvailableCountries({
       <p className="mt-2 text-xs text-muted">
         {spinning
           ? "The pool updates when this spin ends."
-          : "Every available country can win, on any page."}
+          : `Every available ${noun} can win, on any page.`}
       </p>
       {!ready ? (
         <div
@@ -74,27 +81,37 @@ export function AvailableCountries({
                 unoptimized
                 className="h-6 w-8 shrink-0 rounded border border-border object-contain"
               />
-              <span className="min-w-0 break-words text-sm font-medium">
-                {place.country.name}
-              </span>
+              <div className="min-w-0 break-words">
+                <p className="text-sm font-medium">
+                  {place.kind === "city" ? place.city.name : place.country.name}
+                </p>
+                {place.kind === "city" && (
+                  <p className="text-xs text-muted">
+                    {place.city.adminRegion || place.country.name}
+                  </p>
+                )}
+              </div>
             </li>
           ))}
         </ul>
       ) : (
         <p className="mt-3 rounded-control border border-border bg-page p-4 text-sm text-muted">
-          No countries are available. Choose another continent, allow repeats,
-          or reset picked places.
+          {awaitingCountry
+            ? "Choose a country to see the cities and towns in its next spin."
+            : isCity
+              ? "No cities are available. Choose another country, allow repeats, or reset picked places."
+              : "No countries are available. Choose another continent, allow repeats, or reset picked places."}
         </p>
       )}
       <p className="mt-3 text-xs text-muted">
         {!ready
-          ? "Loading countries…"
+          ? `Loading ${plural}…`
           : places.length
-            ? `Showing ${first}–${last} of ${places.length} countries`
-            : "0 countries available"}
+            ? `Showing ${first}–${last} of ${places.length} ${plural}`
+            : `0 ${plural} available`}
       </p>
       <nav
-        aria-label="Available country pages"
+        aria-label={`Available ${noun} pages`}
         className="mt-3 flex flex-wrap items-center justify-between gap-2"
       >
         <Button
@@ -103,7 +120,7 @@ export function AvailableCountries({
           className="min-w-touch gap-1"
           disabled={!ready || spinning || page === 1 || !places.length}
           onClick={() => setOffset((page - 2) * pageSize)}
-          aria-label="Previous countries"
+          aria-label={`Previous ${plural}`}
         >
           <Icon name="arrow" className="size-4 rotate-180" />
           <span className="hidden min-[360px]:inline">Previous</span>
@@ -122,7 +139,7 @@ export function AvailableCountries({
           className="min-w-touch gap-1"
           disabled={!ready || spinning || page === pageCount || !places.length}
           onClick={() => setOffset(page * pageSize)}
-          aria-label="Next countries"
+          aria-label={`Next ${plural}`}
         >
           <span className="hidden min-[360px]:inline">Next</span>
           <Icon name="arrow" className="size-4" />

@@ -11,7 +11,7 @@ type WheelState = {
   spinning: boolean;
 };
 
-export function useCountryWheel() {
+export function usePlaceWheel() {
   const [wheel, setWheel] = useState<WheelState | null>(null);
   const element = useRef<HTMLDivElement>(null);
   const locked = useRef(false);

@@ -14,6 +14,18 @@ export function filtersWithoutCountryChoices(filters: Filters): Filters {
   return { ...filters, include: [], exclude: [] };
 }
 
+export function filtersForCountry(
+  filters: Filters,
+  countryId: string,
+): Filters {
+  return {
+    ...filters,
+    continent: "all",
+    include: countryId ? [countryId] : [],
+    exclude: [],
+  };
+}
+
 export function filtersForRegion(
   filters: Filters,
   continent?: Continent,

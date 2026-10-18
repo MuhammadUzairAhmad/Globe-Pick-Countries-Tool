@@ -3,10 +3,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { ConfettiBurst } from "./confetti-burst";
-import type { Country } from "@/features/generator/types";
+import type { Place } from "@/features/generator/types";
 
 export function SpinnerResultDialog({
-  country,
+  place,
   replay,
   celebrate,
   canSpin,
@@ -16,7 +16,7 @@ export function SpinnerResultDialog({
   onClose,
   onSpinAgain,
 }: {
-  country: Country;
+  place: Place;
   replay: boolean;
   celebrate: boolean;
   canSpin: boolean;
@@ -26,6 +26,13 @@ export function SpinnerResultDialog({
   onClose: () => void;
   onSpinAgain: () => void;
 }) {
+  const country = place.country;
+  const isCity = place.kind === "city";
+  const noun = isCity ? "city" : "country";
+  const name = isCity ? place.city.name : country.name;
+  const subtitle = isCity
+    ? `${place.city.adminRegion ? `${place.city.adminRegion}, ` : ""}${country.name}`
+    : country.continent;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const id = useId();
@@ -106,7 +113,7 @@ export function SpinnerResultDialog({
                 aria-hidden="true"
                 className="mb-1 text-xs font-medium text-muted"
               >
-                {replay ? "Saved country" : "You picked"}
+                {replay ? `Saved ${noun}` : "You picked"}
               </p>
               <h2
                 ref={headingRef}
@@ -115,16 +122,16 @@ export function SpinnerResultDialog({
                 className="break-words text-card-title focus:outline-none sm:text-section-title"
               >
                 <span className="sr-only">
-                  {replay ? "Saved country: " : "You picked "}
+                  {replay ? `Saved ${noun}: ` : "You picked "}
                 </span>
-                {country.name}
+                {name}
               </h2>
-              <p className="mt-1 text-sm text-muted">{country.continent}</p>
+              <p className="mt-1 text-sm text-muted">{subtitle}</p>
             </div>
           </div>
           <button
             type="button"
-            aria-label="Close country result"
+            aria-label={`Close ${noun} result`}
             onClick={onClose}
             className="flex size-touch shrink-0 items-center justify-center rounded-control text-muted hover:bg-surface"
           >
@@ -134,14 +141,15 @@ export function SpinnerResultDialog({
         <div className="min-h-0 overflow-y-auto overscroll-contain p-4 sm:p-6">
           <p id={`${id}-description`} className="sr-only">
             {replay
-              ? "Viewing this country doesn’t count as a new pick."
-              : "Save this country or spin again."}
+              ? `Viewing this ${noun} doesn’t count as a new pick.`
+              : `Save this ${noun} or spin again.`}
           </p>
           {children}
           {!canSpin && (
             <p className="mt-4 text-sm text-muted">
-              That was the last available country. Close this window to change
-              continents, allow repeats, or reset your picks.
+              {isCity
+                ? "That was the last available city or town. Close this window to choose another country, allow repeats, or reset your picks."
+                : "That was the last available country. Close this window to change continents, allow repeats, or reset your picks."}
             </p>
           )}
           {feedback}

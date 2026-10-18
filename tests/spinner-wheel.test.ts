@@ -15,7 +15,7 @@ import { createShareUrl, parseSharedUrl } from "../src/lib/share/url-state.ts";
 import type { Country } from "../src/features/generator/types.ts";
 
 test("every sector lands under the fixed pointer across successive rotations", () => {
-  for (const count of [1, 2, 3, 24, 25, 195]) {
+  for (const count of [1, 2, 3, 24, 25, 195, 769]) {
     let previous = 0;
     for (let lap = 0; lap < 3; lap++)
       for (let index = 0; index < count; index++) {

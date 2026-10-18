@@ -4,7 +4,11 @@ Implemented locally on 19 October 2026. Hosting remains deferred; no push or dep
 
 ## Behavior and scope
 
-The original homepage hero and atlas artwork remain. Its primary action, “Spin the country wheel,” links to the spinner section on the same page; Practice capitals opens the existing capital tool. A separate country-spinner section follows the hero, with settings and filters on the left and the wheel and Spin button on the right from 1280px. Below that desktop breakpoint, including landscape tablets, a flex column places the wheel first and settings below it. The square wheel fits the available width, reaching 576px on desktop and 448px on tablets, with a matching center badge and pointer. Each spin picks one country through the existing uniform crypto-backed selection engine. When the wheel settles, a native result modal displays the selected country with a short confetti burst, facts, optional map/sources, Save/Copy/Share, Back to wheel, and Spin again. Closing it leaves View last country by the wheel; no result card or anchor requires scrolling down. Saved replays use the same modal without a celebration. The full country tool retains batches of 1–20; capital practice, city selection, worksheets, published routes, and Lagoon/light themes retain their existing workflows.
+The settings panel now has Countries/Cities tabs with arrow/Home/End keyboard navigation and focus restoration. Cities load only after activation, with loading feedback and retry on failure. Users choose a country before spinning a city or town. The country selector includes per-country dataset counts and an honest empty state for Nauru. Fresh visits default to Countries; the tab and selected city country last for the current page session. Each tab retains its selection and result while inactive, and uses its existing mode-specific storage key, history, favorites, and no-repeat pool. The city spinner preserves full-tool batch quantity and custom choices; it validates saved IDs against the complete city dataset and scopes only effective selection filters. City replays restore the corresponding country without a new draw.
+
+Both modes use the same equal-sector wheel, pagination, motion/skip handling, result modal, confetti, map/source disclosure, and copy/share feedback. City lists and results include administrative-region/country context; share links replay one exact city on the existing city-generator route.
+
+The original homepage hero and atlas artwork remain. Its primary action, “Spin the wheel,” links to the spinner section on the same page; Practice capitals opens the existing capital tool. A separate country-spinner section follows the hero, with settings and filters on the left and the wheel and Spin button on the right from 1280px. Below that desktop breakpoint, including landscape tablets, a flex column places the wheel first and settings below it. The square wheel fits the available width, reaching 576px on desktop and 448px on tablets, with a matching center badge and pointer. Each spin picks one country through the existing uniform crypto-backed selection engine. When the wheel settles, a native result modal displays the selected country with a short confetti burst, facts, optional map/sources, Save/Copy/Share, Back to wheel, and Spin again. Closing it leaves View last country by the wheel; no result card or anchor requires scrolling down. Saved replays use the same modal without a celebration. The full country tool retains batches of 1–20; capital practice, city selection, worksheets, published routes, and Lagoon/light themes retain their existing workflows.
 
 The spinner and country generator share the validated `globepick:v1:country` record. The spinner offers continent and no-repeat settings and always uses all countries in that continent. The full tool’s saved include/exclude choices are ignored by the spinner and preserved when it writes history, favorites, or settings. Consumed countries stay excluded until the pool is explicitly reset or repeats are enabled, and recent picks and favorites appear in both views. A spin never changes the saved batch quantity. On Back, the spinner refreshes shared saved lists and the latest batch quantity and stored custom choices while retaining its own continent/no-repeat settings and result.
 
@@ -16,7 +20,7 @@ The modal places a larger local flag and country heading above the shared capita
 
 ## Automated checks
 
-- 51 tests pass, including every landing sector in pools of 1, 2, 3, 24, 25, and 195 across successive rotations.
+- 54 tests pass, including every landing sector in pools of 1, 2, 3, 24, 25, 195, and 769 across successive rotations.
 - Generation tests cover one history entry, filtered/no-repeat selection, retained batch quantity, empty pools, existing batch/quiz messages, and single-pick route resume with successful or failed storage reads.
 - Pool tests verify that spinner draws/shares ignore custom choices without erasing them, cached resume refreshes the stored choices, every available country appears across four- and eight-item pages, off-page countries can win, and empty/shrinking pools clamp pagination safely.
 - Snapshot tests verify retained pool/filter arrays and exact one-country share round-trips after the original filters change.
@@ -44,16 +48,16 @@ Verified against the local production server through the in-app browser:
 
 ## Production and payloads
 
-All thirteen published pages pass the HTTP verifier, with five genuine 404s, sixteen sampled assets including unchanged PDF bytes, clean canonicals, and no city-record payload on other routes. The homepage remains statically pre-rendered with one H1. No new published URL or sitemap query permutation was added. Local noindex and the empty sitemap remain appropriate while hosting is deferred.
+All thirteen published pages pass the HTTP verifier, with five genuine 404s, sixteen sampled assets including unchanged PDF bytes, clean canonicals, and no city-record payload in initial HTML on other routes. The homepage’s city chunk loads only after Cities is selected. The homepage remains statically pre-rendered with one H1. No new published URL or sitemap query permutation was added. Local noindex and the empty sitemap remain appropriate while hosting is deferred.
 
 | Build output                            | Before spinner |  With spinner |
 | --------------------------------------- | -------------: | ------------: |
-| HTML, uncompressed                      |   74,702 bytes | 336,149 bytes |
-| HTML, gzip equivalent                   |   12,215 bytes |  42,561 bytes |
-| Directly referenced JS, uncompressed    |  600,846 bytes | 650,494 bytes |
-| Directly referenced JS, gzip equivalent |  186,639 bytes | 202,887 bytes |
+| HTML, uncompressed                      |   74,702 bytes | 337,985 bytes |
+| HTML, gzip equivalent                   |   12,215 bytes |  42,851 bytes |
+| Directly referenced JS, uncompressed    |  600,846 bytes | 655,861 bytes |
+| Directly referenced JS, gzip equivalent |  186,639 bytes | 204,606 bytes |
 
-Measurements include serialized country data in HTML and the script files directly referenced by the generated homepage. They are gzip equivalents from local build files, not a network waterfall or field performance score. The existing HTML budget is 120,000 gzip bytes for Home; city mode has its separate budget. There is no new spinner package or geography network request.
+Measurements include serialized country data in HTML and the script files directly referenced by the generated homepage. They are gzip equivalents from local build files, not a network waterfall or field performance score. The existing HTML budget is 120,000 gzip bytes for Home; city mode has its separate budget. There is no new spinner package or external geography request. The Cities tab loads its local dataset chunk on demand.
 
 ## Remaining launch checks
 

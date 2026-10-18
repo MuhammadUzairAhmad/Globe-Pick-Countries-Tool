@@ -5,7 +5,7 @@ import { sectorPath, wheelPoint } from "../lib/wheel";
 const fills = ["fill-brand-soft", "fill-brand/15", "fill-brand/25"];
 const denseFills = ["fill-brand/15", "fill-brand/25", "fill-brand/35"];
 
-export function CountryWheel({
+export function PlaceWheel({
   pool,
   rotation,
   wheelRef,
@@ -59,10 +59,9 @@ export function CountryWheel({
                 const won = place.id === winnerId;
                 const angle = ((index + 0.5) * 360) / pool.length;
                 const point = wheelPoint(angle, pool.length <= 6 ? 90 : 100);
-                const label =
-                  place.country.name.length > 17
-                    ? `${place.country.name.slice(0, 15)}…`
-                    : place.country.name;
+                const name =
+                  place.kind === "city" ? place.city.name : place.country.name;
+                const label = name.length > 17 ? `${name.slice(0, 15)}…` : name;
                 return (
                   <g key={place.id}>
                     <path

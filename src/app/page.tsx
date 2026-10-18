@@ -69,7 +69,7 @@ export default function Home() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <ButtonLink href="#country-spinner">
-              Spin the country wheel
+              Spin the wheel
               <Icon name="arrow" className="size-4" />
             </ButtonLink>
             <ButtonLink href="/random-capital-generator" variant="secondary">

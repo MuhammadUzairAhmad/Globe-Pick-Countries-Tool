@@ -14,7 +14,7 @@ function getSnapshot() {
 
 const getServerSnapshot = () => false;
 
-export function useCountryPageSize(): 4 | 8 {
+export function usePlacePageSize(): 4 | 8 {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
     ? 8
     : 4;
