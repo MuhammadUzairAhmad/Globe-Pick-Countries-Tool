@@ -132,7 +132,7 @@ export function SpinnerWorkspace({ countries, cities, ...controls }: Props) {
       aria-labelledby={`${groupId}-${mode}-${mode}-tab`}
       tabIndex={0}
     >
-      <div className="flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:items-start">
+      <div className="flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:items-stretch">
         <Card className="flex min-w-0 flex-col">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
             <h3 className="text-card-title">

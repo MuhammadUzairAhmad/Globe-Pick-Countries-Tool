@@ -195,3 +195,9 @@ The baseline is functional locally. Before public launch: provide the real opera
 - Reframed the following section around lists, capital practice, and worksheets. Country/city cards now describe up to 20 results and full filters, with “Pick multiple countries” and “Pick multiple cities” as secondary actions.
 - Existing selection, saved settings, tool pages, and capital/worksheet workflows remain intact. Browser checks confirm both contextual links and both renamed cards open their intended routes, the city tab survives return navigation, and the country tool retains its stored batch quantity.
 - Verification: all 54 tests, lint, production TypeScript/build, data/PDF validation, and the thirteen-page production audit pass. New labels fit at requested widths of 320, 768, and 1440 pixels without horizontal overflow. Observed warning/error logs are empty; changes remain local.
+
+## Equal-height desktop spinner panels
+
+- Stretched both cards to their shared desktop grid row height, so settings and the wheel align at the top and bottom without fixed heights. Below 1280px, the stacked cards keep their natural heights and wheel-first order.
+- Browser measurements confirm equal heights in country mode at 1280/1440px and in empty and populated city modes at 1440px. Tablet/phone checks at 768/375px retain natural stacking without horizontal overflow; temporary viewport overrides were reset.
+- Lint, changed-file formatting, production TypeScript/build, and data/PDF validation pass. Observed browser warning/error logs are empty. Changes remain local.
