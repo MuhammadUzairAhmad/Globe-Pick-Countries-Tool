@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <Container>
       <HomepageSpinner countries={countries}>
-        <div>
+        <div className="lg:self-start lg:pt-12">
           <p className="text-sm font-medium text-brand">
             Geography for curious minds
           </p>

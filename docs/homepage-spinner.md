@@ -1,0 +1,51 @@
+# Homepage spinner verification
+
+Implemented locally on 19 October 2026. Hosting remains deferred; no push or deployment was performed.
+
+## Behavior and scope
+
+The homepage now has a working country wheel in place of the decorative atlas panel. Each spin picks one country through the existing uniform crypto-backed selection engine. The full country tool retains batches of 1–20; capital practice, city selection, worksheets, published routes, and Lagoon/light themes retain their existing workflows.
+
+The spinner and country generator share the validated `globepick:v1:country` record. Saved filters are visible, consumed countries stay excluded until the pool is explicitly reset or repeats are enabled, and recent picks and favorites appear in both views. A spin never changes the saved batch quantity. On Back, the spinner refreshes shared saved lists and the latest batch quantity while retaining its own filters and result.
+
+A synchronous guard blocks repeated clicks before React renders. The accepted country is recorded once at spin start. An immutable pool/filter snapshot determines the wheel’s landing and the share link; settling cannot draw another country. Links open `/random-country-generator` with quantity one, the accepted pick’s filters, and its exact country ID. Replays neither consume countries nor append history.
+
+The wheel uses equal SVG sectors. Small pools have labels; dense pools use stronger decorative color bands, with the available-country list and explicit result supplying readable names. It loads no flag for wheel sectors. Component styling uses inline Tailwind and existing global theme roles.
+
+## Automated checks
+
+- 43 tests pass, including every landing sector in pools of 1, 2, 3, 24, 25, and 195 across successive rotations.
+- Generation tests cover one history entry, filtered/no-repeat selection, retained batch quantity, empty pools, existing batch/quiz messages, and single-pick route resume with successful or failed storage reads.
+- Snapshot tests verify retained pool/filter arrays and exact one-country share round-trips after the original filters change.
+- Controlled motion tests cover normal completion, skip/cleanup, rejection, missing/throwing animation APIs, hidden documents, reduced-motion preference changes, initial reduced motion, and timeout. Repeated completion signals settle once and remove listeners/timers. These are adapter tests; reduced-motion emulation and hidden-tab lifecycle were not separately exercised on physical devices.
+- Existing storage, sharing fallbacks/cancellation, quiz, city, worksheet model, contrast, SEO, and production inspection tests continue to pass.
+- Lint, TypeScript, formatting of changed files, geography/city/PDF validation, and production compilation pass. The user’s pre-existing reference-link edits in the main plan are preserved separately.
+
+## Browser acceptance
+
+Verified against the local production server through the in-app browser:
+
+- Double-click Spin adds one country; the busy view hides the new winner until settlement. Normal completion and keyboard Enter → Show result now reveal the accepted result. Skip returns focus to Spin.
+- Leaving during animation and returning with Back reveals the accepted result without restarting the spin. A six-country batch in the full tool shares history/consumption with Home, and a subsequent homepage spin leaves the full tool’s quantity at six.
+- Save and Copy provide the existing saved state and visible clipboard feedback. Sharing a country after changing the current continent still uses the original continent and quantity one. Opening that exact link displays the country without adding history.
+- A country/continent conflict yields an empty pool. A Japan-only pool settles immediately, then displays the exhausted state. Spin retains focus when its accepted pick exhausts the pool; unavailable actions use `aria-disabled` and the handler refuses a new draw.
+- Phone, tablet, and desktop layouts fit without horizontal overflow. Tested viewport requests were 375 × 812, 768 × 1024, and 1280 × 900 (the browser reserves 15px for its scrollbar). Spin fits near the bottom of the first phone viewport. Temporary viewport overrides were reset afterward.
+- Light mode and Lagoon dark mode were inspected. Dense light sectors were strengthened after visual review; desktop introduction alignment was adjusted for the taller interactive card.
+- Capital generation, hiding/revealing its answer and copying it, city generation, and worksheet creation still work. Worksheet screen paper remains white with black text.
+
+## Production and payloads
+
+All thirteen published pages pass the HTTP verifier, with five genuine 404s, sixteen sampled assets including unchanged PDF bytes, clean canonicals, and no city-record payload on other routes. The homepage remains statically pre-rendered with one H1. No new published URL or sitemap query permutation was added. Local noindex and the empty sitemap remain appropriate while hosting is deferred.
+
+| Build output                            | Before spinner |  With spinner |
+| --------------------------------------- | -------------: | ------------: |
+| HTML, uncompressed                      |   74,702 bytes | 344,318 bytes |
+| HTML, gzip equivalent                   |   12,215 bytes |  43,159 bytes |
+| Directly referenced JS, uncompressed    |  600,846 bytes | 642,472 bytes |
+| Directly referenced JS, gzip equivalent |  186,639 bytes | 200,372 bytes |
+
+Measurements include serialized country data in HTML and the script files directly referenced by the generated homepage. They are gzip equivalents from local build files, not a network waterfall or field performance score. The existing HTML budget is 120,000 gzip bytes for Home; city mode has its separate budget. There is no new spinner package or geography network request.
+
+## Remaining launch checks
+
+Real-device screen-reader operation, representative throttled mobile performance/Core Web Vitals, native print drivers, and physical printer output remain launch checks. Production browser acceptance and controlled lifecycle tests do not certify those environments. Public domain/contact/hosting configuration and Search Console remain deferred as requested.

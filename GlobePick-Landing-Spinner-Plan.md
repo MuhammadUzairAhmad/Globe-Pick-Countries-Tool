@@ -1,7 +1,8 @@
 # GlobePick homepage spinner plan
 
 Date: 18 October 2026  
-Status: Proposed; application implementation has not started  
+Status: Implemented locally on 19 October 2026; see [verification notes](docs/homepage-spinner.md)
+
 Scope: A working country spinner on `/`, using the existing Lagoon/light design and country-generator functionality
 
 This extends [the main implementation plan](GlobePick-Nextjs-SEO-First-Plan.md). The requested homepage spinner moves the earlier optional wheel into the next implementation scope. The existing country, capital, city, and worksheet routes remain working tools.

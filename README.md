@@ -2,6 +2,7 @@
 
 A frontend-only geography learning tool built with Next.js App Router, React, strict TypeScript, and Tailwind CSS v4. Phases 0–6, local Phase 7 checks, and a Phase 8 starter pack are implemented. Public launch and real-usage experiments are pending.
 
+- Homepage country spinner with shared country history, favorites, filters, and no-repeat behavior.
 - Random country, capital/government-seat, and city/town selection with continent and searchable inclusion/exclusion filters.
 - Unique batches of 1–20, explicit capacity handling, and separate persistent no-repeat pools.
 - Facts, local flags, optional approximate map markers, and visible sources.
@@ -57,6 +58,7 @@ The pinned community database has structural checks and reviewed exceptional cas
 - `src/app/globals.css`: theme tokens and common body/heading/paragraph defaults; component styling uses inline Tailwind utilities and shared variants. See [styling conventions](docs/styling.md).
 - `src/components`: shared primitives, layout, and pre-rendered learning content.
 - `src/features/generator`: typed records, pure selection/reducer, hydration hook, filters and result components.
+- `src/features/spinner`: homepage workspace, equal-sector SVG wheel, landing geometry, and interruptible native animation. See [spinner verification](docs/homepage-spinner.md).
 - `src/features/learning` and `src/features/saved-places`: quiz and browser-saved place presentation.
 - `src/data/countries`: adapted dataset and source manifest.
 - `src/lib/storage` and `src/lib/share`: validated browser persistence, URL codec, copy/share adapters.
@@ -66,7 +68,7 @@ The pinned community database has structural checks and reviewed exceptional cas
 
 ## Browser data
 
-Each tool has its own versioned localStorage record. Refresh restores settings, history, favorites, and consumed IDs without an initial empty overwrite. Clear controls operate separately; clearing history does not reset the no-repeat pool. There is no account, cloud sync, or cross-tab merging. Storage failures leave the tool usable. Shared results replay without consuming the recipient's pool or adding history.
+Each generator mode has its own versioned localStorage record. The homepage spinner shares the country record; each spin draws one country without changing the full tool’s saved batch quantity. Refresh restores settings, history, favorites, and consumed IDs without an initial empty overwrite. Clear controls operate separately; clearing history does not reset the no-repeat pool. There is no account, cloud sync, or cross-tab merging. Storage failures leave the tool usable. Shared results replay without consuming the recipient's pool or adding history.
 
 The appearance preference uses a separate `globepick:theme` key. It follows the system until you use the header toggle, then remembers the choice and syncs it between open tabs. Blocked storage permits switching for the current visit.
 

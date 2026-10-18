@@ -3,6 +3,7 @@ import type { Place } from "@/features/generator/types";
 import { sectorPath, wheelPoint } from "../lib/wheel";
 
 const fills = ["fill-brand-soft", "fill-accent-soft", "fill-surface"];
+const denseFills = ["fill-brand/65", "fill-brand/25", "fill-accent/55"];
 
 export function CountryWheel({
   pool,
@@ -47,7 +48,7 @@ export function CountryWheel({
                 <g key={place.id}>
                   <path
                     d={sectorPath(index, pool.length)}
-                    className={`${fills[index % fills.length]} stroke-border`}
+                    className={`${(pool.length > 24 ? denseFills : fills)[index % fills.length]} stroke-border`}
                     strokeWidth={pool.length > 24 ? 0.6 : 1}
                   />
                   {pool.length <= 24 && (

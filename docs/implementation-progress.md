@@ -118,3 +118,12 @@ These are focused correctness and browser checks, not a full assistive-technolog
 ## Remaining launch requirements
 
 The baseline is functional locally. Before public launch: provide the real operator identity and corrections contact, review hosting-specific privacy/terms, set the actual HTTPS deployment origin, complete broader accessibility/performance checks, and authorize deployment. Dataset facts follow a pinned community source with reviewed exceptions; the About page and manifest disclose that this is not an independent audit of every field. Deployment/Search Console and real-usage growth experiments remain pending.
+
+## Homepage country spinner: 19 October 2026
+
+- Completed all four phases of `GlobePick-Landing-Spinner-Plan.md`, with a local commit per phase and no push or deployment.
+- Added one-country spinning to the server-rendered homepage. The existing full country, capital, city, and worksheet routes remain available with Lagoon/light styling.
+- The shared engine returns the accepted selection and records it once. The wheel snapshots that available pool and lands on the chosen sector; completion and interruptions only reveal the existing result.
+- Country filters, consumed IDs, history, and favorites share `globepick:v1:country`. The spinner preserves the full tool’s batch quantity, including cached navigation back from that tool. Share links capture quantity one and the pick’s original filters.
+- Extracted the existing country-choice controls and copy/share feedback for reuse. Added a readable available-country list, country facts/maps/sources, saved replay, keyboard spin/skip, and accessible status messages.
+- Automated geometry, snapshot/sharing, generation/reducer, and motion fallback checks bring the suite to 43 passing tests. Browser checks cover repeated clicks, normal/skip completion, cached route interruption, shared lists, batch quantity, exact replay, empty/one-country pools, save/copy/share feedback, responsive layouts, both themes, and existing tool workflows. See `homepage-spinner.md` for payload measurements and the remaining real-device/assistive-technology limits.

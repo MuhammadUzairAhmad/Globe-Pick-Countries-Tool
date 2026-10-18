@@ -60,12 +60,12 @@ function SpinnerSession({ countries, children }: Props) {
     dispatch({ type: "filters", filters: value });
     dispatch({
       type: "message",
-      message: "Country choices updated. Spin when you’re ready.",
+      message: "Country choices updated.",
     });
   }
 
   function spin() {
-    if (!ready || pending) return;
+    if (!ready || pending || !remaining.length) return;
     start(() => {
       const pool = [...remaining];
       const picked = generate(1)?.[0];
@@ -97,10 +97,8 @@ function SpinnerSession({ countries, children }: Props) {
             ref={spinButton}
             className="mt-3 w-full"
             onClick={spin}
-            disabled={
-              !ready || (!remaining.length && !spinning) || Boolean(pending)
-            }
-            aria-disabled={spinning}
+            disabled={!ready || Boolean(pending)}
+            aria-disabled={spinning || !remaining.length}
             aria-busy={spinning}
           >
             {spinning ? "Spinning…" : "Spin a country"}
@@ -202,6 +200,32 @@ function SpinnerSession({ countries, children }: Props) {
               value={filters}
               onChange={changeFilters}
             />
+            <details>
+              <summary className="min-h-touch cursor-pointer py-2 text-sm font-semibold text-brand">
+                Countries in the next spin ({remaining.length})
+              </summary>
+              {spinning ? (
+                <p className="py-2 text-sm text-muted">
+                  The next pool will be ready when this spin ends.
+                </p>
+              ) : remaining.length ? (
+                <ul
+                  aria-label="Available countries"
+                  tabIndex={0}
+                  className="max-h-48 overflow-y-auto overscroll-contain rounded-control border border-border p-3 text-sm text-muted sm:columns-2"
+                >
+                  {remaining.map((place) => (
+                    <li key={place.id} className="py-1">
+                      {place.country.name}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="py-2 text-sm text-muted">
+                  No countries are available with these choices.
+                </p>
+              )}
+            </details>
             <div className="flex flex-wrap gap-x-4">
               <button
                 type="button"
