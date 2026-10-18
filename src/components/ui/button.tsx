@@ -2,8 +2,10 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 
 type Variant = "primary" | "secondary";
+type Size = "default" | "compact";
 const base =
-  "inline-flex min-h-touch items-center justify-center gap-2 rounded-control px-5 py-3 text-sm font-semibold transition-colors motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-default aria-disabled:opacity-50";
+  "inline-flex min-h-touch items-center justify-center gap-2 rounded-control py-3 text-sm font-semibold transition-colors motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-default aria-disabled:opacity-50";
+const sizes: Record<Size, string> = { default: "px-5", compact: "px-3" };
 const variants: Record<Variant, string> = {
   primary:
     "bg-brand text-on-brand hover:bg-brand-strong active:bg-brand-strong",
@@ -13,14 +15,15 @@ const variants: Record<Variant, string> = {
 
 export function Button({
   variant = "primary",
+  size = "default",
   className = "",
   type = "button",
   ...props
-}: ComponentProps<"button"> & { variant?: Variant }) {
+}: ComponentProps<"button"> & { variant?: Variant; size?: Size }) {
   return (
     <button
       type={type}
-      className={`${base} ${variants[variant]} ${className}`}
+      className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     />
   );
@@ -28,10 +31,14 @@ export function Button({
 
 export function ButtonLink({
   variant = "primary",
+  size = "default",
   className = "",
   ...props
-}: ComponentProps<typeof Link> & { variant?: Variant }) {
+}: ComponentProps<typeof Link> & { variant?: Variant; size?: Size }) {
   return (
-    <Link className={`${base} ${variants[variant]} ${className}`} {...props} />
+    <Link
+      className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+      {...props}
+    />
   );
 }

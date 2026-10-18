@@ -1,8 +1,18 @@
 import type { Place } from "../types";
 import { CapitalRoleBadge } from "./capital-role-badge";
 
-export function FactList({ place }: { place: Place }) {
+export function FactList({
+  place,
+  appearance = "plain",
+}: {
+  place: Place;
+  appearance?: "plain" | "tiles";
+}) {
   const country = place.country;
+  const tiles = appearance === "tiles";
+  const tileClass = tiles
+    ? "min-w-0 rounded-control border border-border bg-surface p-3"
+    : undefined;
   if (place.kind === "city")
     return (
       <dl className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
@@ -26,9 +36,15 @@ export function FactList({ place }: { place: Place }) {
       </dl>
     );
   return (
-    <dl className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
+    <dl
+      className={
+        tiles
+          ? "grid grid-cols-2 gap-3"
+          : "mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2"
+      }
+    >
       {place.kind === "country" && (
-        <div className="sm:col-span-2">
+        <div className={tiles ? `${tileClass} col-span-2` : "sm:col-span-2"}>
           <dt className="text-xs text-muted">
             {country.capitals.length === 1 &&
             country.capitals[0].role === "Capital"
@@ -51,17 +67,19 @@ export function FactList({ place }: { place: Place }) {
           </dd>
         </div>
       )}
-      <div>
+      <div className={tileClass}>
         <dt className="text-xs text-muted">
           {country.languages.length === 1 ? "Language" : "Languages"}
         </dt>
-        <dd className="mt-1 text-sm">{country.languages.join(", ")}</dd>
+        <dd className="mt-1 break-words text-sm">
+          {country.languages.join(", ")}
+        </dd>
       </div>
-      <div>
+      <div className={tileClass}>
         <dt className="text-xs text-muted">
           {country.currencies.length === 1 ? "Currency" : "Currencies"}
         </dt>
-        <dd className="mt-1 text-sm">
+        <dd className="mt-1 break-words text-sm">
           {country.currencies
             .map((currency) => `${currency.name} (${currency.code})`)
             .join(", ")}

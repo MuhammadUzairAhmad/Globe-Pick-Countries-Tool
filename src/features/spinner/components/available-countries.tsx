@@ -3,7 +3,8 @@ import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import type { Place } from "@/features/generator/types";
-import { countryPage, COUNTRY_PAGE_SIZE } from "../lib/pagination";
+import { countryPage } from "../lib/pagination";
+import { useCountryPageSize } from "../hooks/use-country-page-size";
 
 export function AvailableCountries({
   places,
@@ -14,10 +15,12 @@ export function AvailableCountries({
   ready: boolean;
   spinning: boolean;
 }) {
-  const [requestedPage, setPage] = useState(1);
+  const [requestedOffset, setOffset] = useState(0);
+  const pageSize = useCountryPageSize();
   const { countries, page, pageCount, first, last } = countryPage(
     places,
-    requestedPage,
+    Math.floor(requestedOffset / pageSize) + 1,
+    pageSize,
   );
   const headingId = useId();
   return (
@@ -41,9 +44,9 @@ export function AvailableCountries({
       {!ready ? (
         <div
           aria-hidden="true"
-          className="mt-3 grid min-h-[31.5rem] grid-cols-1 content-start gap-2 sm:min-h-[15.5rem] sm:grid-cols-2"
+          className="mt-3 grid min-h-[15.5rem] grid-cols-1 content-start gap-2 sm:grid-cols-2"
         >
-          {Array.from({ length: COUNTRY_PAGE_SIZE }, (_, index) => (
+          {Array.from({ length: pageSize }, (_, index) => (
             <div
               key={index}
               className="flex min-h-14 items-center gap-3 rounded-control border border-border bg-page px-3 py-2"
@@ -56,7 +59,7 @@ export function AvailableCountries({
       ) : places.length ? (
         <ul
           aria-labelledby={headingId}
-          className="mt-3 grid min-h-[31.5rem] grid-cols-1 content-start gap-2 sm:min-h-[15.5rem] sm:grid-cols-2"
+          className="mt-3 grid min-h-[15.5rem] grid-cols-1 content-start gap-2 sm:grid-cols-2"
         >
           {countries.map((place) => (
             <li
@@ -96,13 +99,14 @@ export function AvailableCountries({
       >
         <Button
           variant="secondary"
-          className="gap-1 px-3"
+          size="compact"
+          className="min-w-touch gap-1"
           disabled={!ready || spinning || page === 1 || !places.length}
-          onClick={() => setPage(page - 1)}
+          onClick={() => setOffset((page - 2) * pageSize)}
           aria-label="Previous countries"
         >
           <Icon name="arrow" className="size-4 rotate-180" />
-          Previous
+          <span className="hidden min-[360px]:inline">Previous</span>
         </Button>
         <p
           role="status"
@@ -114,12 +118,13 @@ export function AvailableCountries({
         </p>
         <Button
           variant="secondary"
-          className="gap-1 px-3"
+          size="compact"
+          className="min-w-touch gap-1"
           disabled={!ready || spinning || page === pageCount || !places.length}
-          onClick={() => setPage(page + 1)}
+          onClick={() => setOffset(page * pageSize)}
           aria-label="Next countries"
         >
-          Next
+          <span className="hidden min-[360px]:inline">Next</span>
           <Icon name="arrow" className="size-4" />
         </Button>
       </nav>

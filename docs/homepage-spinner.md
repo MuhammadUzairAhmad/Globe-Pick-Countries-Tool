@@ -10,13 +10,15 @@ The spinner and country generator share the validated `globepick:v1:country` rec
 
 A synchronous guard blocks repeated clicks before React renders. The accepted country is recorded once at spin start. An immutable pool/filter snapshot determines the wheel’s landing and the share link; settling cannot draw another country. Links open `/random-country-generator` with quantity one, the accepted pick’s filters, and its exact country ID. Replays neither consume countries nor append history.
 
-The wheel uses equal SVG sectors. Small pools have labels; dense pools use stronger decorative color bands, with the available-country list and explicit result supplying readable names. The always-visible available-country list shows local flags and names, eight countries per page, with Previous/Next controls. Only list presentation is paginated; selection always uses the entire available pool. Settings changes reset to page one; shrinking pools clamp to a valid page. The list retains the accepted pool while spinning and updates on settlement, preserving the delayed reveal. It has no inner scrollbar. It loads no flag for wheel sectors. Component styling uses inline Tailwind and existing global theme roles.
+The wheel uses equal SVG sectors. Small pools have labels; dense pools use a restrained range of brand tints, with the available-country list and explicit result supplying readable names. The always-visible available-country list shows local flags and names, four countries per page below 640px and eight from 640px, with Previous/Next controls. Resizing anchors pagination to the current first country. Only list presentation is paginated; selection always uses the entire available pool. Settings changes reset to page one; shrinking pools clamp to a valid page. The list retains the accepted pool while spinning and updates on settlement, preserving the delayed reveal. It has no inner scrollbar. It loads no flag for wheel sectors. The accepted sector gains a highlight only when motion settles. A stationary circular frame clips the rotating SVG viewport, preventing its transformed bounding box from causing horizontal scrolling at angled stops. The Spin action includes a rotation icon with reduced-motion-aware feedback. Settings fit their own content height and show a prominent availability count. Component styling uses inline Tailwind and existing global theme roles.
+
+The modal places a larger local flag and country heading above the shared capital/language/currency facts in tiles. It reuses the existing source/map disclosure and Save/Copy/Share controls without a nested result-card border or duplicate country heading. Spin again remains the primary footer action; native modal focus and dismissal behavior are retained.
 
 ## Automated checks
 
-- 50 tests pass, including every landing sector in pools of 1, 2, 3, 24, 25, and 195 across successive rotations.
+- 51 tests pass, including every landing sector in pools of 1, 2, 3, 24, 25, and 195 across successive rotations.
 - Generation tests cover one history entry, filtered/no-repeat selection, retained batch quantity, empty pools, existing batch/quiz messages, and single-pick route resume with successful or failed storage reads.
-- Pool tests verify that spinner draws/shares ignore custom choices without erasing them, cached resume refreshes the stored choices, every available country appears across the eight-item pages, off-page countries can win, and empty/shrinking pools clamp pagination safely.
+- Pool tests verify that spinner draws/shares ignore custom choices without erasing them, cached resume refreshes the stored choices, every available country appears across four- and eight-item pages, off-page countries can win, and empty/shrinking pools clamp pagination safely.
 - Snapshot tests verify retained pool/filter arrays and exact one-country share round-trips after the original filters change.
 - Controlled motion tests cover normal completion, skip/cleanup, rejection, missing/throwing animation APIs, hidden documents, reduced-motion preference changes, initial reduced motion, and timeout. Repeated completion signals settle once and remove listeners/timers. These are adapter tests; reduced-motion emulation and hidden-tab lifecycle were not separately exercised on physical devices.
 - Confetti tests cover bounded trajectories, a maximum of 32 particles, finite motion under 1.6 seconds, reduced-motion/hidden-document suppression, missing or throwing animation APIs, and idempotent cancellation on preference changes, tab hiding, or cleanup. Native modal focus and Copy/Share layering are browser checks.
@@ -37,6 +39,7 @@ Verified against the local production server through the in-app browser:
 - The larger wheel was checked at 320px, 375px, 768px, 1024px, 1279px, 1280px, and 1440px: desktop measured 576px, tablets 448px, and narrow phones fit their card. Wheel-first order below 1280px and settings-left order above it fit without horizontal overflow. A tablet spin survived a resize to phone width, and skipping opened the accepted result modal with one history entry; closing restored focus to Spin. Temporary viewport overrides were reset and observed warning/error logs were empty.
 - Light mode and Lagoon dark mode were inspected. Dense light sectors were strengthened after visual review; the later layout revision restores the original hero alignment and separates settings from the wheel.
 - Result-modal acceptance covers normal/skip completion with visible confetti, Save/Copy, an overlaid Share dialog whose Escape closes only sharing, modal Escape/backdrop dismissal, unchanged scroll position and restored trigger focus, manual reopening, Spin again adding exactly one new history entry, and saved replay without confetti/history changes. Keyboard Tab and Shift+Tab wrap within the result. Phone map details scroll inside the modal with header/footer actions retained; light/dark and default-height layouts fit without horizontal overflow. Temporary viewport overrides were reset and observed warning/error logs are empty.
+- Visual refinement acceptance covers four/eight-country pages and resize anchoring, compact phone navigation with 44px targets, both themes, one country heading and shared fact tiles, long 320px result text, keyboard wrapping, copy/share layering, and highlight only after settlement. Angled stops initially exposed transformed SVG overflow; the circular clipping frame now keeps the page within its viewport at 320px, 375px, 768px, 1024px, 1280px, and 1440px. Temporary viewport overrides were reset and observed warning/error logs were empty.
 - Capital generation, hiding/revealing its answer and copying it, city generation, and worksheet creation still work. Worksheet screen paper remains white with black text.
 
 ## Production and payloads
@@ -45,10 +48,10 @@ All thirteen published pages pass the HTTP verifier, with five genuine 404s, six
 
 | Build output                            | Before spinner |  With spinner |
 | --------------------------------------- | -------------: | ------------: |
-| HTML, uncompressed                      |   74,702 bytes | 335,784 bytes |
-| HTML, gzip equivalent                   |   12,215 bytes |  42,399 bytes |
-| Directly referenced JS, uncompressed    |  600,846 bytes | 647,857 bytes |
-| Directly referenced JS, gzip equivalent |  186,639 bytes | 202,157 bytes |
+| HTML, uncompressed                      |   74,702 bytes | 336,149 bytes |
+| HTML, gzip equivalent                   |   12,215 bytes |  42,561 bytes |
+| Directly referenced JS, uncompressed    |  600,846 bytes | 650,494 bytes |
+| Directly referenced JS, gzip equivalent |  186,639 bytes | 202,887 bytes |
 
 Measurements include serialized country data in HTML and the script files directly referenced by the generated homepage. They are gzip equivalents from local build files, not a network waterfall or field performance score. The existing HTML budget is 120,000 gzip bytes for Home; city mode has its separate budget. There is no new spinner package or geography network request.
 

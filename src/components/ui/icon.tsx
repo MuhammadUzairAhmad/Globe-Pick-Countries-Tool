@@ -12,6 +12,7 @@ export type IconName =
   | "check"
   | "close"
   | "loading"
+  | "rotate"
   | "info";
 const paths: Record<IconName, ReactNode> = {
   sun: (
@@ -47,6 +48,7 @@ const paths: Record<IconName, ReactNode> = {
   check: <path d="m5 12 4 4L19 6" />,
   close: <path d="m6 6 12 12M6 18 18 6" />,
   loading: <path d="M21 12a9 9 0 1 1-9-9" />,
+  rotate: <path d="M21 3v5h-5m5 0a9 9 0 1 0-2 10" />,
   info: (
     <>
       <circle cx="12" cy="12" r="9" />

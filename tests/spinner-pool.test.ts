@@ -153,3 +153,27 @@ test("pagination clamps shrinking and empty pools and handles invalid page reque
     assert.equal(countryPage(places, request).page, 1);
   assert.equal(countryPage(places.slice(0, 1), 3).countries.length, 1);
 });
+
+test("compact phone pages retain every country and clamp after pool exhaustion", () => {
+  const first = countryPage(places, 1, 4);
+  assert.equal(first.countries.length, 4);
+  assert.equal(first.pageCount, 49);
+  const pages = Array.from({ length: first.pageCount }, (_, index) =>
+    countryPage(places, index + 1, 4),
+  );
+  assert.deepEqual(
+    pages.flatMap((page) => page.countries),
+    places,
+  );
+  const last = pages.at(-1)!;
+  assert.equal(last.first, 193);
+  assert.equal(last.last, 195);
+  assert.equal(last.countries.length, 3);
+  const shrinking = countryPage(places.slice(0, 5), 49, 4);
+  assert.equal(shrinking.page, 2);
+  assert.deepEqual(shrinking.countries, places.slice(4, 5));
+  const empty = countryPage([], 49, 4);
+  assert.equal(empty.page, 1);
+  assert.equal(empty.first, 0);
+  assert.equal(empty.last, 0);
+});

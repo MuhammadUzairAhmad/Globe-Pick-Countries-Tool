@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field } from "@/components/ui/field";
 import { Notice } from "@/components/ui/notice";
+import { Icon } from "@/components/ui/icon";
 import { PlaceResultCard } from "@/features/generator/components/place-result-card";
 import { ResultActions } from "@/features/generator/components/result-actions";
 import { useGenerator } from "@/features/generator/hooks/use-generator";
@@ -75,6 +76,7 @@ function SpinnerSession({ countries }: Props) {
   } = useResultFeedback("country", { inlineToast: showResult });
   const busy = spinning || Boolean(pending);
   const shownPool = wheel?.snapshot.pool ?? remaining;
+  const availableCount = spinning ? shownPool.length : remaining.length;
 
   function closeResult() {
     setResultView({ dismissedRevision: state.revision, reopen: false });
@@ -119,7 +121,7 @@ function SpinnerSession({ countries }: Props) {
           chance.
         </p>
       </div>
-      <div className="flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+      <div className="flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] xl:items-start">
         <Card className="flex min-w-0 flex-col">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
             <h3 className="text-card-title">Country wheel</h3>
@@ -129,16 +131,23 @@ function SpinnerSession({ countries }: Props) {
             pool={shownPool}
             rotation={wheel?.rotation ?? 0}
             wheelRef={element}
+            winnerId={wheel && !spinning ? wheel.snapshot.winner.id : undefined}
           />
           <Button
             ref={spinButton}
-            className="mt-3 w-full"
+            className="group mt-4 min-h-14 w-full shadow-card"
             onClick={spin}
             disabled={!ready || Boolean(pending)}
             aria-disabled={spinning || !remaining.length}
             aria-busy={spinning}
           >
-            {spinning ? "Spinning…" : "Spin a country"}
+            <Icon
+              name="rotate"
+              className={`size-5 shrink-0 ${spinning ? "motion-safe:animate-spin" : "motion-safe:transition-transform motion-safe:group-hover:rotate-45"}`}
+            />
+            <span className="text-base">
+              {spinning ? "Spinning…" : "Spin a country"}
+            </span>
           </Button>
           <p
             role="status"
@@ -211,11 +220,21 @@ function SpinnerSession({ countries }: Props) {
               />
               Don’t repeat previous picks
             </label>
-            <p className="mt-2 text-sm text-muted">
-              {ready
-                ? `${spinning ? shownPool.length : remaining.length} of ${eligible.length} matching countries available`
-                : "Restoring your country choices…"}
-            </p>
+            <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 rounded-control bg-brand-soft px-3 py-2.5">
+              <p className="font-semibold text-foreground">
+                {ready
+                  ? `${availableCount} ${availableCount === 1 ? "country" : "countries"} ready`
+                  : "Loading countries…"}
+              </p>
+              {ready && (
+                <p className="text-xs text-muted">
+                  {eligible.length} in{" "}
+                  {filters.continent === "all"
+                    ? "all continents"
+                    : filters.continent}
+                </p>
+              )}
+            </div>
             {ready && !remaining.length && (
               <div className="mt-3">
                 <Notice
@@ -237,7 +256,7 @@ function SpinnerSession({ countries }: Props) {
               ready={ready}
               spinning={spinning}
             />
-            <div className="flex flex-wrap gap-x-4">
+            <div className="mt-2 flex flex-wrap gap-x-4 border-t border-border pt-1">
               <button
                 type="button"
                 className="min-h-touch text-sm font-medium text-brand"
@@ -272,7 +291,7 @@ function SpinnerSession({ countries }: Props) {
       {result && showResult && (
         <SpinnerResultDialog
           key={state.revision}
-          country={result.country.name}
+          country={result.country}
           replay={state.replay}
           celebrate={
             !state.replay && state.revision !== resultView.dismissedRevision
@@ -289,6 +308,7 @@ function SpinnerSession({ countries }: Props) {
           <PlaceResultCard
             key={result.id}
             place={result}
+            presentation="dialog"
             actions={
               <ResultActions
                 saved={state.saved.favorites.includes(result.id)}

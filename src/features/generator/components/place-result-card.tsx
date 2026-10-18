@@ -12,26 +12,31 @@ export function PlaceResultCard({
   actions,
   learning,
   answerHidden = false,
+  presentation = "card",
 }: {
   place: Place;
   actions?: ReactNode;
   learning?: ReactNode;
   answerHidden?: boolean;
+  presentation?: "card" | "dialog";
 }) {
   const country = place.country;
   const [mapOpen, setMapOpen] = useState(false);
+  const Surface = presentation === "dialog" ? "div" : Card;
   return (
-    <Card>
-      <PlaceIdentity
-        country={country}
-        title={place.kind === "city" ? place.city.name : country.name}
-        subtitle={
-          place.kind === "city"
-            ? `${place.city.adminRegion ? `${place.city.adminRegion}, ` : ""}${country.name}`
-            : country.continent
-        }
-        heading={place.kind !== "capital"}
-      />
+    <Surface>
+      {presentation === "card" && (
+        <PlaceIdentity
+          country={country}
+          title={place.kind === "city" ? place.city.name : country.name}
+          subtitle={
+            place.kind === "city"
+              ? `${place.city.adminRegion ? `${place.city.adminRegion}, ` : ""}${country.name}`
+              : country.continent
+          }
+          heading={place.kind !== "capital"}
+        />
+      )}
       {learning}
       {!answerHidden && place.kind === "capital" && (
         <div className="mt-4">
@@ -46,7 +51,10 @@ export function PlaceResultCard({
       )}
       {!answerHidden && (
         <>
-          <FactList place={place} />
+          <FactList
+            place={place}
+            appearance={presentation === "dialog" ? "tiles" : "plain"}
+          />
           {country.note && (
             <p className="mt-4 rounded-control bg-brand-soft p-3 text-sm text-muted">
               {country.note}
@@ -106,6 +114,6 @@ export function PlaceResultCard({
           {actions}
         </div>
       )}
-    </Card>
+    </Surface>
   );
 }

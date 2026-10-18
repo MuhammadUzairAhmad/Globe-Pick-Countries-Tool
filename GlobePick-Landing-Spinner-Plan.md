@@ -70,7 +70,7 @@ The wheel must use the existing generator as its source of truth.
 ### Real pool, readable presentation
 
 - Render an original SVG wheel with equal-size sectors for the available countries, in a stable order, and a fixed pointer.
-- For pools of up to 24 countries, show short readable country labels where they fit. For larger pools, keep the sectors but omit cramped labels; show the pool count and provide the always-visible flag list with eight-country pages and Previous/Next navigation. Always display the final winner in normal readable text.
+- For pools of up to 24 countries, show short readable country labels where they fit. For larger pools, keep the sectors but omit cramped labels; show the pool count and provide the always-visible flag list with four-country pages on phones and eight-country pages from 640px, with Previous/Next navigation. Always display the final winner in normal readable text.
 - Handle zero countries with an explanatory empty/exhausted state. Handle one country with a full-circle sector and an immediate or minimal-motion result.
 - Use local country flags only for the selected result; do not load 195 flag images for wheel sectors.
 
