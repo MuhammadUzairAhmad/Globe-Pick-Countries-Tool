@@ -171,3 +171,9 @@ The baseline is functional locally. Before public launch: provide the real opera
 - Browser acceptance covers 320–1440px in both themes, four/eight-country page counts and resize anchoring, one-line compact footer controls, 44px narrow-phone navigation, delayed winner highlighting, normal/skip settlement, copy feedback, Share layering, Escape, keyboard focus wrapping, and saved replay without another history entry. Long phone headings and facts wrap inside the modal. Temporary viewport overrides were reset; observed warning/error logs were empty.
 - Fixed a rotated SVG bounding-box overflow found after settlement. A stationary circular clipping frame contains the animated layer while leaving the pointer and center badge fixed. Even with an 815px transformed wheel box in a 576px frame, the page has no horizontal overflow at the tested phone/tablet/desktop widths.
 - Final production build/TypeScript, changed-file formatting, lint, all thirteen published pages, five genuine 404s, and sixteen assets pass. Payload measurements are updated in `homepage-spinner.md`. Changes remain local; hosting is deferred.
+
+## Hero link to the spinner
+
+- Renamed the homepage hero’s primary action to “Spin the country wheel” and linked it to `#country-spinner` on the same page.
+- Browser verification confirms the spinner heading is visible after clicking, the route stays on Home, and history/favorites counts do not change. Lint, changed-file formatting, and the production build/TypeScript pass.
+- Country/City tabs were discussed as the next feature; this change implements the hero link only.
